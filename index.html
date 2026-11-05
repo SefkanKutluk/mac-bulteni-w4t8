@@ -177,7 +177,7 @@
       letter-spacing: 0.5px;
     }
 
-    /* MOBİL GÖRÜNÜM GEÇİŞ ÇUBUĞU (Sadece Ekran <= 1024px iken görünür) */
+    /* MOBİL GEÇİŞ ÇUBUĞU */
     .mobile-tab-bar {
       display: none;
       background: #0f172a;
@@ -220,29 +220,302 @@
       position: relative;
     }
 
-    /* SOL: KONTROL PANELİ */
+    /* SOL: KONTROL PANELİ (TEK KUTU İÇERİSİNDE SIRALI DÜZEN) */
     .control-panel {
       width: 480px;
-      min-width: 450px;
+      min-width: 430px;
       max-width: 520px;
       height: 100%;
       background: #0f172a;
       border-right: 1px solid #1e293b;
-      padding: 16px 18px 90px 18px;
+      padding: 14px 16px 80px 16px;
       overflow-y: auto;
       overflow-x: hidden;
       flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
     }
 
     .control-panel::-webkit-scrollbar {
-      width: 6px;
+      width: 7px;
     }
     .control-panel::-webkit-scrollbar-thumb {
       background: #334155;
+      border-radius: 4px;
+    }
+
+    /* KULLANICININ İSTEDİĞİ TEK VE KAPSAYICI DÜZENLEME KUTUSU */
+    .editor-single-box {
+      background: #131b2e;
+      border: 1px solid #222f47;
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    /* Kategori Ayraç Başlıkları */
+    .category-divider {
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #1e293b;
+      margin-top: 6px;
+    }
+
+    /* Bireysel Düzenleme Satırları */
+    .field-card {
+      background: #0b1120;
+      border: 1px solid #1e293b;
+      border-radius: 7px;
+      padding: 11px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field-label {
+      font-size: 0.77rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .field-label .tag {
+      font-size: 0.65rem;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .form-control {
+      background: #131b2e;
+      border: 1px solid #28374f;
+      color: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+    }
+
+    /* Tipografi, Renk ve Boyut Kontrol Çubuğu (Flex-wrap ile asla üst üste binmez) */
+    .style-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .style-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .style-item.font-item {
+      flex: 1 1 125px;
+    }
+
+    .style-item.color-item {
+      flex: 0 0 auto;
+    }
+
+    .style-item.size-item {
+      flex: 1 1 115px;
+    }
+
+    .style-label {
+      font-size: 0.68rem;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    .color-picker-box {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: #131b2e;
+      border: 1px solid #28374f;
+      padding: 2px 6px;
+      border-radius: 6px;
+      height: 34px;
+    }
+
+    .color-picker-box input[type="color"] {
+      -webkit-appearance: none;
+      border: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      background: transparent;
+      padding: 0;
+    }
+
+    .color-picker-box input[type="color"]::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+
+    .color-picker-box input[type="color"]::-webkit-color-swatch {
+      border: 1px solid #475569;
+      border-radius: 4px;
+    }
+
+    .color-hex-text {
+      font-family: monospace;
+      font-size: 0.72rem;
+      color: #cbd5e1;
+    }
+
+    .range-box {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      height: 34px;
+    }
+
+    .range-box input[type="range"] {
+      flex: 1;
+      height: 5px;
       border-radius: 3px;
+      accent-color: #38bdf8;
+      cursor: pointer;
+    }
+
+    .range-label-val {
+      font-size: 0.73rem;
+      font-family: monospace;
+      font-weight: 700;
+      color: #38bdf8;
+      min-width: 32px;
+      text-align: right;
+    }
+
+    /* Arkaplan Renk Paleti Çipleri */
+    .palette-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .chip-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 5px;
+      border: 2px solid #334155;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+
+    .chip-btn:hover {
+      transform: scale(1.15);
+      border-color: #38bdf8;
+    }
+
+    .file-input-wrapper {
+      position: relative;
+    }
+
+    .file-btn {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      padding: 7px 10px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #e2e8f0;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .file-btn:hover {
+      background: #2d3b4e;
+    }
+
+    .file-input-wrapper input[type="file"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    /* İndirme Butonları Grubu */
+    .download-actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .btn-pdf {
+      background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+      color: #0f172a;
+      border: none;
+      padding: 13px 10px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 4px 14px rgba(234, 179, 8, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .btn-pdf:hover {
+      background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+      transform: translateY(-1px);
+    }
+
+    .btn-img {
+      background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+      color: #ffffff;
+      border: none;
+      padding: 13px 10px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 4px 14px rgba(14, 165, 233, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .btn-img:hover {
+      background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+      transform: translateY(-1px);
     }
 
     /* SAĞ: CANLI ÖNİZLEME PENCERESİ */
@@ -332,298 +605,6 @@
       opacity: 0.45;
       pointer-events: none;
       box-sizing: border-box;
-    }
-
-    /* Akordiyon Bölüm Kartları */
-    .section-card {
-      background: #182234;
-      border: 1px solid #28374f;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-
-    .section-header {
-      padding: 11px 14px;
-      background: #1f2c42;
-      font-size: 0.82rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #93c5fd;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      user-select: none;
-      transition: background 0.2s;
-    }
-
-    .section-header:hover {
-      background: #253652;
-    }
-
-    .section-header .toggle-icon {
-      transition: transform 0.2s ease;
-      font-size: 0.75rem;
-    }
-
-    .section-header.collapsed .toggle-icon {
-      transform: rotate(-90deg);
-    }
-
-    .section-body {
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
-    }
-
-    .section-body.collapsed {
-      display: none;
-    }
-
-    /* Her Metin ve Öğe İçin Ayar Bloğu */
-    .text-item-box {
-      background: #101726;
-      border: 1px solid #202d42;
-      border-radius: 6px;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .text-item-header {
-      font-size: 0.76rem;
-      font-weight: 700;
-      color: #f1f5f9;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #1c273a;
-      padding-bottom: 5px;
-    }
-
-    .text-item-header span.tag {
-      font-size: 0.65rem;
-      color: #38bdf8;
-      background: rgba(56, 189, 248, 0.12);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-weight: 600;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .form-group label {
-      font-size: 0.73rem;
-      font-weight: 600;
-      color: #94a3b8;
-    }
-
-    .form-control {
-      background: #080d1a;
-      border: 1px solid #28374f;
-      color: #f8fafc;
-      padding: 7px 10px;
-      border-radius: 6px;
-      font-size: 0.82rem;
-      font-family: inherit;
-      transition: all 0.2s ease;
-      width: 100%;
-    }
-
-    .form-control:focus {
-      outline: none;
-      border-color: #38bdf8;
-      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
-    }
-
-    .row-3-controls {
-      display: grid;
-      grid-template-columns: 1.3fr 1fr 1.3fr;
-      gap: 8px;
-      align-items: end;
-    }
-
-    .row-2-controls {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      align-items: end;
-    }
-
-    .color-input-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: #080d1a;
-      border: 1px solid #28374f;
-      padding: 3px 6px;
-      border-radius: 6px;
-      height: 33px;
-    }
-
-    .color-input-wrapper input[type="color"] {
-      -webkit-appearance: none;
-      border: none;
-      width: 24px;
-      height: 24px;
-      border-radius: 4px;
-      cursor: pointer;
-      background: transparent;
-      padding: 0;
-    }
-
-    .color-input-wrapper input[type="color"]::-webkit-color-swatch-wrapper {
-      padding: 0;
-    }
-
-    .color-input-wrapper input[type="color"]::-webkit-color-swatch {
-      border: 1px solid #475569;
-      border-radius: 4px;
-    }
-
-    .color-text {
-      font-family: monospace;
-      font-size: 0.73rem;
-      color: #cbd5e1;
-    }
-
-    .range-control {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .range-control input[type="range"] {
-      flex: 1;
-      height: 5px;
-      border-radius: 3px;
-      accent-color: #38bdf8;
-      cursor: pointer;
-    }
-
-    .range-val {
-      font-size: 0.73rem;
-      font-family: monospace;
-      font-weight: 700;
-      color: #38bdf8;
-      min-width: 32px;
-      text-align: right;
-    }
-
-    /* Arkaplan Renk Paleti Çipleri */
-    .palette-chips {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-top: 4px;
-    }
-
-    .chip-btn {
-      width: 24px;
-      height: 24px;
-      border-radius: 5px;
-      border: 2px solid #334155;
-      cursor: pointer;
-      transition: transform 0.15s, border-color 0.15s;
-    }
-
-    .chip-btn:hover {
-      transform: scale(1.15);
-      border-color: #38bdf8;
-    }
-
-    .file-input-wrapper {
-      position: relative;
-    }
-
-    .file-btn {
-      display: inline-block;
-      width: 100%;
-      text-align: center;
-      padding: 7px 10px;
-      background: #25334a;
-      color: #e2e8f0;
-      border-radius: 6px;
-      font-size: 0.74rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .file-btn:hover {
-      background: #334563;
-    }
-
-    .file-input-wrapper input[type="file"] {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      cursor: pointer;
-    }
-
-    /* İndirme Butonları Grubu */
-    .download-actions-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    .btn-pdf {
-      background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
-      color: #0f172a;
-      border: none;
-      padding: 13px 10px;
-      font-size: 0.86rem;
-      font-weight: 800;
-      letter-spacing: 0.3px;
-      border-radius: 8px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      box-shadow: 0 4px 14px rgba(234, 179, 8, 0.35);
-      transition: all 0.2s ease;
-    }
-
-    .btn-pdf:hover {
-      background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
-      transform: translateY(-1px);
-    }
-
-    .btn-img {
-      background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
-      color: #ffffff;
-      border: none;
-      padding: 13px 10px;
-      font-size: 0.86rem;
-      font-weight: 800;
-      letter-spacing: 0.3px;
-      border-radius: 8px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      box-shadow: 0 4px 14px rgba(14, 165, 233, 0.35);
-      transition: all 0.2s ease;
-    }
-
-    .btn-img:hover {
-      background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
-      transform: translateY(-1px);
     }
 
     /* AFİŞ İÇİ ELEMENTLER */
@@ -861,14 +842,10 @@
       word-break: break-word;
     }
 
-    /* MOBİL VE TABLET UYUMLULUK KURALLARI (RESPONSIVE CSS) */
+    /* MOBİL VE TABLET UYUMLULUK */
     @media (max-width: 1024px) {
-      html, body {
-        overflow: auto; /* Mobilde scroll serbest */
-      }
-
       .mobile-tab-bar {
-        display: flex; /* Mobilde sekme çubuğunu aç */
+        display: flex;
       }
 
       .main-container {
@@ -883,7 +860,11 @@
         max-width: 100% !important;
         height: 100% !important;
         border-right: none;
-        padding: 14px 12px 100px 12px;
+        padding: 12px 10px 100px 10px;
+      }
+
+      .editor-single-box {
+        padding: 14px 10px;
       }
 
       .preview-viewport {
@@ -892,7 +873,6 @@
         padding: 8px;
       }
 
-      /* Mobilde Tab Durumuna Göre Görünürlük */
       body.mobile-view-edit .preview-viewport {
         display: none !important;
       }
@@ -907,17 +887,6 @@
 
       body.mobile-view-preview .preview-viewport {
         display: flex !important;
-      }
-
-      /* Mobilde Dar Form Kontrolleri */
-      @media (max-width: 500px) {
-        .row-3-controls {
-          grid-template-columns: 1fr 1fr;
-          gap: 6px;
-        }
-        .row-3-controls .form-group:last-child {
-          grid-column: span 2;
-        }
       }
     }
   </style>
@@ -1006,7 +975,7 @@
     </div>
   </header>
 
-  <!-- MOBİL GEÇİŞ ÇUBUĞU (Mobilde Düzenle / Önizleme Butonları) -->
+  <!-- MOBİL GEÇİŞ ÇUBUĞU -->
   <div class="mobile-tab-bar">
     <button type="button" class="mobile-tab-btn active" id="tabBtnEdit" onclick="setMobileView('edit')">
       ⚙️ Düzenleme Paneli
@@ -1019,576 +988,482 @@
   <!-- Ana Kapsayıcı -->
   <div class="main-container">
     
-    <!-- SOL: KONTROL PANELİ -->
+    <!-- SOL: KONTROL PANELİ (TEK KUTU İÇERİSİNDE SIRALI DÜZEN) -->
     <aside class="control-panel" id="controlPanel">
       
-      <!-- BÖLÜM 1: GENEL TEMA & ARKAPLAN RENK PALETİ -->
-      <div class="section-card">
-        <div class="section-header" onclick="toggleSection(this)">
-          <span>🎨 1. Afiş Arkaplanı & Genel Tema</span>
-          <span class="toggle-icon">▼</span>
-        </div>
-        <div class="section-body">
-          <div class="text-item-box">
-            <div class="text-item-header">
-              <span>Afiş Arkaplan Rengi</span>
-              <span class="tag">Kağıt Rengi</span>
+      <div class="editor-single-box">
+        
+        <!-- 1. TEMA & ARKAPLAN -->
+        <div class="category-divider">🎨 1. Afiş Arkaplanı & Çerçeve</div>
+        
+        <div class="field-card">
+          <div class="field-label">
+            <span>Afiş Arkaplan Rengi</span>
+            <span class="tag">Kağıt</span>
+          </div>
+          <div class="style-row">
+            <div class="color-picker-box">
+              <input type="color" id="posterBgInput" value="#FFFFFF">
+              <span id="posterBgHex" class="color-hex-text">#FFFFFF</span>
             </div>
-            <div class="row-2-controls">
-              <div class="form-group">
-                <label>Özel Renk Seç:</label>
-                <div class="color-input-wrapper">
-                  <input type="color" id="posterBgInput" value="#FFFFFF">
-                  <span id="posterBgHex" class="color-text">#FFFFFF</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Hızlı Renk Paleti:</label>
-                <div class="palette-chips">
-                  <button type="button" class="chip-btn" style="background: #FFFFFF;" title="Beyaz" onclick="setPosterBg('#FFFFFF')"></button>
-                  <button type="button" class="chip-btn" style="background: #FDFBF7;" title="Krem / Parşömen" onclick="setPosterBg('#FDFBF7')"></button>
-                  <button type="button" class="chip-btn" style="background: #F1F5F9;" title="Açık Gri" onclick="setPosterBg('#F1F5F9')"></button>
-                  <button type="button" class="chip-btn" style="background: #0A192F;" title="Lacivert" onclick="setPosterBg('#0A192F')"></button>
-                  <button type="button" class="chip-btn" style="background: #111827;" title="Koyu Gece" onclick="setPosterBg('#111827')"></button>
-                  <button type="button" class="chip-btn" style="background: #0D381E;" title="Saha Yeşili" onclick="setPosterBg('#0D381E')"></button>
-                  <button type="button" class="chip-btn" style="background: #3D0C11;" title="Bordo" onclick="setPosterBg('#3D0C11')"></button>
-                </div>
-              </div>
+            <div class="palette-chips">
+              <button type="button" class="chip-btn" style="background: #FFFFFF;" title="Beyaz" onclick="setPosterBg('#FFFFFF')"></button>
+              <button type="button" class="chip-btn" style="background: #FDFBF7;" title="Krem" onclick="setPosterBg('#FDFBF7')"></button>
+              <button type="button" class="chip-btn" style="background: #F1F5F9;" title="Gri" onclick="setPosterBg('#F1F5F9')"></button>
+              <button type="button" class="chip-btn" style="background: #0A192F;" title="Lacivert" onclick="setPosterBg('#0A192F')"></button>
+              <button type="button" class="chip-btn" style="background: #111827;" title="Siyah" onclick="setPosterBg('#111827')"></button>
+              <button type="button" class="chip-btn" style="background: #0D381E;" title="Yeşil" onclick="setPosterBg('#0D381E')"></button>
+              <button type="button" class="chip-btn" style="background: #3D0C11;" title="Bordo" onclick="setPosterBg('#3D0C11')"></button>
             </div>
           </div>
+        </div>
 
-          <div class="text-item-box">
-            <div class="text-item-header">
-              <span>Afiş Çerçevesi & Vurgular</span>
-              <span class="tag">Çerçeve & Rozet</span>
-            </div>
-            <div class="row-2-controls">
-              <div class="form-group">
-                <label>Dış Çerçeve Rengi:</label>
-                <div class="color-input-wrapper">
-                  <input type="color" id="frameColorInput" value="#D4AF37">
-                  <span id="frameColorHex" class="color-text">#D4AF37</span>
-                </div>
+        <div class="field-card">
+          <div class="field-label">
+            <span>Çerçeve & Rozet Vurgu Renkleri</span>
+          </div>
+          <div class="style-row">
+            <div class="style-item color-item">
+              <span class="style-label">Dış Çerçeve</span>
+              <div class="color-picker-box">
+                <input type="color" id="frameColorInput" value="#D4AF37">
+                <span id="frameColorHex" class="color-hex-text">#D4AF37</span>
               </div>
-              <div class="form-group">
-                <label>Rozet & Ayraç Rengi:</label>
-                <div class="color-input-wrapper">
-                  <input type="color" id="accentColorInput" value="#D4AF37">
-                  <span id="accentColorHex" class="color-text">#D4AF37</span>
-                </div>
+            </div>
+            <div class="style-item color-item">
+              <span class="style-label">Rozet & Ayraç</span>
+              <div class="color-picker-box">
+                <input type="color" id="accentColorInput" value="#D4AF37">
+                <span id="accentColorHex" class="color-hex-text">#D4AF37</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- BÖLÜM 2: MEKAN & BAŞLIKLAR & BİRALAR -->
-      <div class="section-card">
-        <div class="section-header" onclick="toggleSection(this)">
-          <span>🏢 2. Mekan & Başlık Alanı</span>
-          <span class="toggle-icon">▼</span>
+        <!-- 2. MEKAN & BAŞLIK -->
+        <div class="category-divider">🏢 2. Mekan Bilgileri & Başlık</div>
+
+        <div class="field-card">
+          <div class="field-label">
+            <span>Mekan Adı</span>
+            <span class="tag">Ana Başlık</span>
+          </div>
+          <input type="text" id="venueText" class="form-control" value="MUHABBET RESTORAN" placeholder="Mekan adını girin...">
+          <div class="style-row">
+            <div class="style-item font-item">
+              <span class="style-label">Yazı Tipi</span>
+              <select id="venueFont" class="form-control">
+                <option value="'Bebas Neue', sans-serif" selected>Bebas Neue</option>
+                <option value="'Montserrat', sans-serif">Montserrat</option>
+                <option value="'Oswald', sans-serif">Oswald</option>
+                <option value="'Anton', sans-serif">Anton</option>
+              </select>
+            </div>
+            <div class="style-item color-item">
+              <span class="style-label">Renk</span>
+              <div class="color-picker-box">
+                <input type="color" id="venueColor" value="#0A192F">
+                <span id="venueColorHex" class="color-hex-text">#0A192F</span>
+              </div>
+            </div>
+            <div class="style-item size-item">
+              <span class="style-label">Boyut: <span id="venueSizeVal" class="range-label-val">34pt</span></span>
+              <div class="range-box">
+                <input type="range" id="venueSize" min="18" max="56" value="34">
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="section-body">
-          
-          <!-- Mekan Adı -->
-          <div class="text-item-box">
-            <div class="text-item-header">
-              <span>Mekan Adı</span>
-              <span class="tag">Ana Başlık</span>
+
+        <div class="field-card">
+          <div class="field-label">
+            <span>Alt Başlık</span>
+            <span class="tag">Mekan Sloganı</span>
+          </div>
+          <input type="text" id="subTitleText" class="form-control" value="BÜYÜK MAÇ CANLI YAYIN" placeholder="Alt başlığı girin...">
+          <div class="style-row">
+            <div class="style-item font-item">
+              <span class="style-label">Yazı Tipi</span>
+              <select id="subTitleFont" class="form-control">
+                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
+                <option value="'Montserrat', sans-serif" selected>Montserrat</option>
+                <option value="'Oswald', sans-serif">Oswald</option>
+                <option value="'Anton', sans-serif">Anton</option>
+              </select>
             </div>
-            <div class="form-group">
-              <label>Metin:</label>
-              <input type="text" id="venueText" class="form-control" value="MUHABBET RESTORAN" placeholder="Mekan adını girin...">
+            <div class="style-item color-item">
+              <span class="style-label">Renk</span>
+              <div class="color-picker-box">
+                <input type="color" id="subTitleColor" value="#D4AF37">
+                <span id="subTitleColorHex" class="color-hex-text">#D4AF37</span>
+              </div>
             </div>
-            <div class="row-3-controls">
-              <div class="form-group">
-                <label>Font:</label>
-                <select id="venueFont" class="form-control">
-                  <option value="'Bebas Neue', sans-serif" selected>Bebas Neue</option>
-                  <option value="'Montserrat', sans-serif">Montserrat</option>
-                  <option value="'Oswald', sans-serif">Oswald</option>
-                  <option value="'Anton', sans-serif">Anton</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Renk:</label>
-                <div class="color-input-wrapper">
-                  <input type="color" id="venueColor" value="#0A192F">
-                  <span id="venueColorHex" class="color-text">#0A192F</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Boyut:</label>
-                <div class="range-control">
-                  <input type="range" id="venueSize" min="18" max="56" value="34">
-                  <span id="venueSizeVal" class="range-val">34pt</span>
-                </div>
+            <div class="style-item size-item">
+              <span class="style-label">Boyut: <span id="subTitleSizeVal" class="range-label-val">11pt</span></span>
+              <div class="range-box">
+                <input type="range" id="subTitleSize" min="8" max="24" value="11">
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- Alt Başlık -->
-          <div class="text-item-box">
-            <div class="text-item-header">
-              <span>Alt Başlık</span>
-              <span class="tag">Mekan Sloganı</span>
-            </div>
-            <div class="form-group">
-              <label>Metin:</label>
-              <input type="text" id="subTitleText" class="form-control" value="BÜYÜK MAÇ CANLI YAYIN" placeholder="Alt başlığı girin...">
-            </div>
-            <div class="row-3-controls">
-              <div class="form-group">
-                <label>Font:</label>
-                <select id="subTitleFont" class="form-control">
-                  <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
-                  <option value="'Montserrat', sans-serif" selected>Montserrat</option>
-                  <option value="'Oswald', sans-serif">Oswald</option>
-                  <option value="'Anton', sans-serif">Anton</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Renk:</label>
-                <div class="color-input-wrapper">
-                  <input type="color" id="subTitleColor" value="#D4AF37">
-                  <span id="subTitleColorHex" class="color-text">#D4AF37</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Boyut:</label>
-                <div class="range-control">
-                  <input type="range" id="subTitleSize" min="8" max="24" value="11">
-                  <span id="subTitleSizeVal" class="range-val">11pt</span>
-                </div>
-              </div>
-            </div>
+        <div class="field-card">
+          <div class="field-label">
+            <span>Tokuşturulan Bira Bardakları</span>
+            <span class="tag">Sol: 2 + Sağ: 2 = Toplam 4</span>
           </div>
-
-          <!-- Tokuşturulan Bira Bardakları Boyutu -->
-          <div class="text-item-box">
-            <div class="text-item-header">
-              <span>Tokuşturulan Bira Bardakları Boyutu</span>
-              <span class="tag">Sol: 2 Bardak, Sağ: 2 Bardak (Top: 4)</span>
-            </div>
-            <div class="form-group">
-              <label>Görsel Boyutu:</label>
-              <div class="range-control">
+          <div class="style-row">
+            <div class="style-item size-item" style="flex: 1 1 100%;">
+              <span class="style-label">Görsel Boyutu: <span id="beerSizeVal" class="range-label-val">58px</span></span>
+              <div class="range-box">
                 <input type="range" id="beerSize" min="35" max="95" value="58">
-                <span id="beerSizeVal" class="range-val">58px</span>
               </div>
             </div>
           </div>
-
         </div>
-      </div>
 
-      <!-- BÖLÜM 3: TAKIMLAR & LOGOLAR -->
-      <div class="section-card">
-        <div class="section-header" onclick="toggleSection(this)">
-          <span>🛡️ 3. Takımlar, Logolar & Logo Boyutları</span>
-          <span class="toggle-icon">▼</span>
-        </div>
-        <div class="section-body">
-          
-          <!-- Takım A -->
-          <div class="text-item-box">
-            <div class="text-item-header">
-              <span>1. Takım (Ev Sahibi)</span>
-              <span class="tag">Sol Takım</span>
-            </div>
-            <div class="form-group">
-              <label>Takım Adı:</label>
-              <input type="text" id="teamAText" class="form-control" value="GALATASARAY" placeholder="Takım A adı">
-            </div>
-            <div class="row-3-controls">
-              <div class="form-group">
-                <label>Font:</label>
-                <select id="teamAFont" class="form-control">
-                  <option value="'Bebas Neue', sans-serif" selected>Bebas Neue</option>
-                  <option value="'Montserrat', sans-serif">Montserrat</option>
-                  <option value="'Oswald', sans-serif">Oswald</option>
-                  <option value="'Anton', sans-serif">Anton</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Renk:</label>
-                <div class="color-input-wrapper">
-                  <input type="color" id="teamAColor" value="#0A192F">
-                  <span id="teamAColorHex" class="color-text">#0A192F</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Yazı Boyutu:</label>
-                <div class="range-control">
-                  <input type="range" id="teamASize" min="18" max="52" value="34">
-                  <span id="teamASizeVal" class="range-val">34pt</span>
-                </div>
-              </div>
-            </div>
+        <!-- 3. TAKIM BİLGİLERİ -->
+        <div class="category-divider">🛡️ 3. Takım Bilgileri & Logolar</div>
 
-            <div class="form-group" style="margin-top: 4px;">
-              <label>Takım A Logo Boyutu:</label>
-              <div class="range-control">
+        <!-- Takım A -->
+        <div class="field-card">
+          <div class="field-label">
+            <span>1. Takım (Ev Sahibi)</span>
+            <span class="tag">Sol</span>
+          </div>
+          <input type="text" id="teamAText" class="form-control" value="GALATASARAY" placeholder="Takım A adı">
+          <div class="style-row">
+            <div class="style-item font-item">
+              <span class="style-label">Yazı Tipi</span>
+              <select id="teamAFont" class="form-control">
+                <option value="'Bebas Neue', sans-serif" selected>Bebas Neue</option>
+                <option value="'Montserrat', sans-serif">Montserrat</option>
+                <option value="'Oswald', sans-serif">Oswald</option>
+                <option value="'Anton', sans-serif">Anton</option>
+              </select>
+            </div>
+            <div class="style-item color-item">
+              <span class="style-label">Renk</span>
+              <div class="color-picker-box">
+                <input type="color" id="teamAColor" value="#0A192F">
+                <span id="teamAColorHex" class="color-hex-text">#0A192F</span>
+              </div>
+            </div>
+            <div class="style-item size-item">
+              <span class="style-label">Yazı Boyutu: <span id="teamASizeVal" class="range-label-val">34pt</span></span>
+              <div class="range-box">
+                <input type="range" id="teamASize" min="18" max="52" value="34">
+              </div>
+            </div>
+          </div>
+          <div class="style-row" style="margin-top: 4px;">
+            <div class="style-item size-item" style="flex: 1 1 100%;">
+              <span class="style-label">Logo Boyutu: <span id="teamALogoSizeVal" class="range-label-val">140px</span></span>
+              <div class="range-box">
                 <input type="range" id="teamALogoSize" min="60" max="220" value="140">
-                <span id="teamALogoSizeVal" class="range-val">140px</span>
-              </div>
-            </div>
-
-            <div class="row-2-controls" style="margin-top: 4px;">
-              <div class="form-group">
-                <label>Dosyadan Logo:</label>
-                <div class="file-input-wrapper">
-                  <span class="file-btn">📁 Logo Seç</span>
-                  <input type="file" id="teamAFileInput" accept="image/*">
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Logo URL'si:</label>
-                <input type="url" id="teamAUrlInput" class="form-control" placeholder="https://.../logo.png">
               </div>
             </div>
           </div>
+          <div class="style-row" style="margin-top: 2px;">
+            <div class="style-item" style="flex: 1 1 120px;">
+              <div class="file-input-wrapper">
+                <span class="file-btn">📁 Dosyadan Logo</span>
+                <input type="file" id="teamAFileInput" accept="image/*">
+              </div>
+            </div>
+            <div class="style-item" style="flex: 1 1 150px;">
+              <input type="url" id="teamAUrlInput" class="form-control" placeholder="Veya URL yapıştır...">
+            </div>
+          </div>
+        </div>
 
-          <!-- Takım B -->
-          <div class="text-item-box">
-            <div class="text-item-header">
-              <span>2. Takım (Deplasman)</span>
-              <span class="tag">Sağ Takım</span>
+        <!-- Takım B -->
+        <div class="field-card">
+          <div class="field-label">
+            <span>2. Takım (Deplasman)</span>
+            <span class="tag">Sağ</span>
+          </div>
+          <input type="text" id="teamBText" class="form-control" value="AMED SPOR" placeholder="Takım B adı">
+          <div class="style-row">
+            <div class="style-item font-item">
+              <span class="style-label">Yazı Tipi</span>
+              <select id="teamBFont" class="form-control">
+                <option value="'Bebas Neue', sans-serif" selected>Bebas Neue</option>
+                <option value="'Montserrat', sans-serif">Montserrat</option>
+                <option value="'Oswald', sans-serif">Oswald</option>
+                <option value="'Anton', sans-serif">Anton</option>
+              </select>
             </div>
-            <div class="form-group">
-              <label>Takım Adı:</label>
-              <input type="text" id="teamBText" class="form-control" value="AMED SPOR" placeholder="Takım B adı">
-            </div>
-            <div class="row-3-controls">
-              <div class="form-group">
-                <label>Font:</label>
-                <select id="teamBFont" class="form-control">
-                  <option value="'Bebas Neue', sans-serif" selected>Bebas Neue</option>
-                  <option value="'Montserrat', sans-serif">Montserrat</option>
-                  <option value="'Oswald', sans-serif">Oswald</option>
-                  <option value="'Anton', sans-serif">Anton</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Renk:</label>
-                <div class="color-input-wrapper">
-                  <input type="color" id="teamBColor" value="#0A192F">
-                  <span id="teamBColorHex" class="color-text">#0A192F</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Yazı Boyutu:</label>
-                <div class="range-control">
-                  <input type="range" id="teamBSize" min="18" max="52" value="34">
-                  <span id="teamBSizeVal" class="range-val">34pt</span>
-                </div>
+            <div class="style-item color-item">
+              <span class="style-label">Renk</span>
+              <div class="color-picker-box">
+                <input type="color" id="teamBColor" value="#0A192F">
+                <span id="teamBColorHex" class="color-hex-text">#0A192F</span>
               </div>
             </div>
-
-            <div class="form-group" style="margin-top: 4px;">
-              <label>Takım B Logo Boyutu:</label>
-              <div class="range-control">
+            <div class="style-item size-item">
+              <span class="style-label">Yazı Boyutu: <span id="teamBSizeVal" class="range-label-val">34pt</span></span>
+              <div class="range-box">
+                <input type="range" id="teamBSize" min="18" max="52" value="34">
+              </div>
+            </div>
+          </div>
+          <div class="style-row" style="margin-top: 4px;">
+            <div class="style-item size-item" style="flex: 1 1 100%;">
+              <span class="style-label">Logo Boyutu: <span id="teamBLogoSizeVal" class="range-label-val">140px</span></span>
+              <div class="range-box">
                 <input type="range" id="teamBLogoSize" min="60" max="220" value="140">
-                <span id="teamBLogoSizeVal" class="range-val">140px</span>
-              </div>
-            </div>
-
-            <div class="row-2-controls" style="margin-top: 4px;">
-              <div class="form-group">
-                <label>Dosyadan Logo:</label>
-                <div class="file-input-wrapper">
-                  <span class="file-btn">📁 Logo Seç</span>
-                  <input type="file" id="teamBFileInput" accept="image/*">
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Logo URL'si:</label>
-                <input type="url" id="teamBUrlInput" class="form-control" placeholder="https://.../logo.png">
               </div>
             </div>
           </div>
-
-        </div>
-      </div>
-
-      <!-- BÖLÜM 4: ORTA KARŞILAŞMA (KILIÇLAR, VS & MAÇ GÜNÜ) -->
-      <div class="section-card">
-        <div class="section-header" onclick="toggleSection(this)">
-          <span>⚔️ 4. Orta Karşılaşma (Kılıçlar, VS, Maç Günü)</span>
-          <span class="toggle-icon">▼</span>
-        </div>
-        <div class="section-body">
-          
-          <!-- Kılıçlar Boyutu -->
-          <div class="text-item-box">
-            <div class="text-item-header">
-              <span>Çapraz Kılıçlar Vektörü</span>
-              <span class="tag">Görsel Boyutu</span>
+          <div class="style-row" style="margin-top: 2px;">
+            <div class="style-item" style="flex: 1 1 120px;">
+              <div class="file-input-wrapper">
+                <span class="file-btn">📁 Dosyadan Logo</span>
+                <input type="file" id="teamBFileInput" accept="image/*">
+              </div>
             </div>
-            <div class="form-group">
-              <label>Kılıç Boyutu:</label>
-              <div class="range-control">
+            <div class="style-item" style="flex: 1 1 150px;">
+              <input type="url" id="teamBUrlInput" class="form-control" placeholder="Veya URL yapıştır...">
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. ORTA ALAN: KILIÇLAR & VS -->
+        <div class="category-divider">⚔️ 4. Orta Karşılaşma (Kılıçlar, VS, Maç Günü)</div>
+
+        <div class="field-card">
+          <div class="field-label">
+            <span>Çapraz Kılıçlar Vektörü</span>
+          </div>
+          <div class="style-row">
+            <div class="style-item size-item" style="flex: 1 1 100%;">
+              <span class="style-label">Kılıç Boyutu: <span id="swordsSizeVal" class="range-label-val">78px</span></span>
+              <div class="range-box">
                 <input type="range" id="swordsSize" min="45" max="130" value="78">
-                <span id="swordsSizeVal" class="range-val">78px</span>
               </div>
             </div>
           </div>
-
-          <!-- VS Yazısı -->
-          <div class="text-item-box">
-            <div class="text-item-header">
-              <span>VS Yazısı</span>
-              <span class="tag">Ortadaki VS</span>
-            </div>
-            <div class="form-group">
-              <label>Metin:</label>
-              <input type="text" id="vsText" class="form-control" value="VS" placeholder="VS">
-            </div>
-            <div class="row-3-controls">
-              <div class="form-group">
-                <label>Font:</label>
-                <select id="vsFont" class="form-control">
-                  <option value="'Bebas Neue', sans-serif" selected>Bebas Neue</option>
-                  <option value="'Montserrat', sans-serif">Montserrat</option>
-                  <option value="'Oswald', sans-serif">Oswald</option>
-                  <option value="'Anton', sans-serif">Anton</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Renk:</label>
-                <div class="color-input-wrapper">
-                  <input type="color" id="vsColor" value="#D4AF37">
-                  <span id="vsColorHex" class="color-text">#D4AF37</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Boyut:</label>
-                <div class="range-control">
-                  <input type="range" id="vsSize" min="20" max="68" value="44">
-                  <span id="vsSizeVal" class="range-val">44pt</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- VS Alt Yazısı ('Maç Günü') -->
-          <div class="text-item-box">
-            <div class="text-item-header">
-              <span>VS Alt Yazısı</span>
-              <span class="tag">Maç Günü</span>
-            </div>
-            <div class="form-group">
-              <label>Metin:</label>
-              <input type="text" id="vsSubText" class="form-control" value="MAÇ GÜNÜ" placeholder="Örn: MAÇ GÜNÜ">
-            </div>
-            <div class="row-3-controls">
-              <div class="form-group">
-                <label>Font:</label>
-                <select id="vsSubFont" class="form-control">
-                  <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
-                  <option value="'Montserrat', sans-serif" selected>Montserrat</option>
-                  <option value="'Oswald', sans-serif">Oswald</option>
-                  <option value="'Anton', sans-serif">Anton</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Renk:</label>
-                <div class="color-input-wrapper">
-                  <input type="color" id="vsSubColor" value="#0A192F">
-                  <span id="vsSubColorHex" class="color-text">#0A192F</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Boyut:</label>
-                <div class="range-control">
-                  <input type="range" id="vsSubSize" min="7" max="22" value="10">
-                  <span id="vsSubSizeVal" class="range-val">10pt</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
-      </div>
 
-      <!-- BÖLÜM 5: MAÇ ZAMANI & ADRES BİLGİSİ -->
-      <div class="section-card">
-        <div class="section-header" onclick="toggleSection(this)">
-          <span>📅 5. Zaman (Gün, Tarih, Saat) & Mekan Adresi</span>
-          <span class="toggle-icon">▼</span>
+        <div class="field-card">
+          <div class="field-label">
+            <span>VS Yazısı</span>
+            <span class="tag">Orta</span>
+          </div>
+          <input type="text" id="vsText" class="form-control" value="VS" placeholder="VS">
+          <div class="style-row">
+            <div class="style-item font-item">
+              <span class="style-label">Yazı Tipi</span>
+              <select id="vsFont" class="form-control">
+                <option value="'Bebas Neue', sans-serif" selected>Bebas Neue</option>
+                <option value="'Montserrat', sans-serif">Montserrat</option>
+                <option value="'Oswald', sans-serif">Oswald</option>
+                <option value="'Anton', sans-serif">Anton</option>
+              </select>
+            </div>
+            <div class="style-item color-item">
+              <span class="style-label">Renk</span>
+              <div class="color-picker-box">
+                <input type="color" id="vsColor" value="#D4AF37">
+                <span id="vsColorHex" class="color-hex-text">#D4AF37</span>
+              </div>
+            </div>
+            <div class="style-item size-item">
+              <span class="style-label">Boyut: <span id="vsSizeVal" class="range-label-val">44pt</span></span>
+              <div class="range-box">
+                <input type="range" id="vsSize" min="20" max="68" value="44">
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="section-body">
-          
-          <!-- Maç Günü (Yazıyla) -->
-          <div class="text-item-box">
-            <div class="text-item-header">
-              <span>Maç Günü (Yazıyla)</span>
-              <span class="tag">Örn: CUMARTESİ</span>
+
+        <div class="field-card">
+          <div class="field-label">
+            <span>VS Alt Yazısı</span>
+            <span class="tag">Maç Günü</span>
+          </div>
+          <input type="text" id="vsSubText" class="form-control" value="MAÇ GÜNÜ" placeholder="Örn: MAÇ GÜNÜ">
+          <div class="style-row">
+            <div class="style-item font-item">
+              <span class="style-label">Yazı Tipi</span>
+              <select id="vsSubFont" class="form-control">
+                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
+                <option value="'Montserrat', sans-serif" selected>Montserrat</option>
+                <option value="'Oswald', sans-serif">Oswald</option>
+                <option value="'Anton', sans-serif">Anton</option>
+              </select>
             </div>
-            <div class="form-group">
-              <label>Metin:</label>
-              <input type="text" id="dayText" class="form-control" value="CUMARTESİ" placeholder="Örn: CUMARTESİ">
+            <div class="style-item color-item">
+              <span class="style-label">Renk</span>
+              <div class="color-picker-box">
+                <input type="color" id="vsSubColor" value="#0A192F">
+                <span id="vsSubColorHex" class="color-hex-text">#0A192F</span>
+              </div>
             </div>
-            <div class="row-3-controls">
-              <div class="form-group">
-                <label>Font:</label>
-                <select id="dayFont" class="form-control">
-                  <option value="'Bebas Neue', sans-serif" selected>Bebas Neue</option>
-                  <option value="'Montserrat', sans-serif">Montserrat</option>
-                  <option value="'Oswald', sans-serif">Oswald</option>
-                  <option value="'Anton', sans-serif">Anton</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Renk:</label>
-                <div class="color-input-wrapper">
-                  <input type="color" id="dayColor" value="#0A192F">
-                  <span id="dayColorHex" class="color-text">#0A192F</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Boyut:</label>
-                <div class="range-control">
-                  <input type="range" id="daySize" min="20" max="58" value="36">
-                  <span id="daySizeVal" class="range-val">36pt</span>
-                </div>
+            <div class="style-item size-item">
+              <span class="style-label">Boyut: <span id="vsSubSizeVal" class="range-label-val">10pt</span></span>
+              <div class="range-box">
+                <input type="range" id="vsSubSize" min="7" max="22" value="10">
               </div>
             </div>
           </div>
-
-          <!-- Tarih -->
-          <div class="text-item-box">
-            <div class="text-item-header">
-              <span>Tarih (Sayıyla)</span>
-              <span class="tag">Örn: 11.07.2026</span>
-            </div>
-            <div class="form-group">
-              <label>Metin:</label>
-              <input type="text" id="dateText" class="form-control" value="11.07.2026" placeholder="Örn: 11.07.2026">
-            </div>
-            <div class="row-3-controls">
-              <div class="form-group">
-                <label>Font:</label>
-                <select id="dateFont" class="form-control">
-                  <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
-                  <option value="'Montserrat', sans-serif" selected>Montserrat</option>
-                  <option value="'Oswald', sans-serif">Oswald</option>
-                  <option value="'Anton', sans-serif">Anton</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Renk:</label>
-                <div class="color-input-wrapper">
-                  <input type="color" id="dateColor" value="#0A192F">
-                  <span id="dateColorHex" class="color-text">#0A192F</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Boyut:</label>
-                <div class="range-control">
-                  <input type="range" id="dateSize" min="10" max="30" value="15">
-                  <span id="dateSizeVal" class="range-val">15pt</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Saat -->
-          <div class="text-item-box">
-            <div class="text-item-header">
-              <span>Saat</span>
-              <span class="tag">Örn: 19:00</span>
-            </div>
-            <div class="form-group">
-              <label>Metin:</label>
-              <input type="text" id="timeText" class="form-control" value="19:00" placeholder="Örn: 19:00">
-            </div>
-            <div class="row-3-controls">
-              <div class="form-group">
-                <label>Font:</label>
-                <select id="timeFont" class="form-control">
-                  <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
-                  <option value="'Montserrat', sans-serif" selected>Montserrat</option>
-                  <option value="'Oswald', sans-serif">Oswald</option>
-                  <option value="'Anton', sans-serif">Anton</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Renk:</label>
-                <div class="color-input-wrapper">
-                  <input type="color" id="timeColor" value="#D4AF37">
-                  <span id="timeColorHex" class="color-text">#D4AF37</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Boyut:</label>
-                <div class="range-control">
-                  <input type="range" id="timeSize" min="10" max="32" value="17">
-                  <span id="timeSizeVal" class="range-val">17pt</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Adres Bilgisi -->
-          <div class="text-item-box">
-            <div class="text-item-header">
-              <span>Mekan Adresi</span>
-              <span class="tag">En Alt Satır</span>
-            </div>
-            <div class="form-group">
-              <label>Metin (Adres / Konum):</label>
-              <input type="text" id="addressText" class="form-control" value="📍 Atatürk Cad. No: 42, Kadıköy / İstanbul" placeholder="Mekan adresini girin...">
-            </div>
-            <div class="row-3-controls">
-              <div class="form-group">
-                <label>Font:</label>
-                <select id="addressFont" class="form-control">
-                  <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
-                  <option value="'Montserrat', sans-serif" selected>Montserrat</option>
-                  <option value="'Oswald', sans-serif">Oswald</option>
-                  <option value="'Anton', sans-serif">Anton</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Renk:</label>
-                <div class="color-input-wrapper">
-                  <input type="color" id="addressColor" value="#0A192F">
-                  <span id="addressColorHex" class="color-text">#0A192F</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Boyut:</label>
-                <div class="range-control">
-                  <input type="range" id="addressSize" min="7" max="22" value="10">
-                  <span id="addressSizeVal" class="range-val">10pt</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
-      </div>
 
-      <!-- İNDİRME BUTONLARI (PDF & 16:9 GÖRSEL) -->
-      <div class="download-actions-grid">
-        <button type="button" id="downloadPdfBtn" class="btn-pdf">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-          PDF İNDİR (A4)
-        </button>
+        <!-- 5. ZAMAN & ADRES -->
+        <div class="category-divider">📅 5. Zaman Bilgileri & Mekan Adresi</div>
 
-        <button type="button" id="downloadImgBtn" class="btn-img">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-            <polyline points="21 15 16 10 5 21"></polyline>
-          </svg>
-          GÖRSEL İNDİR (16:9)
-        </button>
+        <div class="field-card">
+          <div class="field-label">
+            <span>Maç Günü (Yazıyla)</span>
+            <span class="tag">Gün</span>
+          </div>
+          <input type="text" id="dayText" class="form-control" value="CUMARTESİ" placeholder="Örn: CUMARTESİ">
+          <div class="style-row">
+            <div class="style-item font-item">
+              <span class="style-label">Yazı Tipi</span>
+              <select id="dayFont" class="form-control">
+                <option value="'Bebas Neue', sans-serif" selected>Bebas Neue</option>
+                <option value="'Montserrat', sans-serif">Montserrat</option>
+                <option value="'Oswald', sans-serif">Oswald</option>
+                <option value="'Anton', sans-serif">Anton</option>
+              </select>
+            </div>
+            <div class="style-item color-item">
+              <span class="style-label">Renk</span>
+              <div class="color-picker-box">
+                <input type="color" id="dayColor" value="#0A192F">
+                <span id="dayColorHex" class="color-hex-text">#0A192F</span>
+              </div>
+            </div>
+            <div class="style-item size-item">
+              <span class="style-label">Boyut: <span id="daySizeVal" class="range-label-val">36pt</span></span>
+              <div class="range-box">
+                <input type="range" id="daySize" min="20" max="58" value="36">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-card">
+          <div class="field-label">
+            <span>Tarih (Sayıyla)</span>
+            <span class="tag">Tarih</span>
+          </div>
+          <input type="text" id="dateText" class="form-control" value="11.07.2026" placeholder="Örn: 11.07.2026">
+          <div class="style-row">
+            <div class="style-item font-item">
+              <span class="style-label">Yazı Tipi</span>
+              <select id="dateFont" class="form-control">
+                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
+                <option value="'Montserrat', sans-serif" selected>Montserrat</option>
+                <option value="'Oswald', sans-serif">Oswald</option>
+                <option value="'Anton', sans-serif">Anton</option>
+              </select>
+            </div>
+            <div class="style-item color-item">
+              <span class="style-label">Renk</span>
+              <div class="color-picker-box">
+                <input type="color" id="dateColor" value="#0A192F">
+                <span id="dateColorHex" class="color-hex-text">#0A192F</span>
+              </div>
+            </div>
+            <div class="style-item size-item">
+              <span class="style-label">Boyut: <span id="dateSizeVal" class="range-label-val">15pt</span></span>
+              <div class="range-box">
+                <input type="range" id="dateSize" min="10" max="30" value="15">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-card">
+          <div class="field-label">
+            <span>Saat</span>
+            <span class="tag">Saat</span>
+          </div>
+          <input type="text" id="timeText" class="form-control" value="19:00" placeholder="Örn: 19:00">
+          <div class="style-row">
+            <div class="style-item font-item">
+              <span class="style-label">Yazı Tipi</span>
+              <select id="timeFont" class="form-control">
+                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
+                <option value="'Montserrat', sans-serif" selected>Montserrat</option>
+                <option value="'Oswald', sans-serif">Oswald</option>
+                <option value="'Anton', sans-serif">Anton</option>
+              </select>
+            </div>
+            <div class="style-item color-item">
+              <span class="style-label">Renk</span>
+              <div class="color-picker-box">
+                <input type="color" id="timeColor" value="#D4AF37">
+                <span id="timeColorHex" class="color-hex-text">#D4AF37</span>
+              </div>
+            </div>
+            <div class="style-item size-item">
+              <span class="style-label">Boyut: <span id="timeSizeVal" class="range-label-val">17pt</span></span>
+              <div class="range-box">
+                <input type="range" id="timeSize" min="10" max="32" value="17">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-card">
+          <div class="field-label">
+            <span>Mekan Adresi</span>
+            <span class="tag">En Alt Satır</span>
+          </div>
+          <input type="text" id="addressText" class="form-control" value="📍 Atatürk Cad. No: 42, Kadıköy / İstanbul" placeholder="Mekan adresini girin...">
+          <div class="style-row">
+            <div class="style-item font-item">
+              <span class="style-label">Yazı Tipi</span>
+              <select id="addressFont" class="form-control">
+                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
+                <option value="'Montserrat', sans-serif" selected>Montserrat</option>
+                <option value="'Oswald', sans-serif">Oswald</option>
+                <option value="'Anton', sans-serif">Anton</option>
+              </select>
+            </div>
+            <div class="style-item color-item">
+              <span class="style-label">Renk</span>
+              <div class="color-picker-box">
+                <input type="color" id="addressColor" value="#0A192F">
+                <span id="addressColorHex" class="color-hex-text">#0A192F</span>
+              </div>
+            </div>
+            <div class="style-item size-item">
+              <span class="style-label">Boyut: <span id="addressSizeVal" class="range-label-val">10pt</span></span>
+              <div class="range-box">
+                <input type="range" id="addressSize" min="7" max="22" value="10">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. İNDİRME İŞLEMLERİ -->
+        <div class="category-divider">📥 6. Çıktı Alma & İndirme</div>
+
+        <div class="download-actions-grid">
+          <button type="button" id="downloadPdfBtn" class="btn-pdf">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            PDF İNDİR (A4)
+          </button>
+
+          <button type="button" id="downloadImgBtn" class="btn-img">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <circle cx="8.5" cy="8.5" r="1.5"></circle>
+              <polyline points="21 15 16 10 5 21"></polyline>
+            </svg>
+            GÖRSEL İNDİR (16:9)
+          </button>
+        </div>
+
       </div>
 
     </aside>
@@ -1737,14 +1612,7 @@
       }
     }
 
-    // 3. Akordiyon Bölümleri Açıp Kapatma
-    function toggleSection(headerEl) {
-      headerEl.classList.toggle('collapsed');
-      const body = headerEl.nextElementSibling;
-      body.classList.toggle('collapsed');
-    }
-
-    // 4. Zoom Kontrolü & Akıllı Otomatik Ölçekleme (Mobile Auto-Fit)
+    // 3. Zoom Kontrolü & Akıllı Otomatik Ölçekleme (Mobile Auto-Fit)
     const zoomRange = document.getElementById('zoomRange');
     const zoomVal = document.getElementById('zoomVal');
     const a4Wrapper = document.getElementById('a4Wrapper');
@@ -1764,7 +1632,6 @@
     function initResponsiveScale() {
       const isMobile = window.innerWidth <= 1024;
       if (isMobile) {
-        // Ekran genişliğine göre A4 posterini (1122.5px) tam sığdır
         const viewportWidth = previewViewport.clientWidth || window.innerWidth;
         const viewportHeight = previewViewport.clientHeight || (window.innerHeight - 100);
         
@@ -1787,7 +1654,7 @@
     });
     initResponsiveScale();
 
-    // 5. Afiş Arkaplan Rengi Yönetimi
+    // 4. Afiş Arkaplan Rengi Yönetimi
     const posterBgInput = document.getElementById('posterBgInput');
     const posterBgHex = document.getElementById('posterBgHex');
 
@@ -1801,7 +1668,7 @@
       setPosterBg(this.value);
     });
 
-    // 6. Otomatik Bağlama Yardımcı Fonksiyonu
+    // 5. Otomatik Bağlama Yardımcı Fonksiyonu
     function bindTextControl(config) {
       const textInput = document.getElementById(config.textId);
       const fontInput = document.getElementById(config.fontId);
@@ -2098,7 +1965,7 @@
       });
     });
 
-    // 7. PDF İndirme (html2pdf)
+    // 6. PDF İndirme (html2pdf)
     const downloadPdfBtn = document.getElementById('downloadPdfBtn');
 
     downloadPdfBtn.addEventListener('click', function() {
@@ -2152,7 +2019,7 @@
         });
     });
 
-    // 8. GÖRSEL İNDİRME (16:9 PNG FORMATINDA)
+    // 7. GÖRSEL İNDİRME (16:9 PNG FORMATINDA)
     const downloadImgBtn = document.getElementById('downloadImgBtn');
 
     downloadImgBtn.addEventListener('click', function() {
