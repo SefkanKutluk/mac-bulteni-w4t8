@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="robots" content="noindex, nofollow">
-  <title>Dinamik A4 Maç Duyuru Afişi Oluşturucu</title>
+  <title>Dinamik A4 Dikey Maç Duyuru Afişi Oluşturucu</title>
 
   <!-- Google Fonts: Bebas Neue, Montserrat, Oswald, Anton -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -242,7 +242,7 @@
       border-radius: 4px;
     }
 
-    /* KULLANICININ İSTEDİĞİ TEK VE KAPSAYICI DÜZENLEME KUTUSU */
+    /* TEK VE KAPSAYICI DÜZENLEME KUTUSU */
     .editor-single-box {
       background: #131b2e;
       border: 1px solid #222f47;
@@ -254,7 +254,6 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     }
 
-    /* Kategori Ayraç Başlıkları */
     .category-divider {
       font-size: 0.82rem;
       font-weight: 800;
@@ -269,7 +268,6 @@
       margin-top: 6px;
     }
 
-    /* Bireysel Düzenleme Satırları */
     .field-card {
       background: #0b1120;
       border: 1px solid #1e293b;
@@ -316,7 +314,6 @@
       box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
     }
 
-    /* Tipografi, Renk ve Boyut Kontrol Çubuğu (Flex-wrap ile asla üst üste binmez) */
     .style-row {
       display: flex;
       flex-wrap: wrap;
@@ -409,7 +406,6 @@
       text-align: right;
     }
 
-    /* Arkaplan Renk Paleti Çipleri */
     .palette-chips {
       display: flex;
       gap: 6px;
@@ -464,7 +460,7 @@
       cursor: pointer;
     }
 
-    /* İndirme Butonları Grubu */
+    /* İndirme Butonları Grubu (PDF A4 DİKEY & 9:16 DİKEY GÖRSEL) */
     .download-actions-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -554,8 +550,8 @@
       cursor: pointer;
     }
 
-    /* Sabit A4 Kağıdı (297x210 mm) */
-    .a4-landscape-wrapper {
+    /* SABİT A4 DİKEY KAĞIDI (210 x 297 mm) */
+    .a4-portrait-wrapper {
       transform-origin: center center;
       transition: transform 0.15s ease-out;
       display: flex;
@@ -564,17 +560,17 @@
     }
 
     #poster-preview {
-      width: 297mm;
-      height: 210mm;
-      min-width: 297mm;
-      min-height: 210mm;
-      max-width: 297mm;
-      max-height: 210mm;
+      width: 210mm;
+      height: 297mm;
+      min-width: 210mm;
+      min-height: 297mm;
+      max-width: 210mm;
+      max-height: 297mm;
       background: #ffffff;
       box-shadow: none !important;
       position: relative;
       box-sizing: border-box;
-      padding: 9mm 14mm 7mm 14mm;
+      padding: 12mm 12mm 10mm 12mm;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -586,10 +582,10 @@
     /* Afiş İçi Çerçeveler */
     .poster-inner-frame {
       position: absolute;
-      top: 4.5mm;
-      left: 4.5mm;
-      right: 4.5mm;
-      bottom: 4.5mm;
+      top: 5mm;
+      left: 5mm;
+      right: 5mm;
+      bottom: 5mm;
       border: 2px solid #D4AF37;
       pointer-events: none;
       box-sizing: border-box;
@@ -597,30 +593,30 @@
 
     .poster-inner-frame-double {
       position: absolute;
-      top: 6mm;
-      left: 6mm;
-      right: 6mm;
-      bottom: 6mm;
+      top: 6.5mm;
+      left: 6.5mm;
+      right: 6.5mm;
+      bottom: 6.5mm;
       border: 1px solid #D4AF37;
       opacity: 0.45;
       pointer-events: none;
       box-sizing: border-box;
     }
 
-    /* AFİŞ İÇİ ELEMENTLER */
+    /* AFİŞ İÇİ ELEMENTLER (DİKEY DÜZEN) */
     .poster-header {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 16px;
+      gap: 12px;
       padding-top: 2mm;
       position: relative;
       z-index: 2;
     }
 
     .beer-toast-svg {
-      width: 58px;
-      height: 58px;
+      width: 54px;
+      height: 54px;
       flex-shrink: 0;
       display: block;
       transition: width 0.1s, height 0.1s;
@@ -632,26 +628,26 @@
 
     .venue-title-wrapper {
       text-align: center;
-      max-width: 780px;
+      max-width: 520px;
     }
 
     .venue-name {
-      font-size: 34pt;
+      font-size: 32pt;
       line-height: 1.1;
       font-weight: 900;
       color: #0A192F;
       font-family: 'Bebas Neue', sans-serif;
       text-transform: uppercase;
-      letter-spacing: 3px;
+      letter-spacing: 2.5px;
       word-break: break-word;
       overflow-wrap: anywhere;
     }
 
     .venue-subtitle {
-      font-size: 11pt;
+      font-size: 10pt;
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
-      letter-spacing: 5px;
+      letter-spacing: 4px;
       text-transform: uppercase;
       color: #D4AF37;
       margin-top: 2px;
@@ -661,37 +657,38 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 15px;
-      margin-top: 4px;
+      gap: 12px;
+      margin-top: 5px;
     }
 
     .header-divider-line {
-      width: 130px;
+      width: 100px;
       height: 2px;
       background: #D4AF37;
     }
 
     .header-divider-diamond {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       background: #D4AF37;
       transform: rotate(45deg);
     }
 
-    /* Orta Bölüm: Takımlar & VS & Çapraz Kılıçlar */
+    /* Orta Bölüm: Takımlar & VS & Çapraz Kılıçlar (Dikey A4'e Uyumlu Karşılaşma) */
     .poster-matchup {
       display: flex;
       align-items: center;
       justify-content: space-around;
-      padding: 0 8mm;
+      padding: 0 4mm;
       position: relative;
       z-index: 2;
       flex: 1;
+      margin: 8mm 0;
     }
 
     .team-box {
       flex: 1;
-      max-width: 320px;
+      max-width: 250px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -699,12 +696,12 @@
     }
 
     .team-logo-container {
-      width: 140px;
-      height: 140px;
+      width: 130px;
+      height: 130px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       position: relative;
       transition: width 0.1s, height 0.1s;
     }
@@ -719,14 +716,14 @@
     }
 
     .team-name {
-      font-size: 34pt;
+      font-size: 30pt;
       line-height: 1.05;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.2px;
       color: #0A192F;
       font-family: 'Bebas Neue', sans-serif;
-      max-width: 320px;
+      max-width: 250px;
       word-break: break-word;
       overflow-wrap: anywhere;
       text-wrap: balance;
@@ -737,21 +734,21 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      width: 150px;
+      width: 130px;
       flex-shrink: 0;
       position: relative;
     }
 
     .swords-svg {
-      width: 78px;
-      height: 78px;
+      width: 74px;
+      height: 74px;
       display: block;
       margin-bottom: 4px;
       transition: width 0.1s, height 0.1s;
     }
 
     .vs-badge {
-      font-size: 44pt;
+      font-size: 42pt;
       line-height: 0.9;
       font-weight: 900;
       color: #D4AF37;
@@ -763,7 +760,7 @@
 
     .vs-subtext {
       font-family: 'Montserrat', sans-serif;
-      font-size: 10pt;
+      font-size: 9.5pt;
       font-weight: 800;
       letter-spacing: 3px;
       text-transform: uppercase;
@@ -779,7 +776,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding-bottom: 1.5mm;
+      padding-bottom: 2mm;
       position: relative;
       z-index: 2;
     }
@@ -792,18 +789,18 @@
       letter-spacing: 4px;
       color: #0A192F;
       font-family: 'Bebas Neue', sans-serif;
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
 
     .match-meta-pill {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 16px;
       border: 2px solid #D4AF37;
-      padding: 5px 28px;
+      padding: 6px 26px;
       border-radius: 40px;
       background: transparent;
-      margin-top: 2px;
+      margin-top: 3px;
     }
 
     .match-date {
@@ -834,11 +831,11 @@
       font-family: 'Montserrat', sans-serif;
       font-size: 10pt;
       font-weight: 700;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
       color: #0A192F;
-      margin-top: 5px;
+      margin-top: 8px;
       text-align: center;
-      max-width: 800px;
+      max-width: 580px;
       word-break: break-word;
     }
 
@@ -970,8 +967,8 @@
         <line x1="3" y1="9" x2="21" y2="9"></line>
         <line x1="9" y1="21" x2="9" y2="9"></line>
       </svg>
-      Maç Duyuru Afişi
-      <span class="badge-a4">A4 & 16:9</span>
+      Dikey Maç Duyuru Afişi
+      <span class="badge-a4">A4 DİKEY & 9:16</span>
     </div>
   </header>
 
@@ -1067,9 +1064,9 @@
               </div>
             </div>
             <div class="style-item size-item">
-              <span class="style-label">Boyut: <span id="venueSizeVal" class="range-label-val">34pt</span></span>
+              <span class="style-label">Boyut: <span id="venueSizeVal" class="range-label-val">32pt</span></span>
               <div class="range-box">
-                <input type="range" id="venueSize" min="18" max="56" value="34">
+                <input type="range" id="venueSize" min="18" max="52" value="32">
               </div>
             </div>
           </div>
@@ -1099,9 +1096,9 @@
               </div>
             </div>
             <div class="style-item size-item">
-              <span class="style-label">Boyut: <span id="subTitleSizeVal" class="range-label-val">11pt</span></span>
+              <span class="style-label">Boyut: <span id="subTitleSizeVal" class="range-label-val">10pt</span></span>
               <div class="range-box">
-                <input type="range" id="subTitleSize" min="8" max="24" value="11">
+                <input type="range" id="subTitleSize" min="7" max="22" value="10">
               </div>
             </div>
           </div>
@@ -1114,9 +1111,9 @@
           </div>
           <div class="style-row">
             <div class="style-item size-item" style="flex: 1 1 100%;">
-              <span class="style-label">Görsel Boyutu: <span id="beerSizeVal" class="range-label-val">58px</span></span>
+              <span class="style-label">Görsel Boyutu: <span id="beerSizeVal" class="range-label-val">54px</span></span>
               <div class="range-box">
-                <input type="range" id="beerSize" min="35" max="95" value="58">
+                <input type="range" id="beerSize" min="30" max="85" value="54">
               </div>
             </div>
           </div>
@@ -1150,17 +1147,17 @@
               </div>
             </div>
             <div class="style-item size-item">
-              <span class="style-label">Yazı Boyutu: <span id="teamASizeVal" class="range-label-val">34pt</span></span>
+              <span class="style-label">Yazı Boyutu: <span id="teamASizeVal" class="range-label-val">30pt</span></span>
               <div class="range-box">
-                <input type="range" id="teamASize" min="18" max="52" value="34">
+                <input type="range" id="teamASize" min="16" max="48" value="30">
               </div>
             </div>
           </div>
           <div class="style-row" style="margin-top: 4px;">
             <div class="style-item size-item" style="flex: 1 1 100%;">
-              <span class="style-label">Logo Boyutu: <span id="teamALogoSizeVal" class="range-label-val">140px</span></span>
+              <span class="style-label">Logo Boyutu: <span id="teamALogoSizeVal" class="range-label-val">130px</span></span>
               <div class="range-box">
-                <input type="range" id="teamALogoSize" min="60" max="220" value="140">
+                <input type="range" id="teamALogoSize" min="60" max="200" value="130">
               </div>
             </div>
           </div>
@@ -1202,17 +1199,17 @@
               </div>
             </div>
             <div class="style-item size-item">
-              <span class="style-label">Yazı Boyutu: <span id="teamBSizeVal" class="range-label-val">34pt</span></span>
+              <span class="style-label">Yazı Boyutu: <span id="teamBSizeVal" class="range-label-val">30pt</span></span>
               <div class="range-box">
-                <input type="range" id="teamBSize" min="18" max="52" value="34">
+                <input type="range" id="teamBSize" min="16" max="48" value="30">
               </div>
             </div>
           </div>
           <div class="style-row" style="margin-top: 4px;">
             <div class="style-item size-item" style="flex: 1 1 100%;">
-              <span class="style-label">Logo Boyutu: <span id="teamBLogoSizeVal" class="range-label-val">140px</span></span>
+              <span class="style-label">Logo Boyutu: <span id="teamBLogoSizeVal" class="range-label-val">130px</span></span>
               <div class="range-box">
-                <input type="range" id="teamBLogoSize" min="60" max="220" value="140">
+                <input type="range" id="teamBLogoSize" min="60" max="200" value="130">
               </div>
             </div>
           </div>
@@ -1238,9 +1235,9 @@
           </div>
           <div class="style-row">
             <div class="style-item size-item" style="flex: 1 1 100%;">
-              <span class="style-label">Kılıç Boyutu: <span id="swordsSizeVal" class="range-label-val">78px</span></span>
+              <span class="style-label">Kılıç Boyutu: <span id="swordsSizeVal" class="range-label-val">74px</span></span>
               <div class="range-box">
-                <input type="range" id="swordsSize" min="45" max="130" value="78">
+                <input type="range" id="swordsSize" min="40" max="120" value="74">
               </div>
             </div>
           </div>
@@ -1270,9 +1267,9 @@
               </div>
             </div>
             <div class="style-item size-item">
-              <span class="style-label">Boyut: <span id="vsSizeVal" class="range-label-val">44pt</span></span>
+              <span class="style-label">Boyut: <span id="vsSizeVal" class="range-label-val">42pt</span></span>
               <div class="range-box">
-                <input type="range" id="vsSize" min="20" max="68" value="44">
+                <input type="range" id="vsSize" min="20" max="64" value="42">
               </div>
             </div>
           </div>
@@ -1339,7 +1336,7 @@
             <div class="style-item size-item">
               <span class="style-label">Boyut: <span id="daySizeVal" class="range-label-val">36pt</span></span>
               <div class="range-box">
-                <input type="range" id="daySize" min="20" max="58" value="36">
+                <input type="range" id="daySize" min="20" max="54" value="36">
               </div>
             </div>
           </div>
@@ -1371,7 +1368,7 @@
             <div class="style-item size-item">
               <span class="style-label">Boyut: <span id="dateSizeVal" class="range-label-val">15pt</span></span>
               <div class="range-box">
-                <input type="range" id="dateSize" min="10" max="30" value="15">
+                <input type="range" id="dateSize" min="10" max="28" value="15">
               </div>
             </div>
           </div>
@@ -1403,7 +1400,7 @@
             <div class="style-item size-item">
               <span class="style-label">Boyut: <span id="timeSizeVal" class="range-label-val">17pt</span></span>
               <div class="range-box">
-                <input type="range" id="timeSize" min="10" max="32" value="17">
+                <input type="range" id="timeSize" min="10" max="30" value="17">
               </div>
             </div>
           </div>
@@ -1441,7 +1438,7 @@
           </div>
         </div>
 
-        <!-- 6. İNDİRME İŞLEMLERİ -->
+        <!-- 6. İNDİRME İŞLEMLERİ (DİKEY A4 & 9:16 DİKEY GÖRSEL) -->
         <div class="category-divider">📥 6. Çıktı Alma & İndirme</div>
 
         <div class="download-actions-grid">
@@ -1451,7 +1448,7 @@
               <polyline points="7 10 12 15 17 10"></polyline>
               <line x1="12" y1="15" x2="12" y2="3"></line>
             </svg>
-            PDF İNDİR (A4)
+            PDF İNDİR (A4 DİKEY)
           </button>
 
           <button type="button" id="downloadImgBtn" class="btn-img">
@@ -1460,7 +1457,7 @@
               <circle cx="8.5" cy="8.5" r="1.5"></circle>
               <polyline points="21 15 16 10 5 21"></polyline>
             </svg>
-            GÖRSEL İNDİR (16:9)
+            GÖRSEL İNDİR (9:16)
           </button>
         </div>
 
@@ -1468,18 +1465,18 @@
 
     </aside>
 
-    <!-- SAĞ: CANLI ÖNİZLEME PENCERESİ -->
+    <!-- SAĞ: CANLI ÖNİZLEME PENCERESİ (A4 DİKEY) -->
     <main class="preview-viewport" id="previewViewport">
       
       <div class="preview-toolbar">
         <span>Yakınlaştır:</span>
-        <input type="range" id="zoomRange" min="20" max="110" value="82">
-        <span id="zoomVal" style="font-family: monospace; min-width: 35px;">82%</span>
+        <input type="range" id="zoomRange" min="20" max="110" value="62">
+        <span id="zoomVal" style="font-family: monospace; min-width: 35px;">62%</span>
         <span>•</span>
-        <span>A4 Yatay</span>
+        <span>A4 Dikey (210 x 297 mm)</span>
       </div>
 
-      <div class="a4-landscape-wrapper" id="a4Wrapper">
+      <div class="a4-portrait-wrapper" id="a4Wrapper">
         <div id="poster-preview">
           
           <div id="posterFrame1" class="poster-inner-frame"></div>
@@ -1612,7 +1609,7 @@
       }
     }
 
-    // 3. Zoom Kontrolü & Akıllı Otomatik Ölçekleme (Mobile Auto-Fit)
+    // 3. Zoom Kontrolü & Akıllı Otomatik Dikey Ölçekleme (Portrait Auto-Fit)
     const zoomRange = document.getElementById('zoomRange');
     const zoomVal = document.getElementById('zoomVal');
     const a4Wrapper = document.getElementById('a4Wrapper');
@@ -1630,29 +1627,24 @@
     });
 
     function initResponsiveScale() {
-      const isMobile = window.innerWidth <= 1024;
-      if (isMobile) {
-        const viewportWidth = previewViewport.clientWidth || window.innerWidth;
-        const viewportHeight = previewViewport.clientHeight || (window.innerHeight - 100);
-        
-        const scaleX = (viewportWidth - 24) / 1122.5;
-        const scaleY = (viewportHeight - 24) / 793.7;
-        let bestScale = Math.min(scaleX, scaleY, 0.95);
-        if (bestScale < 0.2) bestScale = 0.25;
+      // Dikey A4 (210mm x 297mm) Boyutları: Genişlik ~793.7px, Yükseklik ~1122.5px
+      const viewportWidth = previewViewport.clientWidth || window.innerWidth;
+      const viewportHeight = previewViewport.clientHeight || (window.innerHeight - 80);
+      
+      const scaleX = (viewportWidth - 28) / 793.7;
+      const scaleY = (viewportHeight - 28) / 1122.5;
+      let bestScale = Math.min(scaleX, scaleY, 0.90);
+      if (bestScale < 0.2) bestScale = 0.25;
 
-        const percent = Math.round(bestScale * 100);
-        zoomRange.value = percent;
-        applyZoom(percent);
-      } else {
-        applyZoom(82);
-        zoomRange.value = 82;
-      }
+      const percent = Math.round(bestScale * 100);
+      zoomRange.value = percent;
+      applyZoom(percent);
     }
 
     window.addEventListener('resize', function() {
       initResponsiveScale();
     });
-    initResponsiveScale();
+    setTimeout(initResponsiveScale, 100);
 
     // 4. Afiş Arkaplan Rengi Yönetimi
     const posterBgInput = document.getElementById('posterBgInput');
@@ -1965,7 +1957,7 @@
       });
     });
 
-    // 6. PDF İndirme (html2pdf)
+    // 6. PDF İNDİRME (A4 DİKEY FORMATINDA)
     const downloadPdfBtn = document.getElementById('downloadPdfBtn');
 
     downloadPdfBtn.addEventListener('click', function() {
@@ -1981,7 +1973,7 @@
 
       const opt = {
         margin: 0,
-        filename: 'mac-duyurusu.pdf',
+        filename: 'mac-duyurusu-dikey.pdf',
         image: { type: 'jpeg', quality: 0.99 },
         html2canvas: {
           scale: 3,
@@ -1995,7 +1987,7 @@
         jsPDF: {
           unit: 'mm',
           format: 'a4',
-          orientation: 'landscape'
+          orientation: 'portrait' // A4 DİKEY FORMAT
         }
       };
 
@@ -2019,7 +2011,7 @@
         });
     });
 
-    // 7. GÖRSEL İNDİRME (16:9 PNG FORMATINDA)
+    // 7. GÖRSEL İNDİRME (9:16 DİKEY STORY / REELS FORMATINDA)
     const downloadImgBtn = document.getElementById('downloadImgBtn');
 
     downloadImgBtn.addEventListener('click', function() {
@@ -2044,27 +2036,37 @@
       }).then(canvas => {
         a4Wrapper.style.transform = currentTransform;
 
-        const targetWidth = 1920;
-        const targetHeight = 1080;
-        const canvas169 = document.createElement('canvas');
-        canvas169.width = targetWidth;
-        canvas169.height = targetHeight;
-        const ctx = canvas169.getContext('2d');
+        // 9:16 Hedef Kanvası Oluştur (1080 x 1920 Full HD Dikey)
+        const targetWidth = 1080;
+        const targetHeight = 1920;
+        const canvas916 = document.createElement('canvas');
+        canvas916.width = targetWidth;
+        canvas916.height = targetHeight;
+        const ctx = canvas916.getContext('2d');
 
+        // Arkaplan rengini 9:16 alanın tamamına uygula
         ctx.fillStyle = currentBg;
         ctx.fillRect(0, 0, targetWidth, targetHeight);
 
+        // Afişi 9:16 tuvale orantılı olarak tam ortala
         const contentAspect = canvas.width / canvas.height;
-        const drawHeight = targetHeight;
-        const drawWidth = drawHeight * contentAspect;
-        const drawX = (targetWidth - drawWidth) / 2;
-        const drawY = 0;
+        let drawWidth = targetWidth;
+        let drawHeight = drawWidth / contentAspect;
+        let drawX = 0;
+        let drawY = (targetHeight - drawHeight) / 2;
+
+        if (drawHeight > targetHeight) {
+          drawHeight = targetHeight;
+          drawWidth = drawHeight * contentAspect;
+          drawX = (targetWidth - drawWidth) / 2;
+          drawY = 0;
+        }
 
         ctx.drawImage(canvas, drawX, drawY, drawWidth, drawHeight);
 
         const link = document.createElement('a');
-        link.download = 'mac-duyurusu-16x9.png';
-        link.href = canvas169.toDataURL('image/png');
+        link.download = 'mac-duyurusu-9x16.png';
+        link.href = canvas916.toDataURL('image/png');
         link.click();
 
         downloadImgBtn.innerHTML = originalText;
