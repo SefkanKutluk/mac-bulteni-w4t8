@@ -11,7 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- html2pdf.js CDN -->
+  <!-- Kütüphaneler: html2pdf.js ve html2canvas CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
   <style>
@@ -23,7 +24,7 @@
 
     html, body {
       height: 100%;
-      overflow: hidden; /* Sayfa bütününde scroll yok, sadece sol panel kayar */
+      overflow: hidden; /* Sayfa bütünü sabit, sadece sol panel kayar */
       font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background-color: #080d1a;
       color: #e2e8f0;
@@ -32,6 +33,112 @@
     body {
       display: flex;
       flex-direction: column;
+    }
+
+    /* GÜVENLİK PIN KİLİT EKRANI */
+    #lockScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(8, 13, 26, 0.98);
+      backdrop-filter: blur(12px);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    #lockScreen.unlocked {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .pin-card {
+      background: #111a2e;
+      border: 1px solid #28374f;
+      border-radius: 12px;
+      padding: 32px 28px;
+      width: 360px;
+      max-width: 90%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .pin-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(56, 189, 248, 0.12);
+      border: 2px solid #38bdf8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #38bdf8;
+    }
+
+    .pin-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #f8fafc;
+    }
+
+    .pin-desc {
+      font-size: 0.82rem;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+
+    .pin-input-field {
+      width: 100%;
+      background: #080d1a;
+      border: 2px solid #334155;
+      color: #38bdf8;
+      text-align: center;
+      font-size: 1.5rem;
+      font-family: monospace;
+      letter-spacing: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .pin-input-field:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+    }
+
+    .btn-pin-submit {
+      width: 100%;
+      background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+      color: #0f172a;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-pin-submit:hover {
+      background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%);
+      transform: translateY(-1px);
+    }
+
+    .pin-error {
+      color: #ef4444;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: none;
     }
 
     /* Üst Başlık Barı */
@@ -73,7 +180,7 @@
       display: flex;
       flex: 1;
       height: calc(100vh - 52px);
-      overflow: hidden; /* Sayfa taşması engellendi */
+      overflow: hidden;
     }
 
     /* SOL: KONTROL PANELİ (SADECE BURASI AŞAĞI-YUKARI KAYAR) */
@@ -90,7 +197,7 @@
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 15px;
     }
 
     .control-panel::-webkit-scrollbar {
@@ -101,7 +208,7 @@
       border-radius: 3px;
     }
 
-    /* SAĞ: ÖNİZLEME PENCERESİ (TAMAMEN SABİT, ASLA KAYMAZ) */
+    /* SAĞ: ÖNİZLEME PENCERESİ (TAMAMEN SABİT) */
     .preview-viewport {
       flex: 1;
       height: 100%;
@@ -157,7 +264,7 @@
       box-shadow: none !important;
       position: relative;
       box-sizing: border-box;
-      padding: 10mm 14mm;
+      padding: 9mm 14mm 7mm 14mm;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -169,10 +276,10 @@
     /* Afiş İçi Çerçeveler */
     .poster-inner-frame {
       position: absolute;
-      top: 5mm;
-      left: 5mm;
-      right: 5mm;
-      bottom: 5mm;
+      top: 4.5mm;
+      left: 4.5mm;
+      right: 4.5mm;
+      bottom: 4.5mm;
       border: 2px solid #D4AF37;
       pointer-events: none;
       box-sizing: border-box;
@@ -180,10 +287,10 @@
 
     .poster-inner-frame-double {
       position: absolute;
-      top: 6.5mm;
-      left: 6.5mm;
-      right: 6.5mm;
-      bottom: 6.5mm;
+      top: 6mm;
+      left: 6mm;
+      right: 6mm;
+      bottom: 6mm;
       border: 1px solid #D4AF37;
       opacity: 0.45;
       pointer-events: none;
@@ -202,7 +309,7 @@
     .section-header {
       padding: 12px 16px;
       background: #1f2c42;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.7px;
@@ -428,23 +535,30 @@
       cursor: pointer;
     }
 
+    /* İndirme Butonları Grubu (PDF & 16:9 GÖRSEL) */
+    .download-actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
     .btn-pdf {
       background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
       color: #0f172a;
       border: none;
-      padding: 13px 20px;
-      font-size: 0.95rem;
+      padding: 13px 12px;
+      font-size: 0.88rem;
       font-weight: 800;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
       border-radius: 8px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
       box-shadow: 0 4px 14px rgba(234, 179, 8, 0.35);
       transition: all 0.2s ease;
-      margin-top: 8px;
     }
 
     .btn-pdf:hover {
@@ -453,14 +567,37 @@
       box-shadow: 0 6px 20px rgba(234, 179, 8, 0.45);
     }
 
+    .btn-img {
+      background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+      color: #ffffff;
+      border: none;
+      padding: 13px 12px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(14, 165, 233, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .btn-img:hover {
+      background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(14, 165, 233, 0.45);
+    }
+
     /* AFİŞ İÇİ ELEMENTLER */
-    /* Üst Bölüm: Mekan ve Tokuşturulan Bira Bardakları */
     .poster-header {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 16px;
-      padding-top: 3mm;
+      padding-top: 2mm;
       position: relative;
       z-index: 2;
     }
@@ -551,7 +688,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       position: relative;
       transition: width 0.1s, height 0.1s;
     }
@@ -620,13 +757,13 @@
       white-space: nowrap;
     }
 
-    /* Alt Bölüm: Gün, Tarih, Saat */
+    /* Alt Bölüm: Gün, Tarih, Saat & Adres */
     .poster-footer {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding-bottom: 3mm;
+      padding-bottom: 1.5mm;
       position: relative;
       z-index: 2;
     }
@@ -639,7 +776,7 @@
       letter-spacing: 4px;
       color: #0A192F;
       font-family: 'Bebas Neue', sans-serif;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     .match-meta-pill {
@@ -647,15 +784,15 @@
       align-items: center;
       gap: 18px;
       border: 2px solid #D4AF37;
-      padding: 6px 30px;
+      padding: 5px 28px;
       border-radius: 40px;
       background: transparent;
-      margin-top: 4px;
+      margin-top: 2px;
     }
 
     .match-date {
       font-family: 'Montserrat', sans-serif;
-      font-size: 16pt;
+      font-size: 15pt;
       font-weight: 800;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -671,10 +808,23 @@
 
     .match-time {
       font-family: 'Montserrat', sans-serif;
-      font-size: 18pt;
+      font-size: 17pt;
       font-weight: 900;
       letter-spacing: 1px;
       color: #D4AF37;
+    }
+
+    /* Adres Alanı */
+    .match-address {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10pt;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #0A192F;
+      margin-top: 5px;
+      text-align: center;
+      max-width: 800px;
+      word-break: break-word;
     }
   </style>
 </head>
@@ -685,7 +835,6 @@
     <defs>
       <!-- Tokuşturulan İki Bira Bardağı Sembolü (1 Sembol = 2 Tokuşturulan Bardak) -->
       <g id="beerToastGroup">
-        <!-- Köpük ve Sıçrama Damlacıkları -->
         <g fill="#F59E0B">
           <circle cx="80" cy="20" r="3.2"/>
           <circle cx="72" cy="12" r="2.2"/>
@@ -693,61 +842,62 @@
           <circle cx="79" cy="8" r="1.8"/>
           <path d="M78 26 C75 22 85 22 82 26 Z"/>
         </g>
-        <!-- Sol Bardak (Sağa eğimli ~15 derece) -->
         <g transform="translate(48, 64) rotate(16) translate(-48, -64)">
-          <!-- Kulp -->
           <path d="M22 45 C10 45 10 76 22 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
           <path d="M22 48 C14 48 14 73 22 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
-          <!-- Bardağın Gövdesi -->
           <path d="M26 38 L30 92 C30 96 34 98 40 98 L66 98 C72 98 76 96 76 92 L80 38 Z" fill="#FBBF24" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
-          <!-- Bira Yansımaları -->
           <path d="M34 46 L36 88" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
           <path d="M46 50 L47 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
-          <!-- Köpük Başlığı -->
           <path d="M23 40 C20 40 18 35 20 30 C22 25 28 26 30 23 C34 18 42 19 46 22 C50 17 60 17 64 22 C70 19 78 22 80 28 C82 33 80 38 78 40 C75 42 70 41 68 39 C65 44 58 45 54 41 C50 46 42 47 38 41 C35 44 26 44 23 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
         </g>
-        <!-- Sağ Bardak (Sola eğimli ~-16 derece) -->
         <g transform="translate(112, 64) rotate(-16) translate(-112, -64)">
-          <!-- Kulp -->
           <path d="M138 45 C150 45 150 76 138 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
           <path d="M138 48 C146 48 146 73 138 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
-          <!-- Bardağın Gövdesi -->
           <path d="M84 38 L88 92 C88 96 92 98 98 98 L124 98 C130 98 134 96 134 92 L138 38 Z" fill="#FBBF24" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
-          <!-- Bira Yansımaları -->
           <path d="M126 46 L124 88" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
           <path d="M114 50 L113 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
-          <!-- Köpük Başlığı -->
           <path d="M82 40 C80 40 78 35 80 30 C82 25 88 26 90 23 C94 18 102 19 106 22 C110 17 120 17 124 22 C130 19 138 22 140 28 C142 33 140 38 138 40 C135 42 130 41 128 39 C125 44 118 45 114 41 C110 46 102 47 98 41 C95 44 86 44 82 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
         </g>
       </g>
 
       <!-- Çapraz Kılıç Parçası (Tek Kılıç Tanımı) -->
       <g id="broadswordUnit">
-        <!-- Kılıç Namlusu -->
         <path d="M70 8 L81 24 L79 78 L70 80 Z" fill="#94A3B8" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/>
         <path d="M70 8 L59 24 L61 78 L70 80 Z" fill="#E2E8F0" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/>
         <line x1="70" y1="12" x2="70" y2="76" stroke="#475569" stroke-width="2.5" stroke-linecap="round"/>
-
-        <!-- Balçak (Terracotta / Kiremit) -->
         <g stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round">
           <path d="M50 80 C50 76 60 76 70 76 C80 76 90 76 90 80 L88 88 C78 92 62 92 52 88 Z" fill="#C85A32"/>
           <circle cx="48" cy="83" r="5" fill="#E26D45"/>
           <circle cx="92" cy="83" r="5" fill="#E26D45"/>
         </g>
-
-        <!-- Kabza (Altın Sarısı Çizgili Tutamak) -->
         <g stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round">
           <rect x="64" y="88" width="12" height="28" rx="2" fill="#FBBF24"/>
           <line x1="64" y1="94" x2="76" y2="94" stroke="#0F172A" stroke-width="3"/>
           <line x1="64" y1="100" x2="76" y2="100" stroke="#0F172A" stroke-width="3"/>
           <line x1="64" y1="106" x2="76" y2="106" stroke="#0F172A" stroke-width="3"/>
-          <!-- Kabza Başı / Topuz -->
           <circle cx="70" cy="120" r="7.5" fill="#FBBF24"/>
           <circle cx="70" cy="120" r="3" fill="#D97706"/>
         </g>
       </g>
     </defs>
   </svg>
+
+  <!-- GÜVENLİK PIN KİLİT MODALI -->
+  <div id="lockScreen">
+    <div class="pin-card">
+      <div class="pin-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </div>
+      <div class="pin-title">Güvenli Giriş</div>
+      <div class="pin-desc">Afiş oluşturucuya erişmek için lütfen 6 haneli güvenlik PIN kodunuzu giriniz.</div>
+      <input type="password" id="pinInput" class="pin-input-field" maxlength="6" placeholder="••••••" autofocus>
+      <div id="pinError" class="pin-error">Hatalı PIN kodu! Lütfen tekrar deneyin.</div>
+      <button type="button" id="pinSubmitBtn" class="btn-pin-submit">GİRİŞ YAP</button>
+    </div>
+  </div>
 
   <!-- Üst Bar -->
   <header class="app-header">
@@ -758,7 +908,7 @@
         <line x1="9" y1="21" x2="9" y2="9"></line>
       </svg>
       Dinamik Maç Duyuru Afişi Oluşturucu
-      <span class="badge-a4">A4 YATAY</span>
+      <span class="badge-a4">A4 YATAY & 16:9</span>
     </div>
   </header>
 
@@ -928,7 +1078,7 @@
         </div>
       </div>
 
-      <!-- BÖLÜM 3: TAKIMLAR & LOGO BOYUTLANDIRMALARI -->
+      <!-- BÖLÜM 3: TAKIMLAR & LOGOLAR -->
       <div class="section-card">
         <div class="section-header" onclick="toggleSection(this)">
           <span>🛡️ 3. Takımlar, Logolar & Logo Boyutları</span>
@@ -1159,10 +1309,10 @@
         </div>
       </div>
 
-      <!-- BÖLÜM 5: MAÇ ZAMANI (GÜN, TARİH, SAAT) -->
+      <!-- BÖLÜM 5: MAÇ ZAMANI & ADRES BİLGİSİ -->
       <div class="section-card">
         <div class="section-header" onclick="toggleSection(this)">
-          <span>📅 5. Maç Zamanı (Gün, Tarih, Saat)</span>
+          <span>📅 5. Zaman (Gün, Tarih, Saat) & Mekan Adresi</span>
           <span class="toggle-icon">▼</span>
         </div>
         <div class="section-body">
@@ -1234,8 +1384,8 @@
               <div class="form-group">
                 <label>Boyut:</label>
                 <div class="range-control">
-                  <input type="range" id="dateSize" min="10" max="30" value="16">
-                  <span id="dateSizeVal" class="range-val">16pt</span>
+                  <input type="range" id="dateSize" min="10" max="30" value="15">
+                  <span id="dateSizeVal" class="range-val">15pt</span>
                 </div>
               </div>
             </div>
@@ -1271,8 +1421,45 @@
               <div class="form-group">
                 <label>Boyut:</label>
                 <div class="range-control">
-                  <input type="range" id="timeSize" min="10" max="32" value="18">
-                  <span id="timeSizeVal" class="range-val">18pt</span>
+                  <input type="range" id="timeSize" min="10" max="32" value="17">
+                  <span id="timeSizeVal" class="range-val">17pt</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Adres Bilgisi (YENİ EKLENEN ÖZELLİK) -->
+          <div class="text-item-box">
+            <div class="text-item-header">
+              <span>Mekan Adresi</span>
+              <span class="tag">En Alt Satır</span>
+            </div>
+            <div class="form-group">
+              <label>Metin (Adres / Konum):</label>
+              <input type="text" id="addressText" class="form-control" value="📍 Atatürk Cad. No: 42, Kadıköy / İstanbul" placeholder="Mekan adresini girin...">
+            </div>
+            <div class="row-3-controls">
+              <div class="form-group">
+                <label>Font:</label>
+                <select id="addressFont" class="form-control">
+                  <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
+                  <option value="'Montserrat', sans-serif" selected>Montserrat</option>
+                  <option value="'Oswald', sans-serif">Oswald</option>
+                  <option value="'Anton', sans-serif">Anton</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Renk:</label>
+                <div class="color-input-wrapper">
+                  <input type="color" id="addressColor" value="#0A192F">
+                  <span id="addressColorHex" class="color-text">#0A192F</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Boyut:</label>
+                <div class="range-control">
+                  <input type="range" id="addressSize" min="7" max="22" value="10">
+                  <span id="addressSizeVal" class="range-val">10pt</span>
                 </div>
               </div>
             </div>
@@ -1281,15 +1468,26 @@
         </div>
       </div>
 
-      <!-- PDF İNDİR BUTONU -->
-      <button type="button" id="downloadPdfBtn" class="btn-pdf">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-          <polyline points="7 10 12 15 17 10"></polyline>
-          <line x1="12" y1="15" x2="12" y2="3"></line>
-        </svg>
-        PDF İNDİR (A4 YATAY)
-      </button>
+      <!-- İNDİRME BUTONLARI (PDF & 16:9 GÖRSEL) -->
+      <div class="download-actions-grid">
+        <button type="button" id="downloadPdfBtn" class="btn-pdf">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          PDF İNDİR (A4)
+        </button>
+
+        <button type="button" id="downloadImgBtn" class="btn-img">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+          GÖRSEL İNDİR (16:9)
+        </button>
+      </div>
 
     </aside>
 
@@ -1301,7 +1499,7 @@
         <input type="range" id="zoomRange" min="50" max="110" value="82">
         <span id="zoomVal" style="font-family: monospace; min-width: 38px;">82%</span>
         <span>•</span>
-        <span>A4 Yatay (297 x 210 mm)</span>
+        <span>A4 Yatay & 16:9</span>
       </div>
 
       <div class="a4-landscape-wrapper" id="a4Wrapper">
@@ -1349,7 +1547,7 @@
 
             <!-- VS & Çapraz Kılıçlar Vektörü & Maç Günü -->
             <div class="vs-separator">
-              <!-- Çapraz Kılıçlar Vektörü (Özel Tasarım Çift Kılıç) -->
+              <!-- Çapraz Kılıçlar Vektörü -->
               <svg id="previewSwordsSvg" class="swords-svg" viewBox="0 0 140 140">
                 <use href="#broadswordUnit" transform="rotate(-45 70 70)"/>
                 <use href="#broadswordUnit" transform="rotate(45 70 70)"/>
@@ -1369,7 +1567,7 @@
 
           </div>
 
-          <!-- ALT KISIM: Gün, Tarih, Saat -->
+          <!-- ALT KISIM: Gün, Tarih, Saat & Mekan Adresi -->
           <div class="poster-footer">
             <div id="previewMatchDay" class="match-day">CUMARTESİ</div>
             <div id="previewMatchMetaPill" class="match-meta-pill">
@@ -1377,6 +1575,8 @@
               <span id="previewMatchDot" class="match-dot"></span>
               <span id="previewMatchTime" class="match-time">19:00</span>
             </div>
+            <!-- Mekan Adresi -->
+            <div id="previewAddress" class="match-address">📍 Atatürk Cad. No: 42, Kadıköy / İstanbul</div>
           </div>
 
         </div>
@@ -1387,14 +1587,56 @@
   </div>
 
   <script>
-    // Akordiyon Bölümleri Açıp Kapatma
+    // 1. GÜVENLİK PIN KODU DOĞRULAMA (Salted SHA-256 Hash Korumalı)
+    const EXPECTED_HASH = 'c245fecce25f2dcc6de861e272ff0cc4e34a51d7909f8123bb09887306985838';
+
+    async function checkPinHash(entered) {
+      const salt = 'mac-afis-salt-2026-';
+      const enc = new TextEncoder();
+      const data = enc.encode(salt + entered);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    const lockScreen = document.getElementById('lockScreen');
+    const pinInput = document.getElementById('pinInput');
+    const pinError = document.getElementById('pinError');
+    const pinSubmitBtn = document.getElementById('pinSubmitBtn');
+
+    // Oturum kontrolü (Aynı sekmede tekrar sormaz)
+    if (sessionStorage.getItem('mac_afis_session') === 'authorized') {
+      lockScreen.classList.add('unlocked');
+    }
+
+    async function handlePinValidation() {
+      const val = pinInput.value.trim();
+      const currentHash = await checkPinHash(val);
+      if (currentHash === EXPECTED_HASH) {
+        sessionStorage.setItem('mac_afis_session', 'authorized');
+        lockScreen.classList.add('unlocked');
+        pinError.style.display = 'none';
+      } else {
+        pinError.style.display = 'block';
+        pinInput.value = '';
+        pinInput.focus();
+        pinInput.style.borderColor = '#ef4444';
+      }
+    }
+
+    pinSubmitBtn.addEventListener('click', handlePinValidation);
+    pinInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') handlePinValidation();
+    });
+
+    // 2. Akordiyon Bölümleri Açıp Kapatma
     function toggleSection(headerEl) {
       headerEl.classList.toggle('collapsed');
       const body = headerEl.nextElementSibling;
       body.classList.toggle('collapsed');
     }
 
-    // Zoom Kontrolü & Önizleme Kağıdını Ekrana Ortala
+    // 3. Zoom Kontrolü & Önizleme Kağıdını Ekrana Ortala
     const zoomRange = document.getElementById('zoomRange');
     const zoomVal = document.getElementById('zoomVal');
     const a4Wrapper = document.getElementById('a4Wrapper');
@@ -1410,7 +1652,7 @@
     });
     applyZoom(82);
 
-    // Afiş Arkaplan Rengi Yönetimi
+    // 4. Afiş Arkaplan Rengi Yönetimi
     const posterPreview = document.getElementById('poster-preview');
     const posterBgInput = document.getElementById('posterBgInput');
     const posterBgHex = document.getElementById('posterBgHex');
@@ -1425,7 +1667,7 @@
       setPosterBg(this.value);
     });
 
-    // Otomatik Bağlama Yardımcı Fonksiyonu
+    // 5. Otomatik Bağlama Yardımcı Fonksiyonu
     function bindTextControl(config) {
       const textInput = document.getElementById(config.textId);
       const fontInput = document.getElementById(config.fontId);
@@ -1464,7 +1706,7 @@
       }
     }
 
-    // 1. Mekan Adı
+    // Mekan Adı
     bindTextControl({
       textId: 'venueText',
       fontId: 'venueFont',
@@ -1476,7 +1718,7 @@
       defaultText: 'MEKAN ADI'
     });
 
-    // 2. Alt Başlık
+    // Alt Başlık
     bindTextControl({
       textId: 'subTitleText',
       fontId: 'subTitleFont',
@@ -1488,7 +1730,7 @@
       defaultText: 'BÜYÜK MAÇ CANLI YAYIN'
     });
 
-    // 3. Takım A Adı
+    // Takım A Adı
     bindTextControl({
       textId: 'teamAText',
       fontId: 'teamAFont',
@@ -1500,7 +1742,7 @@
       defaultText: 'TAKIM A'
     });
 
-    // 4. Takım B Adı
+    // Takım B Adı
     bindTextControl({
       textId: 'teamBText',
       fontId: 'teamBFont',
@@ -1512,7 +1754,7 @@
       defaultText: 'TAKIM B'
     });
 
-    // 5. VS Yazısı
+    // VS Yazısı
     bindTextControl({
       textId: 'vsText',
       fontId: 'vsFont',
@@ -1524,7 +1766,7 @@
       defaultText: 'VS'
     });
 
-    // 6. VS Alt Yazısı ('Maç Günü')
+    // VS Alt Yazısı ('Maç Günü')
     bindTextControl({
       textId: 'vsSubText',
       fontId: 'vsSubFont',
@@ -1536,7 +1778,7 @@
       defaultText: 'MAÇ GÜNÜ'
     });
 
-    // 7. Maç Günü (Yazıyla)
+    // Maç Günü (Yazıyla)
     bindTextControl({
       textId: 'dayText',
       fontId: 'dayFont',
@@ -1548,7 +1790,7 @@
       defaultText: 'GÜN'
     });
 
-    // 8. Tarih (Sayıyla)
+    // Tarih (Sayıyla)
     bindTextControl({
       textId: 'dateText',
       fontId: 'dateFont',
@@ -1560,7 +1802,7 @@
       defaultText: 'TARİH'
     });
 
-    // 9. Saat
+    // Saat
     bindTextControl({
       textId: 'timeText',
       fontId: 'timeFont',
@@ -1570,6 +1812,18 @@
       sizeValId: 'timeSizeVal',
       targetId: 'previewMatchTime',
       defaultText: '00:00'
+    });
+
+    // Mekan Adresi (YENİ EKLENEN ÖZELLİK)
+    bindTextControl({
+      textId: 'addressText',
+      fontId: 'addressFont',
+      colorId: 'addressColor',
+      colorHexId: 'addressColorHex',
+      sizeId: 'addressSize',
+      sizeValId: 'addressSizeVal',
+      targetId: 'previewAddress',
+      defaultText: 'ADRES BİLGİSİ'
     });
 
     // GÖRSEL VE LOGO BOYUTLANDIRMALARI
@@ -1710,16 +1964,15 @@
       });
     });
 
-    // PDF İndirme (html2pdf)
+    // 6. PDF İndirme (html2pdf)
     const downloadPdfBtn = document.getElementById('downloadPdfBtn');
 
     downloadPdfBtn.addEventListener('click', function() {
       const originalText = downloadPdfBtn.innerHTML;
-      downloadPdfBtn.innerHTML = '<span>Lütfen Bekleyin, PDF Hazırlanıyor...</span>';
+      downloadPdfBtn.innerHTML = '<span>Hazırlanıyor...</span>';
       downloadPdfBtn.style.opacity = '0.7';
       downloadPdfBtn.disabled = true;
 
-      // PDF baskısı sırasında wrapper ölçeğini geçici olarak 1 yap
       const currentTransform = a4Wrapper.style.transform;
       a4Wrapper.style.transform = 'none';
 
@@ -1763,6 +2016,71 @@
           downloadPdfBtn.disabled = false;
           alert('PDF oluşturulurken bir hata meydana geldi.');
         });
+    });
+
+    // 7. GÖRSEL İNDİRME (16:9 PNG FORMATINDA)
+    const downloadImgBtn = document.getElementById('downloadImgBtn');
+
+    downloadImgBtn.addEventListener('click', function() {
+      const originalText = downloadImgBtn.innerHTML;
+      downloadImgBtn.innerHTML = '<span>Görsel Hazırlanıyor...</span>';
+      downloadImgBtn.style.opacity = '0.7';
+      downloadImgBtn.disabled = true;
+
+      const currentTransform = a4Wrapper.style.transform;
+      a4Wrapper.style.transform = 'none';
+
+      const currentBg = posterPreview.style.backgroundColor || '#ffffff';
+
+      html2canvas(posterPreview, {
+        scale: 3,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: currentBg,
+        letterRendering: true,
+        scrollY: 0,
+        scrollX: 0
+      }).then(canvas => {
+        a4Wrapper.style.transform = currentTransform;
+
+        // 16:9 Hedef Kanvası Oluştur (1920 x 1080 Full HD)
+        const targetWidth = 1920;
+        const targetHeight = 1080;
+        const canvas169 = document.createElement('canvas');
+        canvas169.width = targetWidth;
+        canvas169.height = targetHeight;
+        const ctx = canvas169.getContext('2d');
+
+        // Arkaplan rengini 16:9 alanın tamamına uygula
+        ctx.fillStyle = currentBg;
+        ctx.fillRect(0, 0, targetWidth, targetHeight);
+
+        // Afişi yüksekliğe tam oturacak şekilde ortalayarak çiz
+        const contentAspect = canvas.width / canvas.height;
+        const drawHeight = targetHeight;
+        const drawWidth = drawHeight * contentAspect;
+        const drawX = (targetWidth - drawWidth) / 2;
+        const drawY = 0;
+
+        ctx.drawImage(canvas, drawX, drawY, drawWidth, drawHeight);
+
+        // PNG olarak doğrudan indir
+        const link = document.createElement('a');
+        link.download = 'mac-duyurusu-16x9.png';
+        link.href = canvas169.toDataURL('image/png');
+        link.click();
+
+        downloadImgBtn.innerHTML = originalText;
+        downloadImgBtn.style.opacity = '1';
+        downloadImgBtn.disabled = false;
+      }).catch(err => {
+        console.error('Görsel oluşturma hatası:', err);
+        a4Wrapper.style.transform = currentTransform;
+        downloadImgBtn.innerHTML = originalText;
+        downloadImgBtn.style.opacity = '1';
+        downloadImgBtn.disabled = false;
+        alert('Görsel oluşturulurken bir hata meydana geldi.');
+      });
     });
   </script>
 </body>
