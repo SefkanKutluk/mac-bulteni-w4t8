@@ -6,10 +6,10 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Dinamik A4 Dikey Maç Duyuru Afişi Oluşturucu</title>
 
-  <!-- Google Fonts: Bebas Neue, Montserrat, Oswald, Anton -->
+  <!-- Google Fonts: Bebas Neue, Montserrat, Oswald, Anton, Teko, Russo One, Kanit, Righteous, Barlow Condensed -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,700&family=Bebas+Neue&family=Kanit:ital,wght@0,700;0,800;0,900;1,700&family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,600&family=Oswald:wght@500;600;700&family=Righteous&family=Russo+One&family=Teko:wght@600;700&display=swap" rel="stylesheet">
 
   <!-- Kütüphaneler: html2canvas ve html2pdf.js CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -603,32 +603,40 @@
       box-sizing: border-box;
     }
 
+    /* KELİME BÖLÜNME ÖNLEYİCİ - TÜM METİNLERDE SADECE BOŞLUKTAN ALT SATIRA GEÇİŞ */
+    .venue-name,
+    .venue-subtitle,
+    .slogan-text,
+    .team-name,
+    .vs-badge,
+    .vs-subtext,
+    .match-day,
+    .match-date,
+    .match-time,
+    .match-address {
+      word-break: normal !important;
+      overflow-wrap: normal !important;
+      word-wrap: normal !important;
+      hyphens: none !important;
+      white-space: normal;
+      text-wrap: balance;
+    }
+
     /* AFİŞ İÇİ ELEMENTLER (DİKEY DÜZEN) */
     .poster-header {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      padding-top: 2mm;
+      padding-top: 3mm;
       position: relative;
       z-index: 2;
-    }
-
-    .beer-toast-svg {
-      width: 54px;
-      height: 54px;
-      flex-shrink: 0;
-      display: block;
-      transition: width 0.1s, height 0.1s;
-    }
-
-    .beer-toast-svg.mirror {
-      transform: scaleX(-1);
+      text-align: center;
     }
 
     .venue-title-wrapper {
       text-align: center;
-      max-width: 520px;
+      max-width: 620px;
     }
 
     .venue-name {
@@ -639,8 +647,6 @@
       font-family: 'Bebas Neue', sans-serif;
       text-transform: uppercase;
       letter-spacing: 2.5px;
-      word-break: break-word;
-      overflow-wrap: anywhere;
     }
 
     .venue-subtitle {
@@ -650,7 +656,7 @@
       letter-spacing: 4px;
       text-transform: uppercase;
       color: #D4AF37;
-      margin-top: 2px;
+      margin-top: 4px;
     }
 
     .header-divider {
@@ -658,11 +664,11 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
-      margin-top: 5px;
+      margin-top: 7px;
     }
 
     .header-divider-line {
-      width: 100px;
+      width: 110px;
       height: 2px;
       background: #D4AF37;
     }
@@ -674,25 +680,72 @@
       transform: rotate(45deg);
     }
 
-    /* Orta Bölüm: Takımlar & VS & Çapraz Kılıçlar (Dikey A4'e Uyumlu Karşılaşma) */
+    /* YENİ: LOGOLARIN HEMEN ÜSTÜNDE BİRA BARDAKLARI VE ORTASINDA ÖZEL SLOGAN SATIRI */
+    .poster-slogan-beer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4mm;
+      position: relative;
+      z-index: 2;
+      margin-top: 6mm;
+      margin-bottom: 2mm;
+    }
+
+    .slogan-beer-col {
+      width: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .beer-toast-svg {
+      width: 75px;
+      height: 56px;
+      display: block;
+      transition: width 0.1s, height 0.1s;
+    }
+
+    .slogan-text-container {
+      flex: 1;
+      text-align: center;
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 30px;
+    }
+
+    .slogan-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13pt;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #D4AF37;
+      line-height: 1.25;
+    }
+
+    /* Orta Bölüm: Takımlar & VS & Çapraz Kılıçlar */
     .poster-matchup {
       display: flex;
       align-items: center;
-      justify-content: space-around;
+      justify-content: space-between;
       padding: 0 4mm;
       position: relative;
       z-index: 2;
       flex: 1;
-      margin: 8mm 0;
+      margin: 4mm 0 6mm 0;
     }
 
     .team-box {
-      flex: 1;
-      max-width: 250px;
+      width: 250px;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
+      flex-shrink: 0;
     }
 
     .team-logo-container {
@@ -724,9 +777,6 @@
       color: #0A192F;
       font-family: 'Bebas Neue', sans-serif;
       max-width: 250px;
-      word-break: break-word;
-      overflow-wrap: anywhere;
-      text-wrap: balance;
     }
 
     .vs-separator {
@@ -734,7 +784,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      width: 130px;
+      width: 140px;
       flex-shrink: 0;
       position: relative;
     }
@@ -833,10 +883,10 @@
       font-weight: 700;
       letter-spacing: 0.8px;
       color: #0A192F;
-      margin-top: 8px;
+      margin-top: 9px;
       text-align: center;
       max-width: 580px;
-      word-break: break-word;
+      line-height: 1.35;
     }
 
     /* MOBİL VE TABLET UYUMLULUK */
@@ -889,58 +939,6 @@
   </style>
 </head>
 <body class="mobile-view-edit">
-
-  <!-- Ortak Vektör Tanımları (SVG Defs) -->
-  <svg style="display: none;">
-    <defs>
-      <!-- Tokuşturulan İki Bira Bardağı Sembolü -->
-      <g id="beerToastGroup">
-        <g fill="#F59E0B">
-          <circle cx="80" cy="20" r="3.2"/>
-          <circle cx="72" cy="12" r="2.2"/>
-          <circle cx="88" cy="14" r="2.5"/>
-          <circle cx="79" cy="8" r="1.8"/>
-          <path d="M78 26 C75 22 85 22 82 26 Z"/>
-        </g>
-        <g transform="translate(48, 64) rotate(16) translate(-48, -64)">
-          <path d="M22 45 C10 45 10 76 22 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
-          <path d="M22 48 C14 48 14 73 22 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
-          <path d="M26 38 L30 92 C30 96 34 98 40 98 L66 98 C72 98 76 96 76 92 L80 38 Z" fill="#FBBF24" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
-          <path d="M34 46 L36 88" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M46 50 L47 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
-          <path d="M23 40 C20 40 18 35 20 30 C22 25 28 26 30 23 C34 18 42 19 46 22 C50 17 60 17 64 22 C70 19 78 22 80 28 C82 33 80 38 78 40 C75 42 70 41 68 39 C65 44 58 45 54 41 C50 46 42 47 38 41 C35 44 26 44 23 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
-        </g>
-        <g transform="translate(112, 64) rotate(-16) translate(-112, -64)">
-          <path d="M138 45 C150 45 150 76 138 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
-          <path d="M138 48 C146 48 146 73 138 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
-          <path d="M84 38 L88 92 C88 96 92 98 98 98 L124 98 C130 98 134 96 134 92 L138 38 Z" fill="#FBBF24" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
-          <path d="M126 46 L124 88" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M114 50 L113 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
-          <path d="M82 40 C80 40 78 35 80 30 C82 25 88 26 90 23 C94 18 102 19 106 22 C110 17 120 17 124 22 C130 19 138 22 140 28 C142 33 140 38 138 40 C135 42 130 41 128 39 C125 44 118 45 114 41 C110 46 102 47 98 41 C95 44 86 44 82 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
-        </g>
-      </g>
-
-      <!-- Çapraz Kılıç Parçası -->
-      <g id="broadswordUnit">
-        <path d="M70 8 L81 24 L79 78 L70 80 Z" fill="#94A3B8" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/>
-        <path d="M70 8 L59 24 L61 78 L70 80 Z" fill="#E2E8F0" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/>
-        <line x1="70" y1="12" x2="70" y2="76" stroke="#475569" stroke-width="2.5" stroke-linecap="round"/>
-        <g stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round">
-          <path d="M50 80 C50 76 60 76 70 76 C80 76 90 76 90 80 L88 88 C78 92 62 92 52 88 Z" fill="#C85A32"/>
-          <circle cx="48" cy="83" r="5" fill="#E26D45"/>
-          <circle cx="92" cy="83" r="5" fill="#E26D45"/>
-        </g>
-        <g stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round">
-          <rect x="64" y="88" width="12" height="28" rx="2" fill="#FBBF24"/>
-          <line x1="64" y1="94" x2="76" y2="94" stroke="#0F172A" stroke-width="3"/>
-          <line x1="64" y1="100" x2="76" y2="100" stroke="#0F172A" stroke-width="3"/>
-          <line x1="64" y1="106" x2="76" y2="106" stroke="#0F172A" stroke-width="3"/>
-          <circle cx="70" cy="120" r="7.5" fill="#FBBF24"/>
-          <circle cx="70" cy="120" r="3" fill="#D97706"/>
-        </g>
-      </g>
-    </defs>
-  </svg>
 
   <!-- GÜVENLİK PIN KİLİT MODALI -->
   <div id="lockScreen">
@@ -1037,8 +1035,8 @@
           </div>
         </div>
 
-        <!-- 2. MEKAN & BAŞLIK -->
-        <div class="category-divider">🏢 2. Mekan Bilgileri & Başlık</div>
+        <!-- 2. MEKAN & BAŞLIK & SLOGAN -->
+        <div class="category-divider">🏢 2. Mekan Bilgileri & Slogan</div>
 
         <div class="field-card">
           <div class="field-label">
@@ -1054,6 +1052,11 @@
                 <option value="'Montserrat', sans-serif">Montserrat</option>
                 <option value="'Oswald', sans-serif">Oswald</option>
                 <option value="'Anton', sans-serif">Anton</option>
+                <option value="'Teko', sans-serif">Teko (Canlı & Uzun)</option>
+                <option value="'Russo One', sans-serif">Russo One (Güçlü)</option>
+                <option value="'Kanit', sans-serif">Kanit (Spor)</option>
+                <option value="'Righteous', cursive">Righteous (Dinamik)</option>
+                <option value="'Barlow Condensed', sans-serif">Barlow Condensed</option>
               </select>
             </div>
             <div class="style-item color-item">
@@ -1075,7 +1078,7 @@
         <div class="field-card">
           <div class="field-label">
             <span>Alt Başlık</span>
-            <span class="tag">Mekan Sloganı</span>
+            <span class="tag">Üst Yazı</span>
           </div>
           <input type="text" id="subTitleText" class="form-control" value="BÜYÜK MAÇ CANLI YAYIN" placeholder="Alt başlığı girin...">
           <div class="style-row">
@@ -1086,6 +1089,11 @@
                 <option value="'Montserrat', sans-serif" selected>Montserrat</option>
                 <option value="'Oswald', sans-serif">Oswald</option>
                 <option value="'Anton', sans-serif">Anton</option>
+                <option value="'Teko', sans-serif">Teko (Canlı & Uzun)</option>
+                <option value="'Russo One', sans-serif">Russo One (Güçlü)</option>
+                <option value="'Kanit', sans-serif">Kanit (Spor)</option>
+                <option value="'Righteous', cursive">Righteous (Dinamik)</option>
+                <option value="'Barlow Condensed', sans-serif">Barlow Condensed</option>
               </select>
             </div>
             <div class="style-item color-item">
@@ -1104,16 +1112,54 @@
           </div>
         </div>
 
+        <!-- ÖZEL SLOGAN ALANI (BİRA BARDAKLARI ARASI) -->
         <div class="field-card">
           <div class="field-label">
-            <span>Tokuşturulan Bira Bardakları</span>
-            <span class="tag">Sol: 2 + Sağ: 2 = Toplam 4</span>
+            <span>Özel Slogan (Bira Bardakları Ortası)</span>
+            <span class="tag">İsteğe Bağlı</span>
+          </div>
+          <input type="text" id="sloganText" class="form-control" value="" placeholder="Örn: DERBİ HEYECANI BURADA YAŞANIR (Varsayılan Boş)">
+          <div class="style-row">
+            <div class="style-item font-item">
+              <span class="style-label">Yazı Tipi</span>
+              <select id="sloganFont" class="form-control">
+                <option value="'Montserrat', sans-serif" selected>Montserrat</option>
+                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
+                <option value="'Oswald', sans-serif">Oswald</option>
+                <option value="'Anton', sans-serif">Anton</option>
+                <option value="'Teko', sans-serif">Teko (Canlı & Uzun)</option>
+                <option value="'Russo One', sans-serif">Russo One (Güçlü)</option>
+                <option value="'Kanit', sans-serif">Kanit (Spor)</option>
+                <option value="'Righteous', cursive">Righteous (Dinamik)</option>
+                <option value="'Barlow Condensed', sans-serif">Barlow Condensed</option>
+              </select>
+            </div>
+            <div class="style-item color-item">
+              <span class="style-label">Renk</span>
+              <div class="color-picker-box">
+                <input type="color" id="sloganColor" value="#D4AF37">
+                <span id="sloganColorHex" class="color-hex-text">#D4AF37</span>
+              </div>
+            </div>
+            <div class="style-item size-item">
+              <span class="style-label">Boyut: <span id="sloganSizeVal" class="range-label-val">13pt</span></span>
+              <div class="range-box">
+                <input type="range" id="sloganSize" min="8" max="28" value="13">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-card">
+          <div class="field-label">
+            <span>Tokuşturulan Bira Bardakları Boyutu</span>
+            <span class="tag">Logoların Üstü</span>
           </div>
           <div class="style-row">
             <div class="style-item size-item" style="flex: 1 1 100%;">
-              <span class="style-label">Görsel Boyutu: <span id="beerSizeVal" class="range-label-val">54px</span></span>
+              <span class="style-label">Görsel Boyutu: <span id="beerSizeVal" class="range-label-val">75px</span></span>
               <div class="range-box">
-                <input type="range" id="beerSize" min="30" max="85" value="54">
+                <input type="range" id="beerSize" min="40" max="150" value="75">
               </div>
             </div>
           </div>
@@ -1137,6 +1183,11 @@
                 <option value="'Montserrat', sans-serif">Montserrat</option>
                 <option value="'Oswald', sans-serif">Oswald</option>
                 <option value="'Anton', sans-serif">Anton</option>
+                <option value="'Teko', sans-serif">Teko (Canlı & Uzun)</option>
+                <option value="'Russo One', sans-serif">Russo One (Güçlü)</option>
+                <option value="'Kanit', sans-serif">Kanit (Spor)</option>
+                <option value="'Righteous', cursive">Righteous (Dinamik)</option>
+                <option value="'Barlow Condensed', sans-serif">Barlow Condensed</option>
               </select>
             </div>
             <div class="style-item color-item">
@@ -1189,6 +1240,11 @@
                 <option value="'Montserrat', sans-serif">Montserrat</option>
                 <option value="'Oswald', sans-serif">Oswald</option>
                 <option value="'Anton', sans-serif">Anton</option>
+                <option value="'Teko', sans-serif">Teko (Canlı & Uzun)</option>
+                <option value="'Russo One', sans-serif">Russo One (Güçlü)</option>
+                <option value="'Kanit', sans-serif">Kanit (Spor)</option>
+                <option value="'Righteous', cursive">Righteous (Dinamik)</option>
+                <option value="'Barlow Condensed', sans-serif">Barlow Condensed</option>
               </select>
             </div>
             <div class="style-item color-item">
@@ -1237,7 +1293,7 @@
             <div class="style-item size-item" style="flex: 1 1 100%;">
               <span class="style-label">Kılıç Boyutu: <span id="swordsSizeVal" class="range-label-val">74px</span></span>
               <div class="range-box">
-                <input type="range" id="swordsSize" min="40" max="120" value="74">
+                <input type="range" id="swordsSize" min="40" max="130" value="74">
               </div>
             </div>
           </div>
@@ -1257,6 +1313,11 @@
                 <option value="'Montserrat', sans-serif">Montserrat</option>
                 <option value="'Oswald', sans-serif">Oswald</option>
                 <option value="'Anton', sans-serif">Anton</option>
+                <option value="'Teko', sans-serif">Teko (Canlı & Uzun)</option>
+                <option value="'Russo One', sans-serif">Russo One (Güçlü)</option>
+                <option value="'Kanit', sans-serif">Kanit (Spor)</option>
+                <option value="'Righteous', cursive">Righteous (Dinamik)</option>
+                <option value="'Barlow Condensed', sans-serif">Barlow Condensed</option>
               </select>
             </div>
             <div class="style-item color-item">
@@ -1285,10 +1346,15 @@
             <div class="style-item font-item">
               <span class="style-label">Yazı Tipi</span>
               <select id="vsSubFont" class="form-control">
-                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
                 <option value="'Montserrat', sans-serif" selected>Montserrat</option>
+                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
                 <option value="'Oswald', sans-serif">Oswald</option>
                 <option value="'Anton', sans-serif">Anton</option>
+                <option value="'Teko', sans-serif">Teko (Canlı & Uzun)</option>
+                <option value="'Russo One', sans-serif">Russo One (Güçlü)</option>
+                <option value="'Kanit', sans-serif">Kanit (Spor)</option>
+                <option value="'Righteous', cursive">Righteous (Dinamik)</option>
+                <option value="'Barlow Condensed', sans-serif">Barlow Condensed</option>
               </select>
             </div>
             <div class="style-item color-item">
@@ -1324,6 +1390,11 @@
                 <option value="'Montserrat', sans-serif">Montserrat</option>
                 <option value="'Oswald', sans-serif">Oswald</option>
                 <option value="'Anton', sans-serif">Anton</option>
+                <option value="'Teko', sans-serif">Teko (Canlı & Uzun)</option>
+                <option value="'Russo One', sans-serif">Russo One (Güçlü)</option>
+                <option value="'Kanit', sans-serif">Kanit (Spor)</option>
+                <option value="'Righteous', cursive">Righteous (Dinamik)</option>
+                <option value="'Barlow Condensed', sans-serif">Barlow Condensed</option>
               </select>
             </div>
             <div class="style-item color-item">
@@ -1352,10 +1423,15 @@
             <div class="style-item font-item">
               <span class="style-label">Yazı Tipi</span>
               <select id="dateFont" class="form-control">
-                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
                 <option value="'Montserrat', sans-serif" selected>Montserrat</option>
+                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
                 <option value="'Oswald', sans-serif">Oswald</option>
                 <option value="'Anton', sans-serif">Anton</option>
+                <option value="'Teko', sans-serif">Teko (Canlı & Uzun)</option>
+                <option value="'Russo One', sans-serif">Russo One (Güçlü)</option>
+                <option value="'Kanit', sans-serif">Kanit (Spor)</option>
+                <option value="'Righteous', cursive">Righteous (Dinamik)</option>
+                <option value="'Barlow Condensed', sans-serif">Barlow Condensed</option>
               </select>
             </div>
             <div class="style-item color-item">
@@ -1384,10 +1460,15 @@
             <div class="style-item font-item">
               <span class="style-label">Yazı Tipi</span>
               <select id="timeFont" class="form-control">
-                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
                 <option value="'Montserrat', sans-serif" selected>Montserrat</option>
+                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
                 <option value="'Oswald', sans-serif">Oswald</option>
                 <option value="'Anton', sans-serif">Anton</option>
+                <option value="'Teko', sans-serif">Teko (Canlı & Uzun)</option>
+                <option value="'Russo One', sans-serif">Russo One (Güçlü)</option>
+                <option value="'Kanit', sans-serif">Kanit (Spor)</option>
+                <option value="'Righteous', cursive">Righteous (Dinamik)</option>
+                <option value="'Barlow Condensed', sans-serif">Barlow Condensed</option>
               </select>
             </div>
             <div class="style-item color-item">
@@ -1416,10 +1497,15 @@
             <div class="style-item font-item">
               <span class="style-label">Yazı Tipi</span>
               <select id="addressFont" class="form-control">
-                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
                 <option value="'Montserrat', sans-serif" selected>Montserrat</option>
+                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
                 <option value="'Oswald', sans-serif">Oswald</option>
                 <option value="'Anton', sans-serif">Anton</option>
+                <option value="'Teko', sans-serif">Teko (Canlı & Uzun)</option>
+                <option value="'Russo One', sans-serif">Russo One (Güçlü)</option>
+                <option value="'Kanit', sans-serif">Kanit (Spor)</option>
+                <option value="'Righteous', cursive">Righteous (Dinamik)</option>
+                <option value="'Barlow Condensed', sans-serif">Barlow Condensed</option>
               </select>
             </div>
             <div class="style-item color-item">
@@ -1482,12 +1568,8 @@
           <div id="posterFrame1" class="poster-inner-frame"></div>
           <div id="posterFrame2" class="poster-inner-frame-double"></div>
 
-          <!-- ÜST KISIM: Mekan Adı ve Tokuşturulan Bira Bardakları (Sağda 2, Solda 2 = Toplam 4) -->
+          <!-- 1. ÜST BAŞLIK: Mekan Adı, Alt Başlık ve Çizgi Ayraç -->
           <div class="poster-header">
-            <svg class="beer-toast-svg" viewBox="0 0 160 120">
-              <use href="#beerToastGroup"/>
-            </svg>
-
             <div class="venue-title-wrapper">
               <div id="previewVenueName" class="venue-name">MUHABBET RESTORAN</div>
               <div id="previewSubTitle" class="venue-subtitle">BÜYÜK MAÇ CANLI YAYIN</div>
@@ -1497,13 +1579,81 @@
                 <div id="dividerLineRight" class="header-divider-line"></div>
               </div>
             </div>
-
-            <svg class="beer-toast-svg mirror" viewBox="0 0 160 120">
-              <use href="#beerToastGroup"/>
-            </svg>
           </div>
 
-          <!-- ORTA KISIM: Takımlar & Çapraz Kılıçlar & VS & Maç Günü -->
+          <!-- 2. BİRA BARDAKLARI & ORTADA ÖZEL SLOGAN SATIRI -->
+          <div class="poster-slogan-beer-row">
+            
+            <!-- Sol Bira Bardakları (Takım A Logosunun Tam Üstünde) -->
+            <div class="slogan-beer-col">
+              <svg class="beer-toast-svg" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- Damlalar & Köpük Sıçramaları -->
+                <circle cx="80" cy="20" r="3.2" fill="#F59E0B"/>
+                <circle cx="72" cy="12" r="2.2" fill="#F59E0B"/>
+                <circle cx="88" cy="14" r="2.5" fill="#F59E0B"/>
+                <circle cx="79" cy="8" r="1.8" fill="#F59E0B"/>
+                <path d="M78 26 C75 22 85 22 82 26 Z" fill="#F59E0B"/>
+                <!-- Sol Bardak -->
+                <g transform="translate(48, 64) rotate(16) translate(-48, -64)">
+                  <path d="M22 45 C10 45 10 76 22 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
+                  <path d="M22 48 C14 48 14 73 22 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+                  <path d="M26 38 L30 92 C30 96 34 98 40 98 L66 98 C72 98 76 96 76 92 L80 38 Z" fill="#FBBF24" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                  <path d="M34 46 L36 88" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M46 50 L47 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M23 40 C20 40 18 35 20 30 C22 25 28 26 30 23 C34 18 42 19 46 22 C50 17 60 17 64 22 C70 19 78 22 80 28 C82 33 80 38 78 40 C75 42 70 41 68 39 C65 44 58 45 54 41 C50 46 42 47 38 41 C35 44 26 44 23 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
+                </g>
+                <!-- Sağ Bardak -->
+                <g transform="translate(112, 64) rotate(-16) translate(-112, -64)">
+                  <path d="M138 45 C150 45 150 76 138 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
+                  <path d="M138 48 C146 48 146 73 138 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+                  <path d="M84 38 L88 92 C88 96 92 98 98 98 L124 98 C130 98 134 96 134 92 L138 38 Z" fill="#FBBF24" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                  <path d="M126 46 L124 88" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M114 50 L113 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M82 40 C80 40 78 35 80 30 C82 25 88 26 90 23 C94 18 102 19 106 22 C110 17 120 17 124 22 C130 19 138 22 140 28 C142 33 140 38 138 40 C135 42 130 41 128 39 C125 44 118 45 114 41 C110 46 102 47 98 41 C95 44 86 44 82 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
+                </g>
+              </svg>
+            </div>
+
+            <!-- Ortadaki Özel Slogan (Varsayılan Boş) -->
+            <div class="slogan-text-container">
+              <div id="previewSlogan" class="slogan-text"></div>
+            </div>
+
+            <!-- Sağ Bira Bardakları (Takım B Logosunun Tam Üstünde - Doğrudan SVG İçi Aynalanmış) -->
+            <div class="slogan-beer-col">
+              <svg class="beer-toast-svg" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(160, 0) scale(-1, 1)">
+                  <!-- Damlalar & Köpük Sıçramaları -->
+                  <circle cx="80" cy="20" r="3.2" fill="#F59E0B"/>
+                  <circle cx="72" cy="12" r="2.2" fill="#F59E0B"/>
+                  <circle cx="88" cy="14" r="2.5" fill="#F59E0B"/>
+                  <circle cx="79" cy="8" r="1.8" fill="#F59E0B"/>
+                  <path d="M78 26 C75 22 85 22 82 26 Z" fill="#F59E0B"/>
+                  <!-- Sol Bardak -->
+                  <g transform="translate(48, 64) rotate(16) translate(-48, -64)">
+                    <path d="M22 45 C10 45 10 76 22 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M22 48 C14 48 14 73 22 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+                    <path d="M26 38 L30 92 C30 96 34 98 40 98 L66 98 C72 98 76 96 76 92 L80 38 Z" fill="#FBBF24" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                    <path d="M34 46 L36 88" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M46 50 L47 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M23 40 C20 40 18 35 20 30 C22 25 28 26 30 23 C34 18 42 19 46 22 C50 17 60 17 64 22 C70 19 78 22 80 28 C82 33 80 38 78 40 C75 42 70 41 68 39 C65 44 58 45 54 41 C50 46 42 47 38 41 C35 44 26 44 23 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
+                  </g>
+                  <!-- Sağ Bardak -->
+                  <g transform="translate(112, 64) rotate(-16) translate(-112, -64)">
+                    <path d="M138 45 C150 45 150 76 138 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M138 48 C146 48 146 73 138 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+                    <path d="M84 38 L88 92 C88 96 92 98 98 98 L124 98 C130 98 134 96 134 92 L138 38 Z" fill="#FBBF24" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                    <path d="M126 46 L124 88" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M114 50 L113 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M82 40 C80 40 78 35 80 30 C82 25 88 26 90 23 C94 18 102 19 106 22 C110 17 120 17 124 22 C130 19 138 22 140 28 C142 33 140 38 138 40 C135 42 130 41 128 39 C125 44 118 45 114 41 C110 46 102 47 98 41 C95 44 86 44 82 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
+                  </g>
+                </g>
+              </svg>
+            </div>
+
+          </div>
+
+          <!-- 3. ORTA KARŞILAŞMA: Takım A & Çapraz Kılıçlar + VS + Maç Günü & Takım B -->
           <div class="poster-matchup">
             
             <div class="team-box">
@@ -1514,9 +1664,46 @@
             </div>
 
             <div class="vs-separator">
-              <svg id="previewSwordsSvg" class="swords-svg" viewBox="0 0 140 140">
-                <use href="#broadswordUnit" transform="rotate(-45 70 70)"/>
-                <use href="#broadswordUnit" transform="rotate(45 70 70)"/>
+              <!-- Tamamen Bağımsız Çapraz Kılıçlar SVG (Html2canvas & PDF ile %100 Uyumlu) -->
+              <svg id="previewSwordsSvg" class="swords-svg" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                <!-- Sol Çapraz Kılıç (-45 derece) -->
+                <g transform="rotate(-45 70 70)">
+                  <path d="M70 8 L81 24 L79 78 L70 80 Z" fill="#94A3B8" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/>
+                  <path d="M70 8 L59 24 L61 78 L70 80 Z" fill="#E2E8F0" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/>
+                  <line x1="70" y1="12" x2="70" y2="76" stroke="#475569" stroke-width="2.5" stroke-linecap="round"/>
+                  <g stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round">
+                    <path d="M50 80 C50 76 60 76 70 76 C80 76 90 76 90 80 L88 88 C78 92 62 92 52 88 Z" fill="#C85A32"/>
+                    <circle cx="48" cy="83" r="5" fill="#E26D45"/>
+                    <circle cx="92" cy="83" r="5" fill="#E26D45"/>
+                  </g>
+                  <g stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round">
+                    <rect x="64" y="88" width="12" height="28" rx="2" fill="#FBBF24"/>
+                    <line x1="64" y1="94" x2="76" y2="94" stroke="#0F172A" stroke-width="3"/>
+                    <line x1="64" y1="100" x2="76" y2="100" stroke="#0F172A" stroke-width="3"/>
+                    <line x1="64" y1="106" x2="76" y2="106" stroke="#0F172A" stroke-width="3"/>
+                    <circle cx="70" cy="120" r="7.5" fill="#FBBF24"/>
+                    <circle cx="70" cy="120" r="3" fill="#D97706"/>
+                  </g>
+                </g>
+                <!-- Sağ Çapraz Kılıç (+45 derece) -->
+                <g transform="rotate(45 70 70)">
+                  <path d="M70 8 L81 24 L79 78 L70 80 Z" fill="#94A3B8" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/>
+                  <path d="M70 8 L59 24 L61 78 L70 80 Z" fill="#E2E8F0" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/>
+                  <line x1="70" y1="12" x2="70" y2="76" stroke="#475569" stroke-width="2.5" stroke-linecap="round"/>
+                  <g stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round">
+                    <path d="M50 80 C50 76 60 76 70 76 C80 76 90 76 90 80 L88 88 C78 92 62 92 52 88 Z" fill="#C85A32"/>
+                    <circle cx="48" cy="83" r="5" fill="#E26D45"/>
+                    <circle cx="92" cy="83" r="5" fill="#E26D45"/>
+                  </g>
+                  <g stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round">
+                    <rect x="64" y="88" width="12" height="28" rx="2" fill="#FBBF24"/>
+                    <line x1="64" y1="94" x2="76" y2="94" stroke="#0F172A" stroke-width="3"/>
+                    <line x1="64" y1="100" x2="76" y2="100" stroke="#0F172A" stroke-width="3"/>
+                    <line x1="64" y1="106" x2="76" y2="106" stroke="#0F172A" stroke-width="3"/>
+                    <circle cx="70" cy="120" r="7.5" fill="#FBBF24"/>
+                    <circle cx="70" cy="120" r="3" fill="#D97706"/>
+                  </g>
+                </g>
               </svg>
               
               <div id="previewVsBadge" class="vs-badge">VS</div>
@@ -1532,7 +1719,7 @@
 
           </div>
 
-          <!-- ALT KISIM: Gün, Tarih, Saat & Mekan Adresi -->
+          <!-- 4. ALT KISIM: Gün, Tarih, Saat & Mekan Adresi -->
           <div class="poster-footer">
             <div id="previewMatchDay" class="match-day">CUMARTESİ</div>
             <div id="previewMatchMetaPill" class="match-meta-pill">
@@ -1670,19 +1857,20 @@
       const sizeVal = document.getElementById(config.sizeValId);
       const targetEl = document.getElementById(config.targetId);
 
-      if (textInput) {
+      if (textInput && targetEl) {
         textInput.addEventListener('input', function() {
-          targetEl.textContent = this.value.trim() || config.defaultText;
+          const trimmed = this.value.trim();
+          targetEl.textContent = trimmed !== '' ? this.value : config.defaultText;
         });
       }
 
-      if (fontInput) {
+      if (fontInput && targetEl) {
         fontInput.addEventListener('change', function() {
           targetEl.style.fontFamily = this.value;
         });
       }
 
-      if (colorInput) {
+      if (colorInput && targetEl) {
         colorInput.addEventListener('input', function() {
           const val = this.value;
           targetEl.style.color = val;
@@ -1690,7 +1878,7 @@
         });
       }
 
-      if (sizeInput) {
+      if (sizeInput && targetEl) {
         sizeInput.addEventListener('input', function() {
           const val = this.value;
           targetEl.style.fontSize = val + 'pt';
@@ -1721,6 +1909,18 @@
       sizeValId: 'subTitleSizeVal',
       targetId: 'previewSubTitle',
       defaultText: 'BÜYÜK MAÇ CANLI YAYIN'
+    });
+
+    // Özel Slogan (Bira Bardakları Ortası)
+    bindTextControl({
+      textId: 'sloganText',
+      fontId: 'sloganFont',
+      colorId: 'sloganColor',
+      colorHexId: 'sloganColorHex',
+      sizeId: 'sloganSize',
+      sizeValId: 'sloganSizeVal',
+      targetId: 'previewSlogan',
+      defaultText: '' // Varsayılan olarak boş
     });
 
     // Takım A Adı
@@ -1844,17 +2044,18 @@
       previewTeamBLogoContainer.style.height = val + 'px';
     });
 
-    // Bira Bardakları Boyutu
+    // Bira Bardakları Boyutu (Logoların Üstü)
     const beerSize = document.getElementById('beerSize');
     const beerSizeVal = document.getElementById('beerSizeVal');
     const beerSvgs = document.querySelectorAll('.beer-toast-svg');
 
     beerSize.addEventListener('input', function() {
-      const val = this.value;
+      const val = parseInt(this.value, 10);
       beerSizeVal.textContent = val + 'px';
+      const calculatedHeight = Math.round(val * 0.75); // 160:120 = 4:3 oran
       beerSvgs.forEach(svg => {
         svg.style.width = val + 'px';
-        svg.style.height = val + 'px';
+        svg.style.height = calculatedHeight + 'px';
       });
     });
 
@@ -1957,7 +2158,7 @@
       });
     });
 
-    // 6. PDF İNDİRME (A4 DİKEY FORMATINDA)
+    // 6. PDF İNDİRME (A4 DİKEY FORMATINDA - %100 İKON VE VEKTÖR DESTEĞİ)
     const downloadPdfBtn = document.getElementById('downloadPdfBtn');
 
     downloadPdfBtn.addEventListener('click', function() {
@@ -2011,7 +2212,7 @@
         });
     });
 
-    // 7. GÖRSEL İNDİRME (9:16 DİKEY STORY / REELS FORMATINDA)
+    // 7. GÖRSEL İNDİRME (9:16 DİKEY STORY / REELS FORMATINDA - %100 İKON DESTEĞİ)
     const downloadImgBtn = document.getElementById('downloadImgBtn');
 
     downloadImgBtn.addEventListener('click', function() {
