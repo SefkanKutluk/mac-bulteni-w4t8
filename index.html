@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Dinamik A4 Maç Duyuru Afişi Oluşturucu</title>
+
+  <!-- Google Fonts: Bebas Neue, Montserrat, Oswald, Anton -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- html2pdf.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <style>
+    :root {
+      --main-color: #0A192F;
+      --accent-color: #D4AF37;
+      --poster-font: 'Bebas Neue', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #0f172a;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Üst Bilgi Barı */
+    .app-header {
+      background: #1e293b;
+      padding: 14px 24px;
+      border-bottom: 1px solid #334155;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    }
+
+    .app-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .app-title span {
+      color: #38bdf8;
+    }
+
+    .badge-a4 {
+      background: #38bdf8;
+      color: #0f172a;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Ana Düzen (Split Layout) */
+    .main-container {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 61px);
+      overflow: hidden;
+    }
+
+    /* Sol Panel (Kontrol Paneli) */
+    .control-panel {
+      width: 440px;
+      min-width: 400px;
+      background: #1e293b;
+      border-right: 1px solid #334155;
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .control-panel::-webkit-scrollbar {
+      width: 6px;
+    }
+    .control-panel::-webkit-scrollbar-thumb {
+      background: #475569;
+      border-radius: 3px;
+    }
+
+    .panel-section-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #94a3b8;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #334155;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+
+    .form-control {
+      background: #0f172a;
+      border: 1px solid #334155;
+      color: #f8fafc;
+      padding: 9px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+    }
+
+    .row-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .row-3col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+
+    .color-picker-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+
+    .color-picker-wrapper input[type="color"] {
+      -webkit-appearance: none;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    .color-picker-wrapper input[type="color"]::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+
+    .color-picker-wrapper input[type="color"]::-webkit-color-swatch {
+      border: 1px solid #475569;
+      border-radius: 4px;
+    }
+
+    .color-value {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    .file-input-wrapper {
+      position: relative;
+    }
+
+    .file-btn {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      padding: 8px 12px;
+      background: #334155;
+      color: #e2e8f0;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .file-btn:hover {
+      background: #475569;
+    }
+
+    .file-input-wrapper input[type="file"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .team-card {
+      background: #141f32;
+      border: 1px solid #273549;
+      padding: 14px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    .team-card-header {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #38bdf8;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-pdf {
+      background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+      color: #0f172a;
+      border: none;
+      padding: 14px 20px;
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 14px rgba(234, 179, 8, 0.35);
+      transition: all 0.2s ease;
+      margin-top: 10px;
+    }
+
+    .btn-pdf:hover {
+      background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(234, 179, 8, 0.45);
+    }
+
+    .btn-pdf:active {
+      transform: translateY(0);
+    }
+
+    /* Sağ Alan: Önizleme Görüntüleyici */
+    .preview-viewport {
+      flex: 1;
+      background: #090d16;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      overflow: auto;
+      position: relative;
+    }
+
+    .preview-toolbar {
+      position: absolute;
+      top: 15px;
+      right: 25px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #1e293b;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid #334155;
+      font-size: 0.78rem;
+      color: #94a3b8;
+      z-index: 10;
+    }
+
+    /* Sabit A4 Kağıdı (297x210 mm) - Bembeyaz ve Gölgesiz */
+    .a4-landscape-wrapper {
+      transform-origin: center center;
+    }
+
+    #poster-preview {
+      width: 297mm;
+      height: 210mm;
+      min-width: 297mm;
+      min-height: 210mm;
+      max-width: 297mm;
+      max-height: 210mm;
+      background: #ffffff !important;
+      box-shadow: none !important;
+      position: relative;
+      box-sizing: border-box;
+      padding: 10mm 14mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      font-family: var(--poster-font);
+      color: var(--main-color);
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Afiş İçi Çerçeve ve Grafik Süslemeler */
+    .poster-inner-frame {
+      position: absolute;
+      top: 5mm;
+      left: 5mm;
+      right: 5mm;
+      bottom: 5mm;
+      border: 2px solid var(--accent-color);
+      pointer-events: none;
+      box-sizing: border-box;
+    }
+
+    .poster-inner-frame-double {
+      position: absolute;
+      top: 6.5mm;
+      left: 6.5mm;
+      right: 6.5mm;
+      bottom: 6.5mm;
+      border: 1px solid var(--accent-color);
+      opacity: 0.45;
+      pointer-events: none;
+      box-sizing: border-box;
+    }
+
+    /* Afiş Üst Bölüm (Mekan & Bira Bardakları) */
+    .poster-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      padding-top: 4mm;
+      position: relative;
+      z-index: 2;
+    }
+
+    .beer-icon {
+      width: 44px;
+      height: 44px;
+      color: var(--accent-color);
+      flex-shrink: 0;
+    }
+
+    .venue-title-wrapper {
+      text-align: center;
+      max-width: 780px;
+    }
+
+    .venue-name {
+      font-size: 32pt;
+      line-height: 1.1;
+      font-weight: 900;
+      color: var(--main-color);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+
+    .venue-subtitle {
+      font-size: 11pt;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--accent-color);
+      margin-top: 2px;
+    }
+
+    .header-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 4px;
+    }
+
+    .header-divider-line {
+      width: 140px;
+      height: 2px;
+      background: var(--accent-color);
+    }
+
+    .header-divider-diamond {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-color);
+      transform: rotate(45deg);
+    }
+
+    /* Afiş Orta Bölüm (Takımlar & VS) */
+    .poster-matchup {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 10mm;
+      position: relative;
+      z-index: 2;
+      flex: 1;
+    }
+
+    .team-box {
+      flex: 1;
+      max-width: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .team-logo-container {
+      width: 150px;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .team-logo {
+      max-width: 100%;
+      max-height: 100%;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .team-name {
+      font-size: 34pt;
+      line-height: 1.05;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--main-color);
+      max-width: 320px;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      text-wrap: balance;
+    }
+
+    /* Orta VS & Çapraz Kılıçlar */
+    .vs-separator {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 140px;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .swords-icon {
+      width: 72px;
+      height: 72px;
+      color: var(--accent-color);
+      margin-bottom: 6px;
+    }
+
+    .vs-badge {
+      font-size: 42pt;
+      line-height: 0.9;
+      font-weight: 900;
+      color: var(--accent-color);
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.08);
+      position: relative;
+    }
+
+    .vs-subtext {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9pt;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--main-color);
+      margin-top: 4px;
+    }
+
+    /* Afiş Alt Bölüm (Gün, Tarih, Saat) */
+    .poster-footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 4mm;
+      position: relative;
+      z-index: 2;
+    }
+
+    .match-day {
+      font-size: 36pt;
+      line-height: 1;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: var(--main-color);
+      margin-bottom: 4px;
+    }
+
+    .match-meta-pill {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      border: 2px solid var(--accent-color);
+      padding: 6px 30px;
+      border-radius: 40px;
+      background: #ffffff;
+      margin-top: 4px;
+    }
+
+    .match-date {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16pt;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--main-color);
+    }
+
+    .match-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-color);
+    }
+
+    .match-time {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18pt;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: var(--accent-color);
+    }
+
+    /* Responsive & Mobile Support */
+    @media (max-width: 1024px) {
+      .main-container {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+      }
+      .control-panel {
+        width: 100%;
+        min-width: 100%;
+        height: auto;
+      }
+      .preview-viewport {
+        padding: 20px 10px;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Başlık Çubuğu -->
+  <header class="app-header">
+    <div class="app-title">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #38bdf8;">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+        <line x1="3" y1="9" x2="21" y2="9"></line>
+        <line x1="9" y1="21" x2="9" y2="9"></line>
+      </svg>
+      Dinamik Maç Duyuru Afişi Oluşturucu
+      <span class="badge-a4">A4 YATAY</span>
+    </div>
+  </header>
+
+  <!-- Ana Kapsayıcı -->
+  <div class="main-container">
+    
+    <!-- SOL: KONTROL PANELİ -->
+    <aside class="control-panel">
+      
+      <!-- Tipografi & Renkler -->
+      <div>
+        <div class="panel-section-title">Afiş Teması & Tipografi</div>
+        
+        <div class="form-group">
+          <label for="fontSelect">Yazı Tipi (Font)</label>
+          <select id="fontSelect" class="form-control">
+            <option value="'Bebas Neue', sans-serif" selected>Bebas Neue</option>
+            <option value="'Montserrat', sans-serif">Montserrat</option>
+            <option value="'Oswald', sans-serif">Oswald</option>
+            <option value="'Anton', sans-serif">Anton</option>
+          </select>
+        </div>
+
+        <div class="row-2col">
+          <div class="form-group">
+            <label for="mainColorInput">Ana Metin Rengi</label>
+            <div class="color-picker-wrapper">
+              <input type="color" id="mainColorInput" value="#0A192F">
+              <span id="mainColorVal" class="color-value">#0A192F</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="accentColorInput">Vurgu Rengi</label>
+            <div class="color-picker-wrapper">
+              <input type="color" id="accentColorInput" value="#D4AF37">
+              <span id="accentColorVal" class="color-value">#D4AF37</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mekan Bilgileri -->
+      <div>
+        <div class="panel-section-title">Mekan & Etkinlik</div>
+        <div class="form-group">
+          <label for="venueInput">Mekan Adı</label>
+          <input type="text" id="venueInput" class="form-control" value="ARENA SPORTS PUB & BISTRO" placeholder="Mekan adını yazın...">
+        </div>
+      </div>
+
+      <!-- Takımlar -->
+      <div>
+        <div class="panel-section-title">Takım Bilgileri</div>
+        
+        <!-- Takım A -->
+        <div class="team-card">
+          <div class="team-card-header">
+            <span>1. TAKIM (EV SAHİBİ)</span>
+          </div>
+          <div class="form-group">
+            <label for="teamANameInput">Takım A Adı</label>
+            <input type="text" id="teamANameInput" class="form-control" value="GALATASARAY" placeholder="Takım A adı">
+          </div>
+          <div class="form-group">
+            <label>Logo Yükle</label>
+            <div class="file-input-wrapper">
+              <span class="file-btn">📁 Bilgisayardan Logo Seç</span>
+              <input type="file" id="teamAFileInput" accept="image/*">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="teamAUrlInput">Logo URL'si Yapıştır</label>
+            <input type="url" id="teamAUrlInput" class="form-control" placeholder="https://.../logo.png">
+          </div>
+        </div>
+
+        <!-- Takım B -->
+        <div class="team-card">
+          <div class="team-card-header">
+            <span>2. TAKIM (DEPLASMAN)</span>
+          </div>
+          <div class="form-group">
+            <label for="teamBNameInput">Takım B Adı</label>
+            <input type="text" id="teamBNameInput" class="form-control" value="FENERBAHÇE" placeholder="Takım B adı">
+          </div>
+          <div class="form-group">
+            <label>Logo Yükle</label>
+            <div class="file-input-wrapper">
+              <span class="file-btn">📁 Bilgisayardan Logo Seç</span>
+              <input type="file" id="teamBFileInput" accept="image/*">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="teamBUrlInput">Logo URL'si Yapıştır</label>
+            <input type="url" id="teamBUrlInput" class="form-control" placeholder="https://.../logo.png">
+          </div>
+        </div>
+      </div>
+
+      <!-- Tarih & Saat Bilgileri -->
+      <div>
+        <div class="panel-section-title">Maç Zamanı</div>
+        <div class="form-group">
+          <label for="matchDayInput">Maç Günü (Yazıyla)</label>
+          <input type="text" id="matchDayInput" class="form-control" value="CUMARTESİ" placeholder="Örn: CUMARTESİ">
+        </div>
+        <div class="row-2col">
+          <div class="form-group">
+            <label for="matchDateInput">Tarih (Sayıyla)</label>
+            <input type="text" id="matchDateInput" class="form-control" value="18 MAYIS 2025" placeholder="Örn: 18.05.2025">
+          </div>
+          <div class="form-group">
+            <label for="matchTimeInput">Saat</label>
+            <input type="text" id="matchTimeInput" class="form-control" value="20:45" placeholder="Örn: 20:00">
+          </div>
+        </div>
+      </div>
+
+      <!-- PDF İNDİR BUTONU -->
+      <button type="button" id="downloadPdfBtn" class="btn-pdf">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        PDF İNDİR (A4 YATAY)
+      </button>
+
+    </aside>
+
+    <!-- SAĞ: CANLI ÖNİZLEME (A4 YATAY) -->
+    <main class="preview-viewport">
+      
+      <div class="preview-toolbar">
+        <span>Canlı Önizleme Kağıdı</span>
+        <span>•</span>
+        <span>297 x 210 mm (300 DPI Vektörel Baskı)</span>
+      </div>
+
+      <div class="a4-landscape-wrapper">
+        <!-- A4 Sabit Kağıt Elementi (Bembeyaz arkaplan, gölgesiz) -->
+        <div id="poster-preview">
+          
+          <!-- Çift Hatlı Süsleme Çerçevesi -->
+          <div class="poster-inner-frame"></div>
+          <div class="poster-inner-frame-double"></div>
+
+          <!-- ÜST KISIM: Mekan Adı ve Arjantin Bira Bardağı SVG İkonları -->
+          <div class="poster-header">
+            <!-- Sol Arjantin Bira Bardağı SVG -->
+            <svg class="beer-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Bira Köpüğü -->
+              <path d="M18 19C15 19 13 16.5 13 13.5C13 10.5 16 8 19 8C20 5.5 23 4 27 4C31 4 34 5.5 36 7C38 5 42 5 45 7.5C48 6.5 52 8 52 11.5C53.5 13 54 15 53 17C54.5 18.5 54 20 51 20H18Z" fill="currentColor"/>
+              <!-- Bardağın Gövdesi -->
+              <path d="M18 20L21 54C21 57.5 24 60 28 60H44C48 60 51 57.5 51 54L54 20H18Z" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Bardak Çizgileri / Kabartmalar -->
+              <line x1="28" y1="26" x2="29" y2="52" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+              <line x1="36" y1="26" x2="36" y2="52" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+              <line x1="44" y1="26" x2="43" y2="52" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+              <!-- Kulp -->
+              <path d="M52 26C58 26 61 30 61 37C61 44 57 48 50 48" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+
+            <!-- Mekan Adı -->
+            <div class="venue-title-wrapper">
+              <div id="previewVenueName" class="venue-name">ARENA SPORTS PUB & BISTRO</div>
+              <div class="venue-subtitle">BÜYÜK MAÇ CANLI YAYIN</div>
+              <div class="header-divider">
+                <div class="header-divider-line"></div>
+                <div class="header-divider-diamond"></div>
+                <div class="header-divider-line"></div>
+              </div>
+            </div>
+
+            <!-- Sağ Arjantin Bira Bardağı SVG (Aynalanmış) -->
+            <svg class="beer-icon" style="transform: scaleX(-1);" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 19C15 19 13 16.5 13 13.5C13 10.5 16 8 19 8C20 5.5 23 4 27 4C31 4 34 5.5 36 7C38 5 42 5 45 7.5C48 6.5 52 8 52 11.5C53.5 13 54 15 53 17C54.5 18.5 54 20 51 20H18Z" fill="currentColor"/>
+              <path d="M18 20L21 54C21 57.5 24 60 28 60H44C48 60 51 57.5 51 54L54 20H18Z" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="28" y1="26" x2="29" y2="52" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+              <line x1="36" y1="26" x2="36" y2="52" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+              <line x1="44" y1="26" x2="43" y2="52" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M52 26C58 26 61 30 61 37C61 44 57 48 50 48" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+
+          <!-- ORTA KISIM: Takımlar & Çapraz Kılıçlar & VS -->
+          <div class="poster-matchup">
+            
+            <!-- Takım A -->
+            <div class="team-box">
+              <div class="team-logo-container">
+                <img id="previewTeamALogo" class="team-logo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,5 95,25 80,85 50,98 20,85 5,25' fill='%23A90432' stroke='%23FDB912' stroke-width='4'/><text x='50' y='60' font-family='sans-serif' font-size='32' font-weight='900' fill='%23FDB912' text-anchor='middle'>GS</text></svg>" alt="Takım A Logo">
+              </div>
+              <div id="previewTeamAName" class="team-name">GALATASARAY</div>
+            </div>
+
+            <!-- VS & Çapraz Kılıçlar SVG -->
+            <div class="vs-separator">
+              <svg class="swords-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Sol Kılıç (Sol-Üstten Sağ-Alta) -->
+                <line x1="15" y1="15" x2="72" y2="72" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/>
+                <line x1="12" y1="18" x2="20" y2="10" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+                <!-- Kabza ve Balçak 1 -->
+                <line x1="65" y1="79" x2="79" y2="65" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+                <line x1="72" y1="72" x2="85" y2="85" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+                <circle cx="87" cy="87" r="3.5" fill="currentColor"/>
+
+                <!-- Sağ Kılıç (Sağ-Üstten Sol-Alta) -->
+                <line x1="85" y1="15" x2="28" y2="72" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/>
+                <line x1="88" y1="18" x2="80" y2="10" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+                <!-- Kabza ve Balçak 2 -->
+                <line x1="35" y1="79" x2="21" y2="65" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+                <line x1="28" y1="72" x2="15" y2="85" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+                <circle cx="13" cy="87" r="3.5" fill="currentColor"/>
+              </svg>
+              
+              <div class="vs-badge">VS</div>
+              <div class="vs-subtext">DERBİ GÜNÜ</div>
+            </div>
+
+            <!-- Takım B -->
+            <div class="team-box">
+              <div class="team-logo-container">
+                <img id="previewTeamBLogo" class="team-logo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,5 95,25 80,85 50,98 20,85 5,25' fill='%23002D72' stroke='%23FFED02' stroke-width='4'/><text x='50' y='60' font-family='sans-serif' font-size='32' font-weight='900' fill='%23FFED02' text-anchor='middle'>FB</text></svg>" alt="Takım B Logo">
+              </div>
+              <div id="previewTeamBName" class="team-name">FENERBAHÇE</div>
+            </div>
+
+          </div>
+
+          <!-- ALT KISIM: Gün, Tarih, Saat -->
+          <div class="poster-footer">
+            <div id="previewMatchDay" class="match-day">CUMARTESİ</div>
+            <div class="match-meta-pill">
+              <span id="previewMatchDate" class="match-date">18 MAYIS 2025</span>
+              <span class="match-dot"></span>
+              <span id="previewMatchTime" class="match-time">20:45</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    // DOM Element Referansları
+    const fontSelect = document.getElementById('fontSelect');
+    const mainColorInput = document.getElementById('mainColorInput');
+    const mainColorVal = document.getElementById('mainColorVal');
+    const accentColorInput = document.getElementById('accentColorInput');
+    const accentColorVal = document.getElementById('accentColorVal');
+
+    const venueInput = document.getElementById('venueInput');
+    const teamANameInput = document.getElementById('teamANameInput');
+    const teamAFileInput = document.getElementById('teamAFileInput');
+    const teamAUrlInput = document.getElementById('teamAUrlInput');
+
+    const teamBNameInput = document.getElementById('teamBNameInput');
+    const teamBFileInput = document.getElementById('teamBFileInput');
+    const teamBUrlInput = document.getElementById('teamBUrlInput');
+
+    const matchDayInput = document.getElementById('matchDayInput');
+    const matchDateInput = document.getElementById('matchDateInput');
+    const matchTimeInput = document.getElementById('matchTimeInput');
+
+    const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+    const posterPreview = document.getElementById('poster-preview');
+
+    // Önizleme Hedef Elementleri
+    const previewVenueName = document.getElementById('previewVenueName');
+    const previewTeamAName = document.getElementById('previewTeamAName');
+    const previewTeamALogo = document.getElementById('previewTeamALogo');
+    const previewTeamBName = document.getElementById('previewTeamBName');
+    const previewTeamBLogo = document.getElementById('previewTeamBLogo');
+    const previewMatchDay = document.getElementById('previewMatchDay');
+    const previewMatchDate = document.getElementById('previewMatchDate');
+    const previewMatchTime = document.getElementById('previewMatchTime');
+
+    // 1. Yazı Tipi Değişimi
+    fontSelect.addEventListener('change', function() {
+      document.documentElement.style.setProperty('--poster-font', this.value);
+    });
+
+    // 2. Renk Değişimleri
+    mainColorInput.addEventListener('input', function() {
+      const val = this.value;
+      mainColorVal.textContent = val.toUpperCase();
+      document.documentElement.style.setProperty('--main-color', val);
+    });
+
+    accentColorInput.addEventListener('input', function() {
+      const val = this.value;
+      accentColorVal.textContent = val.toUpperCase();
+      document.documentElement.style.setProperty('--accent-color', val);
+    });
+
+    // 3. Metin Alanları Canlı Güncelleme
+    venueInput.addEventListener('input', function() {
+      previewVenueName.textContent = this.value.trim() || 'MEKAN ADI';
+    });
+
+    teamANameInput.addEventListener('input', function() {
+      previewTeamAName.textContent = this.value.trim() || 'TAKIM A';
+    });
+
+    teamBNameInput.addEventListener('input', function() {
+      previewTeamBName.textContent = this.value.trim() || 'TAKIM B';
+    });
+
+    matchDayInput.addEventListener('input', function() {
+      previewMatchDay.textContent = this.value.trim() || 'GÜN';
+    });
+
+    matchDateInput.addEventListener('input', function() {
+      previewMatchDate.textContent = this.value.trim() || 'TARİH';
+    });
+
+    matchTimeInput.addEventListener('input', function() {
+      previewMatchTime.textContent = this.value.trim() || '00:00';
+    });
+
+    // 4. Logo Yönetimi - Takım A (Dosya Yükleme & URL)
+    teamAFileInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          previewTeamALogo.src = evt.target.result;
+          teamAUrlInput.value = '';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    teamAUrlInput.addEventListener('input', function() {
+      const url = this.value.trim();
+      if (url) {
+        previewTeamALogo.src = url;
+      }
+    });
+
+    // 5. Logo Yönetimi - Takım B (Dosya Yükleme & URL)
+    teamBFileInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          previewTeamBLogo.src = evt.target.result;
+          teamBUrlInput.value = '';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    teamBUrlInput.addEventListener('input', function() {
+      const url = this.value.trim();
+      if (url) {
+        previewTeamBLogo.src = url;
+      }
+    });
+
+    // Logo yükleme hatalarına karşı koruma
+    [previewTeamALogo, previewTeamBLogo].forEach(img => {
+      img.addEventListener('error', function() {
+        this.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23e2e8f0' stroke='%2394a3b8' stroke-width='4'/><text x='50' y='58' font-family='sans-serif' font-size='20' font-weight='bold' fill='%2364748b' text-anchor='middle'>LOGO</text></svg>";
+      });
+    });
+
+    // 6. PDF İndirme Fonksiyonu (html2pdf)
+    downloadPdfBtn.addEventListener('click', function() {
+      const originalText = downloadPdfBtn.innerHTML;
+      downloadPdfBtn.innerHTML = '<span>Lütfen Bekleyin, PDF Hazırlanıyor...</span>';
+      downloadPdfBtn.style.opacity = '0.7';
+      downloadPdfBtn.disabled = true;
+
+      const opt = {
+        margin: 0,
+        filename: 'mac-duyurusu.pdf',
+        image: { type: 'jpeg', quality: 0.99 },
+        html2canvas: {
+          scale: 3,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: '#ffffff',
+          letterRendering: true,
+          scrollY: 0,
+          scrollX: 0
+        },
+        jsPDF: {
+          unit: 'mm',
+          format: 'a4',
+          orientation: 'landscape'
+        }
+      };
+
+      html2pdf()
+        .set(opt)
+        .from(posterPreview)
+        .save()
+        .then(() => {
+          downloadPdfBtn.innerHTML = originalText;
+          downloadPdfBtn.style.opacity = '1';
+          downloadPdfBtn.disabled = false;
+        })
+        .catch(err => {
+          console.error('PDF oluşturma hatası:', err);
+          downloadPdfBtn.innerHTML = originalText;
+          downloadPdfBtn.style.opacity = '1';
+          downloadPdfBtn.disabled = false;
+          alert('PDF oluşturulurken bir hata meydana geldi.');
+        });
+    });
+
+    // Başlangıç Değerlerini Uygula
+    document.documentElement.style.setProperty('--poster-font', fontSelect.value);
+    document.documentElement.style.setProperty('--main-color', mainColorInput.value);
+    document.documentElement.style.setProperty('--accent-color', accentColorInput.value);
+  </script>
+</body>
+</html>
