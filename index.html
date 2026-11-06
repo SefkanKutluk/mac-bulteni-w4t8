@@ -11,9 +11,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,700&family=Bebas+Neue&family=Kanit:ital,wght@0,700;0,800;0,900;1,700&family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600&family=Oswald:wght@500;600;700&family=Righteous&family=Russo+One&family=Teko:wght@600;700&display=swap" rel="stylesheet">
 
-  <!-- Kütüphaneler: html2canvas ve html2pdf.js CDN -->
+  <!-- Kütüphaneler: html2canvas ve jsPDF CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <style>
     * {
@@ -1685,7 +1685,7 @@
             <div class="date-beer-row">
               <!-- Sol Bira Bardağı (Tarihin Solu) -->
               <div id="beerLeftBox" class="beer-side-box">
-                <svg class="beer-toast-svg" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+                <svg class="beer-toast-svg" width="80" height="60" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="80" cy="20" r="3.2" fill="#F59E0B"/>
                   <circle cx="72" cy="12" r="2.2" fill="#F59E0B"/>
                   <circle cx="88" cy="14" r="2.5" fill="#F59E0B"/>
@@ -1718,7 +1718,7 @@
 
               <!-- Sağ Bira Bardağı (Tarihin Sağı - Aynalanmış) -->
               <div id="beerRightBox" class="beer-side-box">
-                <svg class="beer-toast-svg" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+                <svg class="beer-toast-svg" width="80" height="60" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
                   <g transform="translate(160, 0) scale(-1, 1)">
                     <circle cx="80" cy="20" r="3.2" fill="#F59E0B"/>
                     <circle cx="72" cy="12" r="2.2" fill="#F59E0B"/>
@@ -2223,6 +2223,8 @@
       beerSvgs.forEach(svg => {
         svg.style.width = val + 'px';
         svg.style.height = calcHeight + 'px';
+        svg.setAttribute('width', val);
+        svg.setAttribute('height', calcHeight);
       });
     });
 
@@ -2318,7 +2320,7 @@
       });
     });
 
-    // 9. PDF İNDİRME (A4 DİKEY FORMATINDA)
+    // 9. PDF İNDİRME (A4 DİKEY FORMATINDA - %100 BİRA VE TÜM DETAYLAR DAHİL)
     const downloadPdfBtn = document.getElementById('downloadPdfBtn');
 
     downloadPdfBtn.addEventListener('click', function() {
@@ -2332,44 +2334,41 @@
 
       const currentBg = posterPreview.style.backgroundColor || '#121316';
 
-      const opt = {
-        margin: 0,
-        filename: 'mac-duyurusu-dikey.pdf',
-        image: { type: 'jpeg', quality: 0.99 },
-        html2canvas: {
-          scale: 3,
-          useCORS: true,
-          allowTaint: true,
-          backgroundColor: currentBg,
-          letterRendering: true,
-          scrollY: 0,
-          scrollX: 0
-        },
-        jsPDF: {
+      html2canvas(posterPreview, {
+        scale: 3,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: currentBg,
+        letterRendering: true,
+        scrollY: 0,
+        scrollX: 0
+      }).then(canvas => {
+        a4Wrapper.style.transform = currentTransform;
+
+        const imgData = canvas.toDataURL('image/jpeg', 0.98);
+        const { jsPDF } = window.jspdf || window;
+        const pdf = new jsPDF({
+          orientation: 'portrait',
           unit: 'mm',
           format: 'a4',
-          orientation: 'portrait'
-        }
-      };
-
-      html2pdf()
-        .set(opt)
-        .from(posterPreview)
-        .save()
-        .then(() => {
-          a4Wrapper.style.transform = currentTransform;
-          downloadPdfBtn.innerHTML = originalText;
-          downloadPdfBtn.style.opacity = '1';
-          downloadPdfBtn.disabled = false;
-        })
-        .catch(err => {
-          console.error('PDF oluşturma hatası:', err);
-          a4Wrapper.style.transform = currentTransform;
-          downloadPdfBtn.innerHTML = originalText;
-          downloadPdfBtn.style.opacity = '1';
-          downloadPdfBtn.disabled = false;
-          alert('PDF oluşturulurken bir hata meydana geldi.');
+          compress: true
         });
+
+        // A4 standart ölçüsü: 210mm x 297mm
+        pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297, undefined, 'FAST');
+        pdf.save('mac-duyurusu-dikey.pdf');
+
+        downloadPdfBtn.innerHTML = originalText;
+        downloadPdfBtn.style.opacity = '1';
+        downloadPdfBtn.disabled = false;
+      }).catch(err => {
+        console.error('PDF oluşturma hatası:', err);
+        a4Wrapper.style.transform = currentTransform;
+        downloadPdfBtn.innerHTML = originalText;
+        downloadPdfBtn.style.opacity = '1';
+        downloadPdfBtn.disabled = false;
+        alert('PDF oluşturulurken bir hata meydana geldi: ' + (err.message || err));
+      });
     });
 
     // 10. GÖRSEL İNDİRME (9:16 DİKEY STORY / REELS FORMATINDA)
