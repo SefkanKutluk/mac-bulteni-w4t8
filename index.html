@@ -460,7 +460,7 @@
       font-size: 0.74rem;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.2s, border-color 0.2s;
     }
 
     .file-btn:hover {
@@ -596,6 +596,23 @@
       transition: background 0.2s ease;
     }
 
+    /* ARKAPLAN GÖRSEL KATMANI (ALFA / SAYDAMLIK ORANI AYARLANABİLİR) */
+    .poster-bg-image-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.22;
+      transition: opacity 0.15s ease, background-image 0.25s ease;
+      background-image: url('bg1.jpg');
+    }
+
     /* İsteğe Bağlı Çerçeveler */
     .poster-inner-frame {
       position: absolute;
@@ -606,7 +623,8 @@
       border: 2px solid #C5A059;
       pointer-events: none;
       box-sizing: border-box;
-      display: none; /* Görsel 1'de çerçeve yok */
+      display: none;
+      z-index: 3;
     }
 
     .poster-inner-frame-double {
@@ -620,6 +638,7 @@
       pointer-events: none;
       box-sizing: border-box;
       display: none;
+      z-index: 3;
     }
 
     /* KELİME BÖLÜNME ÖNLEYİCİ - TÜM METİNLERDE SADECE BOŞLUKTAN ALT SATIRA GEÇİŞ */
@@ -710,6 +729,8 @@
       width: 100%;
       padding: 0 10mm;
       margin-top: 4mm;
+      position: relative;
+      z-index: 2;
     }
 
     .beer-toast-svg {
@@ -970,10 +991,11 @@
         <!-- 1. TEMA & ARKAPLAN -->
         <div class="category-divider">🎨 1. Afiş Arkaplanı & Renk Teması</div>
         
+        <!-- Kağıt Zemin Rengi -->
         <div class="field-card">
           <div class="field-label">
-            <span>Afiş Arkaplan Rengi</span>
-            <span class="tag">Kağıt</span>
+            <span>Afiş Kağıt Rengi</span>
+            <span class="tag">Zemin</span>
           </div>
           <div class="style-row">
             <div class="color-picker-box">
@@ -988,6 +1010,50 @@
               <button type="button" class="chip-btn" style="background: #0D2214;" title="Zümrüt Yeşil" onclick="setPosterBg('#0D2214')"></button>
               <button type="button" class="chip-btn" style="background: #FDFBF7;" title="Krem" onclick="setPosterBg('#FDFBF7')"></button>
               <button type="button" class="chip-btn" style="background: #FFFFFF;" title="Beyaz" onclick="setPosterBg('#FFFFFF')"></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Arkaplan Görseli & Saydamlık (Alfa) Ayarı -->
+        <div class="field-card">
+          <div class="field-label">
+            <span>Arkaplan Görseli & Saydamlık (Alfa)</span>
+            <span class="tag">Mekan Fotoğrafı</span>
+          </div>
+          
+          <!-- Hazır Mekan Fotoğrafları -->
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button type="button" id="btnPresetBg1" class="file-btn" style="flex: 1 1 125px; font-size: 0.72rem; padding: 6px 8px;">
+              🖼️ Mekan 1 (Masa & Raf)
+            </button>
+            <button type="button" id="btnPresetBg2" class="file-btn" style="flex: 1 1 125px; font-size: 0.72rem; padding: 6px 8px;">
+              🖼️ Mekan 2 (Uzun Masa)
+            </button>
+            <button type="button" id="btnRemoveBg" class="file-btn" style="flex: 1 1 95px; font-size: 0.72rem; padding: 6px 8px; color: #ef4444; border-color: rgba(239, 68, 68, 0.4);">
+              🚫 Görseli Kaldır
+            </button>
+          </div>
+
+          <!-- Kendi Fotoğrafını Yükle veya URL -->
+          <div class="style-row" style="margin-top: 2px;">
+            <div class="style-item" style="flex: 1 1 130px;">
+              <div class="file-input-wrapper">
+                <span class="file-btn">📁 Kendi Fotoğrafını Yükle</span>
+                <input type="file" id="bgFileInput" accept="image/*">
+              </div>
+            </div>
+            <div class="style-item" style="flex: 1 1 160px;">
+              <input type="url" id="bgUrlInput" class="form-control" placeholder="Veya Görsel URL'si...">
+            </div>
+          </div>
+
+          <!-- Alfa / Saydamlık Oranı Slider -->
+          <div class="style-row" style="margin-top: 4px;">
+            <div class="style-item size-item" style="flex: 1 1 100%;">
+              <span class="style-label">Görsel Saydamlık / Alfa Oranı: <span id="bgAlphaVal" class="range-label-val">22%</span></span>
+              <div class="range-box">
+                <input type="range" id="bgAlphaInput" min="0" max="100" value="22">
+              </div>
             </div>
           </div>
         </div>
@@ -1490,6 +1556,9 @@
       <div class="a4-portrait-wrapper" id="a4Wrapper">
         <div id="poster-preview">
           
+          <!-- Arkaplan Görsel Katmanı (Alfa / Saydamlık Oranı Ayarlanabilir) -->
+          <div id="posterBgImageLayer" class="poster-bg-image-layer"></div>
+
           <div id="posterFrame1" class="poster-inner-frame"></div>
           <div id="posterFrame2" class="poster-inner-frame-double"></div>
 
@@ -1735,7 +1804,7 @@
     });
     setTimeout(initResponsiveScale, 100);
 
-    // 4. Afiş Arkaplan Rengi Yönetimi
+    // 4. Afiş Arkaplan Kağıt Rengi Yönetimi
     const posterBgInput = document.getElementById('posterBgInput');
     const posterBgHex = document.getElementById('posterBgHex');
 
@@ -1749,7 +1818,64 @@
       setPosterBg(this.value);
     });
 
-    // 5. Otomatik Bağlama Yardımcı Fonksiyonu
+    // 5. Arkaplan Görseli ve Saydamlık (Alfa) Yönetimi
+    const posterBgImageLayer = document.getElementById('posterBgImageLayer');
+    const bgAlphaInput = document.getElementById('bgAlphaInput');
+    const bgAlphaVal = document.getElementById('bgAlphaVal');
+    const btnPresetBg1 = document.getElementById('btnPresetBg1');
+    const btnPresetBg2 = document.getElementById('btnPresetBg2');
+    const btnRemoveBg = document.getElementById('btnRemoveBg');
+    const bgFileInput = document.getElementById('bgFileInput');
+    const bgUrlInput = document.getElementById('bgUrlInput');
+
+    // Alfa slider
+    bgAlphaInput.addEventListener('input', function() {
+      const val = parseInt(this.value, 10);
+      bgAlphaVal.textContent = val + '%';
+      posterBgImageLayer.style.opacity = (val / 100).toString();
+    });
+
+    // Hazır Görsel 1
+    btnPresetBg1.addEventListener('click', function() {
+      posterBgImageLayer.style.backgroundImage = "url('bg1.jpg')";
+      bgUrlInput.value = '';
+    });
+
+    // Hazır Görsel 2
+    btnPresetBg2.addEventListener('click', function() {
+      posterBgImageLayer.style.backgroundImage = "url('bg2.jpg')";
+      bgUrlInput.value = '';
+    });
+
+    // Görseli Kaldır
+    btnRemoveBg.addEventListener('click', function() {
+      posterBgImageLayer.style.backgroundImage = "none";
+      bgUrlInput.value = '';
+      bgFileInput.value = '';
+    });
+
+    // Kendi Görselini Yükle (FileReader)
+    bgFileInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          posterBgImageLayer.style.backgroundImage = `url('${evt.target.result}')`;
+          bgUrlInput.value = '';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Görsel URL'si Yapıştır
+    bgUrlInput.addEventListener('input', function() {
+      const url = this.value.trim();
+      if (url) {
+        posterBgImageLayer.style.backgroundImage = `url('${url}')`;
+      }
+    });
+
+    // 6. Otomatik Bağlama Yardımcı Fonksiyonu
     function bindTextControl(config) {
       const textInput = document.getElementById(config.textId);
       const fontInput = document.getElementById(config.fontId);
@@ -2033,7 +2159,7 @@
       });
     });
 
-    // 6. PDF İNDİRME (A4 DİKEY FORMATINDA)
+    // 7. PDF İNDİRME (A4 DİKEY FORMATINDA)
     const downloadPdfBtn = document.getElementById('downloadPdfBtn');
 
     downloadPdfBtn.addEventListener('click', function() {
@@ -2087,7 +2213,7 @@
         });
     });
 
-    // 7. GÖRSEL İNDİRME (9:16 DİKEY STORY / REELS FORMATINDA)
+    // 8. GÖRSEL İNDİRME (9:16 DİKEY STORY / REELS FORMATINDA)
     const downloadImgBtn = document.getElementById('downloadImgBtn');
 
     downloadImgBtn.addEventListener('click', function() {
