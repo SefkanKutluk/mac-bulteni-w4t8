@@ -222,9 +222,9 @@
 
     /* SOL: KONTROL PANELİ */
     .control-panel {
-      width: 480px;
-      min-width: 430px;
-      max-width: 520px;
+      width: 490px;
+      min-width: 440px;
+      max-width: 530px;
       height: 100%;
       background: #0f172a;
       border-right: 1px solid #1e293b;
@@ -460,11 +460,12 @@
       font-size: 0.74rem;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
     }
 
     .file-btn:hover {
       background: #2d3b4e;
+      border-color: #38bdf8;
     }
 
     .file-input-wrapper input[type="file"] {
@@ -583,7 +584,7 @@
       min-height: 297mm;
       max-width: 210mm;
       max-height: 297mm;
-      background: #121316; /* 1. Görseldeki Şık Koyu Antrasit Arkaplan */
+      background-color: #121316; /* 1. Görseldeki Şık Koyu Antrasit */
       box-shadow: none !important;
       position: relative;
       box-sizing: border-box;
@@ -593,11 +594,11 @@
       justify-content: space-between;
       overflow: hidden;
       -webkit-font-smoothing: antialiased;
-      transition: background 0.2s ease;
+      transition: background-color 0.2s ease;
     }
 
-    /* ARKAPLAN GÖRSEL KATMANI (ALFA / SAYDAMLIK ORANI AYARLANABİLİR) */
-    .poster-bg-image-layer {
+    /* ÖZEL DOKU / KAĞIT KATMANI (Yıldızlı Gökyüzü, Galaksi, Stadyum vb.) */
+    .poster-texture-layer {
       position: absolute;
       top: 0;
       left: 0;
@@ -608,6 +609,22 @@
       background-repeat: no-repeat;
       pointer-events: none;
       z-index: 1;
+      opacity: 0;
+      transition: opacity 0.3s ease, background-image 0.3s ease;
+    }
+
+    /* ARKAPLAN FOTOĞRAF KATMANI (ALFA / SAYDAMLIK ORANI AYARLANABİLİR) */
+    .poster-bg-image-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      z-index: 2;
       opacity: 0.22;
       transition: opacity 0.15s ease, background-image 0.25s ease;
       background-image: url('bg1.jpg');
@@ -624,7 +641,7 @@
       pointer-events: none;
       box-sizing: border-box;
       display: none;
-      z-index: 3;
+      z-index: 4;
     }
 
     .poster-inner-frame-double {
@@ -638,7 +655,7 @@
       pointer-events: none;
       box-sizing: border-box;
       display: none;
-      z-index: 3;
+      z-index: 4;
     }
 
     /* KELİME BÖLÜNME ÖNLEYİCİ - TÜM METİNLERDE SADECE BOŞLUKTAN ALT SATIRA GEÇİŞ */
@@ -667,7 +684,7 @@
       justify-content: center;
       padding-top: 2mm;
       position: relative;
-      z-index: 2;
+      z-index: 3;
       text-align: center;
     }
 
@@ -682,15 +699,16 @@
       margin-bottom: 8px;
     }
 
-    /* Büyük 'MUHABBET' Mekan Başlığı */
+    /* Büyük 'MUHABBET' Mekan Başlığı (Punto 115pt'ye kadar artırılabilir) */
     .venue-name {
-      font-size: 54pt;
-      line-height: 0.95;
+      font-size: 58pt;
+      line-height: 0.92;
       font-weight: 900;
       color: #FFFFFF;
       font-family: 'Bebas Neue', sans-serif;
       text-transform: uppercase;
       letter-spacing: 3.5px;
+      max-width: 650px;
     }
 
     /* Alt Başlık 'RESTAURANT' */
@@ -721,25 +739,7 @@
       line-height: 1.3;
     }
 
-    /* İsteğe Bağlı Bira Bardakları Satırı */
-    .optional-beer-row {
-      display: none;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      padding: 0 10mm;
-      margin-top: 4mm;
-      position: relative;
-      z-index: 2;
-    }
-
-    .beer-toast-svg {
-      width: 70px;
-      height: 52px;
-      display: block;
-    }
-
-    /* ORTA KARŞILAŞMA BÖLÜMÜ: YUVARLAK BEYAZ ÇERÇEVELİ LOGOLAR VE VS */
+    /* ORTA KARŞILAŞMA BÖLÜMÜ: YUVARLAK BEYAZ ÇERÇEVELİ LOGOLAR VE SADE VS */
     .poster-matchup {
       display: flex;
       align-items: center;
@@ -747,7 +747,7 @@
       gap: 32px;
       padding: 0 4mm;
       position: relative;
-      z-index: 2;
+      z-index: 3;
       flex: 1;
       margin: 8mm 0;
     }
@@ -810,20 +810,9 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      width: 90px;
+      width: 80px;
       flex-shrink: 0;
       position: relative;
-    }
-
-    .swords-svg-container {
-      display: none;
-      margin-bottom: 6px;
-    }
-
-    .swords-svg {
-      width: 68px;
-      height: 68px;
-      display: block;
     }
 
     .vs-badge {
@@ -836,7 +825,7 @@
       text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     }
 
-    /* ALT BÖLÜM: TARİH, SAAT VE MEKAN BİLGİSİ */
+    /* ALT BÖLÜM: TARİHİN İKİ YANINDA BİRA BARDAKLARI, SAAT VE MEKAN */
     .poster-footer {
       display: flex;
       flex-direction: column;
@@ -844,7 +833,7 @@
       justify-content: center;
       padding-bottom: 3mm;
       position: relative;
-      z-index: 2;
+      z-index: 3;
     }
 
     /* Küçük Altın Ayraç Çizgisi */
@@ -854,6 +843,37 @@
       background: #C5A059;
       border-radius: 2px;
       margin-bottom: 16px;
+    }
+
+    /* Tarih ve İki Yanındaki Bira Bardakları Satırı */
+    .date-beer-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .beer-side-box {
+      display: none; /* Varsayılan kapalı; kullanıcı checkbox ile açar */
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .beer-toast-svg {
+      width: 80px;
+      height: 60px;
+      display: block;
+      transition: width 0.1s, height 0.1s;
+    }
+
+    .date-time-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
 
     .match-date {
@@ -988,8 +1008,8 @@
       
       <div class="editor-single-box">
         
-        <!-- 1. TEMA & ARKAPLAN -->
-        <div class="category-divider">🎨 1. Afiş Arkaplanı & Renk Teması</div>
+        <!-- 1. TEMA, KAĞIT TÜRLERİ & ARKAPLAN -->
+        <div class="category-divider">🎨 1. Afiş Arkaplanı, Kağıt Türleri & Temalar</div>
         
         <!-- Kağıt Zemin Rengi -->
         <div class="field-card">
@@ -1014,14 +1034,47 @@
           </div>
         </div>
 
+        <!-- Çeşitlendirilmiş Kağıt ve Doku Türleri (Yıldızlı Gökyüzü, Galaksi, Stadyum vb.) -->
+        <div class="field-card">
+          <div class="field-label">
+            <span>Kağıt Türü & Atmosferik Temalar</span>
+            <span class="tag">Özel Doku</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 7px;">
+            <button type="button" class="file-btn" onclick="setPaperTexture('none')">
+              ⬛ Sade Zemin
+            </button>
+            <button type="button" class="file-btn" onclick="setPaperTexture('starry')">
+              ✨ Yıldızlı Gökyüzü
+            </button>
+            <button type="button" class="file-btn" onclick="setPaperTexture('galaxy')">
+              🌌 Kozmik Galaksi
+            </button>
+            <button type="button" class="file-btn" onclick="setPaperTexture('stadium')">
+              🏟️ Gece Stadyumu
+            </button>
+            <button type="button" class="file-btn" onclick="setPaperTexture('gold-bokeh')">
+              🌟 Altın Parıltı
+            </button>
+            <button type="button" class="file-btn" onclick="setPaperTexture('smoke')">
+              🌫️ Dumanlı Gece
+            </button>
+            <button type="button" class="file-btn" onclick="setPaperTexture('carbon')">
+              🏁 Karbon Fiber
+            </button>
+            <button type="button" class="file-btn" onclick="setPaperTexture('wood')">
+              🪵 Koyu Ahşap
+            </button>
+          </div>
+        </div>
+
         <!-- Arkaplan Görseli & Saydamlık (Alfa) Ayarı -->
         <div class="field-card">
           <div class="field-label">
-            <span>Arkaplan Görseli & Saydamlık (Alfa)</span>
-            <span class="tag">Mekan Fotoğrafı</span>
+            <span>Mekan Fotoğrafı & Saydamlık (Alfa)</span>
+            <span class="tag">Ambiyans</span>
           </div>
           
-          <!-- Hazır Mekan Fotoğrafları -->
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
             <button type="button" id="btnPresetBg1" class="file-btn" style="flex: 1 1 125px; font-size: 0.72rem; padding: 6px 8px;">
               🖼️ Mekan 1 (Masa & Raf)
@@ -1030,11 +1083,10 @@
               🖼️ Mekan 2 (Uzun Masa)
             </button>
             <button type="button" id="btnRemoveBg" class="file-btn" style="flex: 1 1 95px; font-size: 0.72rem; padding: 6px 8px; color: #ef4444; border-color: rgba(239, 68, 68, 0.4);">
-              🚫 Görseli Kaldır
+              🚫 Fotoğrafı Kaldır
             </button>
           </div>
 
-          <!-- Kendi Fotoğrafını Yükle veya URL -->
           <div class="style-row" style="margin-top: 2px;">
             <div class="style-item" style="flex: 1 1 130px;">
               <div class="file-input-wrapper">
@@ -1047,10 +1099,9 @@
             </div>
           </div>
 
-          <!-- Alfa / Saydamlık Oranı Slider -->
           <div class="style-row" style="margin-top: 4px;">
             <div class="style-item size-item" style="flex: 1 1 100%;">
-              <span class="style-label">Görsel Saydamlık / Alfa Oranı: <span id="bgAlphaVal" class="range-label-val">22%</span></span>
+              <span class="style-label">Fotoğraf Saydamlık / Alfa Oranı: <span id="bgAlphaVal" class="range-label-val">22%</span></span>
               <div class="range-box">
                 <input type="range" id="bgAlphaInput" min="0" max="100" value="22">
               </div>
@@ -1120,11 +1171,11 @@
           </div>
         </div>
 
-        <!-- Mekan Adı: MUHABBET -->
+        <!-- Mekan Adı: MUHABBET (115pt'ye kadar artırılabilir) -->
         <div class="field-card">
           <div class="field-label">
             <span>Mekan Adı</span>
-            <span class="tag">Büyük Ana Başlık</span>
+            <span class="tag">Büyük Başlık</span>
           </div>
           <input type="text" id="venueText" class="form-control" value="MUHABBET" placeholder="Mekan adını girin...">
           <div class="style-row">
@@ -1150,9 +1201,9 @@
               </div>
             </div>
             <div class="style-item size-item">
-              <span class="style-label">Boyut: <span id="venueSizeVal" class="range-label-val">54pt</span></span>
+              <span class="style-label">Punto: <span id="venueSizeVal" class="range-label-val">58pt</span></span>
               <div class="range-box">
-                <input type="range" id="venueSize" min="28" max="72" value="54">
+                <input type="range" id="venueSize" min="28" max="115" value="58">
               </div>
             </div>
           </div>
@@ -1234,8 +1285,8 @@
           </div>
         </div>
 
-        <!-- 3. TAKIM BİLGİLERİ -->
-        <div class="category-divider">🛡️ 3. Takım Bilgileri & Logolar</div>
+        <!-- 3. TAKIM BİLGİLERİ (SÜPER LİG VE POPÜLER TAKIMLAR) -->
+        <div class="category-divider">🛡️ 3. Takım Bilgileri & Süper Lig Logoları</div>
 
         <!-- Takım A -->
         <div class="field-card">
@@ -1243,6 +1294,10 @@
             <span>1. Takım (Ev Sahibi)</span>
             <span class="tag">Sol</span>
           </div>
+          <!-- Hızlı Süper Lig Seçimi -->
+          <select id="teamAQuickSelect" class="form-control" style="border-color: #38bdf8; font-weight: 600;">
+            <option value="">🎯 Süper Lig & Popüler Takım Seç...</option>
+          </select>
           <input type="text" id="teamAText" class="form-control" value="AMED SPOR" placeholder="Takım A adı">
           <div class="style-row">
             <div class="style-item font-item">
@@ -1300,6 +1355,10 @@
             <span>2. Takım (Deplasman)</span>
             <span class="tag">Sağ</span>
           </div>
+          <!-- Hızlı Süper Lig Seçimi -->
+          <select id="teamBQuickSelect" class="form-control" style="border-color: #38bdf8; font-weight: 600;">
+            <option value="">🎯 Süper Lig & Popüler Takım Seç...</option>
+          </select>
           <input type="text" id="teamBText" class="form-control" value="EYÜPSPOR" placeholder="Takım B adı">
           <div class="style-row">
             <div class="style-item font-item">
@@ -1351,8 +1410,8 @@
           </div>
         </div>
 
-        <!-- 4. ORTA ALAN: VS & İSTEĞE BAĞLI İKONLAR -->
-        <div class="category-divider">⚔️ 4. Orta Karşılaşma (VS & İkonlar)</div>
+        <!-- 4. ORTA ALAN: VS & ÇERÇEVE AYARI -->
+        <div class="category-divider">⚔️ 4. Karşılaşma (VS & Çerçeve)</div>
 
         <div class="field-card">
           <div class="field-label">
@@ -1389,20 +1448,16 @@
               </div>
             </div>
           </div>
-          <div style="margin-top: 6px; display: flex; flex-direction: column; gap: 8px;">
+          <div style="margin-top: 6px;">
             <label class="checkbox-label">
               <input type="checkbox" id="toggleCircleFrameCheckbox" checked>
               <span>1. Görseldeki Beyaz Yuvarlak Logo Çerçevesi</span>
             </label>
-            <label class="checkbox-label">
-              <input type="checkbox" id="toggleIconsCheckbox">
-              <span>Bira Bardakları ve Çapraz Kılıçları Göster (İsteğe Bağlı)</span>
-            </label>
           </div>
         </div>
 
-        <!-- 5. ZAMAN & ADRES -->
-        <div class="category-divider">📅 5. Tarih, Saat & Mekan Bilgisi</div>
+        <!-- 5. ZAMAN, TARİH YANI BİRA VE MEKAN BİLGİSİ -->
+        <div class="category-divider">📅 5. Tarih, Bira Bardakları & Mekan Bilgisi</div>
 
         <div class="field-card">
           <div class="field-label">
@@ -1436,6 +1491,26 @@
               <span class="style-label">Boyut: <span id="dateSizeVal" class="range-label-val">34pt</span></span>
               <div class="range-box">
                 <input type="range" id="dateSize" min="16" max="48" value="34">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarihin İki Yanındaki Bira Bardakları Kontrolü -->
+        <div class="field-card">
+          <div class="field-label">
+            <span>Bira Bardakları (Tarih Yanı)</span>
+            <span class="tag">İsteğe Bağlı</span>
+          </div>
+          <label class="checkbox-label">
+            <input type="checkbox" id="toggleBeerCheckbox">
+            <span>Tarihin İki Tarafında Bira Bardaklarını Göster</span>
+          </label>
+          <div class="style-row" style="margin-top: 6px;">
+            <div class="style-item size-item" style="flex: 1 1 100%;">
+              <span class="style-label">Bira Bardakları Boyutu: <span id="beerSizeVal" class="range-label-val">80px</span></span>
+              <div class="range-box">
+                <input type="range" id="beerSize" min="40" max="180" value="80">
               </div>
             </div>
           </div>
@@ -1556,7 +1631,10 @@
       <div class="a4-portrait-wrapper" id="a4Wrapper">
         <div id="poster-preview">
           
-          <!-- Arkaplan Görsel Katmanı (Alfa / Saydamlık Oranı Ayarlanabilir) -->
+          <!-- Özel Doku Katmanı (Yıldızlı Gökyüzü, Galaksi, Stadyum Işıkları vb.) -->
+          <div id="posterTextureLayer" class="poster-texture-layer"></div>
+
+          <!-- Arkaplan Fotoğraf Katmanı (Alfa / Saydamlık Oranı Ayarlanabilir) -->
           <div id="posterBgImageLayer" class="poster-bg-image-layer"></div>
 
           <div id="posterFrame1" class="poster-inner-frame"></div>
@@ -1574,131 +1652,100 @@
             </div>
           </div>
 
-          <!-- İsteğe Bağlı Bira Bardakları Satırı -->
-          <div id="optionalBeerRow" class="optional-beer-row">
-            <svg class="beer-toast-svg" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="80" cy="20" r="3.2" fill="#F59E0B"/>
-              <circle cx="72" cy="12" r="2.2" fill="#F59E0B"/>
-              <circle cx="88" cy="14" r="2.5" fill="#F59E0B"/>
-              <circle cx="79" cy="8" r="1.8" fill="#F59E0B"/>
-              <path d="M78 26 C75 22 85 22 82 26 Z" fill="#F59E0B"/>
-              <g transform="translate(48, 64) rotate(16) translate(-48, -64)">
-                <path d="M22 45 C10 45 10 76 22 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
-                <path d="M22 48 C14 48 14 73 22 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
-                <path d="M26 38 L30 92 C30 96 34 98 40 98 L66 98 C72 98 76 96 76 92 L80 38 Z" fill="#FBBF24" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
-                <path d="M34 46 L36 88" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
-                <path d="M46 50 L47 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
-                <path d="M23 40 C20 40 18 35 20 30 C22 25 28 26 30 23 C34 18 42 19 46 22 C50 17 60 17 64 22 C70 19 78 22 80 28 C82 33 80 38 78 40 C75 42 70 41 68 39 C65 44 58 45 54 41 C50 46 42 47 38 41 C35 44 26 44 23 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
-              </g>
-              <g transform="translate(112, 64) rotate(-16) translate(-112, -64)">
-                <path d="M138 45 C150 45 150 76 138 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
-                <path d="M138 48 C146 48 146 73 138 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
-                <path d="M84 38 L88 92 C88 96 92 98 98 98 L124 98 C130 98 134 96 134 92 L138 38 Z" fill="#FBBF24" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
-                <path d="M126 46 L124 88" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
-                <path d="M114 50 L113 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
-                <path d="M82 40 C80 40 78 35 80 30 C82 25 88 26 90 23 C94 18 102 19 106 22 C110 17 120 17 124 22 C130 19 138 22 140 28 C142 33 140 38 138 40 C135 42 130 41 128 39 C125 44 118 45 114 41 C110 46 102 47 98 41 C95 44 86 44 82 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
-              </g>
-            </svg>
-
-            <svg class="beer-toast-svg" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
-              <g transform="translate(160, 0) scale(-1, 1)">
-                <circle cx="80" cy="20" r="3.2" fill="#F59E0B"/>
-                <circle cx="72" cy="12" r="2.2" fill="#F59E0B"/>
-                <circle cx="88" cy="14" r="2.5" fill="#F59E0B"/>
-                <circle cx="79" cy="8" r="1.8" fill="#F59E0B"/>
-                <path d="M78 26 C75 22 85 22 82 26 Z" fill="#F59E0B"/>
-                <g transform="translate(48, 64) rotate(16) translate(-48, -64)">
-                  <path d="M22 45 C10 45 10 76 22 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
-                  <path d="M22 48 C14 48 14 73 22 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
-                  <path d="M26 38 L30 92 C30 96 34 98 40 98 L66 98 C72 98 76 96 76 92 L80 38 Z" fill="#FBBF24" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
-                  <path d="M34 46 L36 88" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
-                  <path d="M46 50 L47 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
-                  <path d="M23 40 C20 40 18 35 20 30 C22 25 28 26 30 23 C34 18 42 19 46 22 C50 17 60 17 64 22 C70 19 78 22 80 28 C82 33 80 38 78 40 C75 42 70 41 68 39 C65 44 58 45 54 41 C50 46 42 47 38 41 C35 44 26 44 23 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
-                </g>
-                <g transform="translate(112, 64) rotate(-16) translate(-112, -64)">
-                  <path d="M138 45 C150 45 150 76 138 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
-                  <path d="M138 48 C146 48 146 73 138 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
-                  <path d="M84 38 L88 92 C88 96 92 98 98 98 L124 98 C130 98 134 96 134 92 L138 38 Z" fill="#FBBF24" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
-                  <path d="M126 46 L124 88" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
-                  <path d="M114 50 L113 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
-                  <path d="M82 40 C80 40 78 35 80 30 C82 25 88 26 90 23 C94 18 102 19 106 22 C110 17 120 17 124 22 C130 19 138 22 140 28 C142 33 140 38 138 40 C135 42 130 41 128 39 C125 44 118 45 114 41 C110 46 102 47 98 41 C95 44 86 44 82 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
-                </g>
-              </g>
-            </svg>
-          </div>
-
-          <!-- 2. ORTA KARŞILAŞMA: YUVARLAK BEYAZ ÇERÇEVELİ LOGOLAR VE VS -->
+          <!-- 2. ORTA KARŞILAŞMA: YUVARLAK BEYAZ ÇERÇEVELİ LOGOLAR VE SADE VS -->
           <div class="poster-matchup">
             
-            <!-- Takım A: AMED SPOR -->
+            <!-- Takım A -->
             <div class="team-box">
               <div id="previewTeamALogoCircle" class="team-logo-circle">
-                <img id="previewTeamALogo" class="team-logo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 190'><path d='M10 25 C10 15 20 8 30 8 L130 8 C140 8 150 15 150 25 L150 95 C150 145 80 182 80 182 C80 182 10 145 10 95 Z' fill='%232E7D32' stroke='%23D32F2F' stroke-width='7'/><path d='M18 12 L142 12 L142 36 L128 36 L128 26 L110 26 L110 36 L92 36 L92 26 L68 26 L68 36 L50 36 L50 26 L32 26 L32 36 L18 36 Z' fill='%23D32F2F'/><path d='M30 52 C50 42 110 42 130 52' fill='none' id='amedCurve'/><text font-family='sans-serif' font-weight='900' font-size='13' fill='%23FFFFFF' text-anchor='middle'><textPath href='%23amedCurve' startOffset='50%'>AMEDSPOR</textPath></text><g fill='%23FFFFFF'><path d='M80 62 C74 58 70 65 67 72 C62 68 56 70 54 75 C60 78 64 86 64 92 C56 86 42 86 32 94 C42 98 52 102 62 102 C48 108 38 120 34 135 C48 128 62 124 72 124 C68 132 64 142 66 150 C72 144 76 136 80 128 C84 136 88 144 94 150 C96 142 92 132 88 124 C98 124 112 128 126 135 C122 120 112 108 98 102 C108 102 118 98 128 94 C118 86 104 86 96 92 C96 86 100 78 106 75 C104 70 98 68 93 72 C90 65 86 58 80 62 Z'/><circle cx='70' cy='74' r='2.5' fill='%232E7D32'/><circle cx='90' cy='74' r='2.5' fill='%232E7D32'/></g></svg>" alt="Amedspor Logo">
+                <img id="previewTeamALogo" class="team-logo" src="" alt="Takım A Logo">
               </div>
               <div id="previewTeamAName" class="team-name">AMED SPOR</div>
             </div>
 
-            <!-- VS ve İsteğe Bağlı Kılıçlar -->
+            <!-- VS (Kılıçlar kaldırıldı; sade ve şık VS) -->
             <div class="vs-separator">
-              <div id="swordsContainer" class="swords-svg-container">
-                <svg id="previewSwordsSvg" class="swords-svg" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
-                  <g transform="rotate(-45 70 70)">
-                    <path d="M70 8 L81 24 L79 78 L70 80 Z" fill="#94A3B8" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/>
-                    <path d="M70 8 L59 24 L61 78 L70 80 Z" fill="#E2E8F0" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/>
-                    <line x1="70" y1="12" x2="70" y2="76" stroke="#475569" stroke-width="2.5" stroke-linecap="round"/>
-                    <g stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round">
-                      <path d="M50 80 C50 76 60 76 70 76 C80 76 90 76 90 80 L88 88 C78 92 62 92 52 88 Z" fill="#C85A32"/>
-                      <circle cx="48" cy="83" r="5" fill="#E26D45"/>
-                      <circle cx="92" cy="83" r="5" fill="#E26D45"/>
-                    </g>
-                    <g stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round">
-                      <rect x="64" y="88" width="12" height="28" rx="2" fill="#FBBF24"/>
-                      <line x1="64" y1="94" x2="76" y2="94" stroke="#0F172A" stroke-width="3"/>
-                      <line x1="64" y1="100" x2="76" y2="100" stroke="#0F172A" stroke-width="3"/>
-                      <line x1="64" y1="106" x2="76" y2="106" stroke="#0F172A" stroke-width="3"/>
-                      <circle cx="70" cy="120" r="7.5" fill="#FBBF24"/>
-                      <circle cx="70" cy="120" r="3" fill="#D97706"/>
-                    </g>
-                  </g>
-                  <g transform="rotate(45 70 70)">
-                    <path d="M70 8 L81 24 L79 78 L70 80 Z" fill="#94A3B8" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/>
-                    <path d="M70 8 L59 24 L61 78 L70 80 Z" fill="#E2E8F0" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/>
-                    <line x1="70" y1="12" x2="70" y2="76" stroke="#475569" stroke-width="2.5" stroke-linecap="round"/>
-                    <g stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round">
-                      <path d="M50 80 C50 76 60 76 70 76 C80 76 90 76 90 80 L88 88 C78 92 62 92 52 88 Z" fill="#C85A32"/>
-                      <circle cx="48" cy="83" r="5" fill="#E26D45"/>
-                      <circle cx="92" cy="83" r="5" fill="#E26D45"/>
-                    </g>
-                    <g stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round">
-                      <rect x="64" y="88" width="12" height="28" rx="2" fill="#FBBF24"/>
-                      <line x1="64" y1="94" x2="76" y2="94" stroke="#0F172A" stroke-width="3"/>
-                      <line x1="64" y1="100" x2="76" y2="100" stroke="#0F172A" stroke-width="3"/>
-                      <line x1="64" y1="106" x2="76" y2="106" stroke="#0F172A" stroke-width="3"/>
-                      <circle cx="70" cy="120" r="7.5" fill="#FBBF24"/>
-                      <circle cx="70" cy="120" r="3" fill="#D97706"/>
-                    </g>
-                  </g>
-                </svg>
-              </div>
-              
               <div id="previewVsBadge" class="vs-badge">VS</div>
             </div>
 
-            <!-- Takım B: EYÜPSPOR -->
+            <!-- Takım B -->
             <div class="team-box">
               <div id="previewTeamBLogoCircle" class="team-logo-circle">
-                <img id="previewTeamBLogo" class="team-logo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 190'><path d='M12 25 C12 15 22 8 32 8 L128 8 C138 8 148 15 148 25 L148 95 C148 145 80 182 80 182 C80 182 12 145 12 95 Z' fill='%234A148C' stroke='%23E5E7EB' stroke-width='5'/><clipPath id='eyupClip'><path d='M16 25 C16 17 24 12 32 12 L128 12 C136 12 144 17 144 25 L144 95 C144 142 80 178 80 178 C80 178 16 142 16 95 Z'/></clipPath><g clip-path='url(%23eyupClip)'><polygon points='10,10 60,10 20,180 -30,180' fill='%23FBBF24'/><polygon points='60,10 110,10 70,180 20,180' fill='%234A148C'/><polygon points='110,10 160,10 120,180 70,180' fill='%23FBBF24'/><polygon points='160,10 210,10 170,180 120,180' fill='%234A148C'/><rect x='52' y='12' width='56' height='36' rx='4' fill='%23DC2626'/><path d='M78 22 A8 8 0 1 0 78 38 A6 6 0 1 1 78 22 Z' fill='%23FFFFFF'/><polygon points='85,27 86.5,30 90,30 87,32 88,35 85,33 82,35 83,32 80,30 83.5,30' fill='%23FFFFFF'/></g><rect x='14' y='65' width='132' height='34' rx='4' fill='%23FFFFFF' stroke='%234A148C' stroke-width='3'/><text x='80' y='89' font-family='sans-serif' font-weight='900' font-size='16' fill='%234A148C' text-anchor='middle' letter-spacing='1'>EYÜPSPOR</text><rect x='56' y='112' width='48' height='22' rx='3' fill='%23FFFFFF' stroke='%234A148C' stroke-width='2'/><text x='80' y='128' font-family='sans-serif' font-weight='800' font-size='12' fill='%234A148C' text-anchor='middle'>1928</text></svg>" alt="Eyüpspor Logo">
+                <img id="previewTeamBLogo" class="team-logo" src="" alt="Takım B Logo">
               </div>
               <div id="previewTeamBName" class="team-name">EYÜPSPOR</div>
             </div>
 
           </div>
 
-          <!-- 3. ALT KISIM: TARİH, SAAT VE MEKAN BİLGİSİ -->
+          <!-- 3. ALT KISIM: AYRAÇ, TARİHİN İKİ YANINDA BİRA BARDAKLARI, SAAT VE MEKAN -->
           <div class="poster-footer">
             <div id="footerDividerLine" class="footer-divider-line"></div>
-            <div id="previewMatchDate" class="match-date">1 KASIM 2026</div>
-            <div id="previewMatchTime" class="match-time">13.30</div>
+            
+            <div class="date-beer-row">
+              <!-- Sol Bira Bardağı (Tarihin Solu) -->
+              <div id="beerLeftBox" class="beer-side-box">
+                <svg class="beer-toast-svg" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="80" cy="20" r="3.2" fill="#F59E0B"/>
+                  <circle cx="72" cy="12" r="2.2" fill="#F59E0B"/>
+                  <circle cx="88" cy="14" r="2.5" fill="#F59E0B"/>
+                  <circle cx="79" cy="8" r="1.8" fill="#F59E0B"/>
+                  <path d="M78 26 C75 22 85 22 82 26 Z" fill="#F59E0B"/>
+                  <g transform="translate(48, 64) rotate(16) translate(-48, -64)">
+                    <path d="M22 45 C10 45 10 76 22 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M22 48 C14 48 14 73 22 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+                    <path d="M26 38 L30 92 C30 96 34 98 40 98 L66 98 C72 98 76 96 76 92 L80 38 Z" fill="#FBBF24" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                    <path d="M34 46 L36 88" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M46 50 L47 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M23 40 C20 40 18 35 20 30 C22 25 28 26 30 23 C34 18 42 19 46 22 C50 17 60 17 64 22 C70 19 78 22 80 28 C82 33 80 38 78 40 C75 42 70 41 68 39 C65 44 58 45 54 41 C50 46 42 47 38 41 C35 44 26 44 23 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
+                  </g>
+                  <g transform="translate(112, 64) rotate(-16) translate(-112, -64)">
+                    <path d="M138 45 C150 45 150 76 138 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M138 48 C146 48 146 73 138 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+                    <path d="M84 38 L88 92 C88 96 92 98 98 98 L124 98 C130 98 134 96 134 92 L138 38 Z" fill="#FBBF24" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                    <path d="M126 46 L124 88" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M114 50 L113 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M82 40 C80 40 78 35 80 30 C82 25 88 26 90 23 C94 18 102 19 106 22 C110 17 120 17 124 22 C130 19 138 22 140 28 C142 33 140 38 138 40 C135 42 130 41 128 39 C125 44 118 45 114 41 C110 46 102 47 98 41 C95 44 86 44 82 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
+                  </g>
+                </svg>
+              </div>
+
+              <!-- Merkez: Tarih & Saat -->
+              <div class="date-time-box">
+                <div id="previewMatchDate" class="match-date">1 KASIM 2026</div>
+                <div id="previewMatchTime" class="match-time">13.30</div>
+              </div>
+
+              <!-- Sağ Bira Bardağı (Tarihin Sağı - Aynalanmış) -->
+              <div id="beerRightBox" class="beer-side-box">
+                <svg class="beer-toast-svg" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+                  <g transform="translate(160, 0) scale(-1, 1)">
+                    <circle cx="80" cy="20" r="3.2" fill="#F59E0B"/>
+                    <circle cx="72" cy="12" r="2.2" fill="#F59E0B"/>
+                    <circle cx="88" cy="14" r="2.5" fill="#F59E0B"/>
+                    <circle cx="79" cy="8" r="1.8" fill="#F59E0B"/>
+                    <path d="M78 26 C75 22 85 22 82 26 Z" fill="#F59E0B"/>
+                    <g transform="translate(48, 64) rotate(16) translate(-48, -64)">
+                      <path d="M22 45 C10 45 10 76 22 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
+                      <path d="M22 48 C14 48 14 73 22 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+                      <path d="M26 38 L30 92 C30 96 34 98 40 98 L66 98 C72 98 76 96 76 92 L80 38 Z" fill="#FBBF24" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                      <path d="M34 46 L36 88" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
+                      <path d="M46 50 L47 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
+                      <path d="M23 40 C20 40 18 35 20 30 C22 25 28 26 30 23 C34 18 42 19 46 22 C50 17 60 17 64 22 C70 19 78 22 80 28 C82 33 80 38 78 40 C75 42 70 41 68 39 C65 44 58 45 54 41 C50 46 42 47 38 41 C35 44 26 44 23 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
+                    </g>
+                    <g transform="translate(112, 64) rotate(-16) translate(-112, -64)">
+                      <path d="M138 45 C150 45 150 76 138 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
+                      <path d="M138 48 C146 48 146 73 138 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+                      <path d="M84 38 L88 92 C88 96 92 98 98 98 L124 98 C130 98 134 96 134 92 L138 38 Z" fill="#FBBF24" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                      <path d="M126 46 L124 88" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
+                      <path d="M114 50 L113 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
+                      <path d="M82 40 C80 40 78 35 80 30 C82 25 88 26 90 23 C94 18 102 19 106 22 C110 17 120 17 124 22 C130 19 138 22 140 28 C142 33 140 38 138 40 C135 42 130 41 128 39 C125 44 118 45 114 41 C110 46 102 47 98 41 C95 44 86 44 82 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </div>
+
             <div id="previewAddress" class="match-address">VAN • MUHABBET RESTORAN</div>
           </div>
 
@@ -1818,7 +1865,38 @@
       setPosterBg(this.value);
     });
 
-    // 5. Arkaplan Görseli ve Saydamlık (Alfa) Yönetimi
+    // 5. Özel Doku / Kağıt Türleri (Yıldızlı Gökyüzü, Galaksi, Stadyum, Altın vb.)
+    const posterTextureLayer = document.getElementById('posterTextureLayer');
+
+    const PAPER_TEXTURES = {
+      'none': 'none',
+      'starry': "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='1130' viewBox='0 0 800 1130'><defs><linearGradient id='sky' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23080d22'/><stop offset='50%25' stop-color='%23040713'/><stop offset='100%25' stop-color='%23010207'/></linearGradient><radialGradient id='aurora' cx='50%25' cy='20%25' r='60%25'><stop offset='0%25' stop-color='%231e3a8a' stop-opacity='0.35'/><stop offset='60%25' stop-color='%230284c7' stop-opacity='0.15'/><stop offset='100%25' stop-color='%23000000' stop-opacity='0'/></radialGradient></defs><rect width='800' height='1130' fill='url(%23sky)'/><rect width='800' height='1130' fill='url(%23aurora)'/><g fill='%23ffffff'><circle cx='55' cy='85' r='1.2' opacity='0.85'/><circle cx='140' cy='160' r='1.8' opacity='0.9'/><circle cx='230' cy='95' r='1' opacity='0.7'/><circle cx='340' cy='180' r='1.6' opacity='0.95'/><circle cx='480' cy='75' r='1.2' opacity='0.8'/><circle cx='590' cy='140' r='1.5' opacity='0.85'/><circle cx='710' cy='90' r='2' opacity='1'/><circle cx='105' cy='310' r='1.4' opacity='0.75'/><circle cx='260' cy='270' r='1' opacity='0.6'/><circle cx='410' cy='330' r='1.5' opacity='0.8'/><circle cx='630' cy='290' r='1.7' opacity='0.9'/><circle cx='740' cy='360' r='1.2' opacity='0.7'/><circle cx='80' cy='490' r='1' opacity='0.6'/><circle cx='210' cy='440' r='1.6' opacity='0.85'/><circle cx='370' cy='520' r='1.2' opacity='0.7'/><circle cx='560' cy='460' r='1.8' opacity='0.95'/><circle cx='690' cy='540' r='1.4' opacity='0.8'/><circle cx='120' cy='690' r='1.7' opacity='0.85'/><circle cx='280' cy='640' r='1.1' opacity='0.65'/><circle cx='490' cy='710' r='1.5' opacity='0.8'/><circle cx='650' cy='670' r='1.3' opacity='0.75'/><circle cx='720' cy='790' r='1.8' opacity='0.9'/><circle cx='70' cy='890' r='1.4' opacity='0.75'/><circle cx='240' cy='850' r='1.8' opacity='0.95'/><circle cx='430' cy='910' r='1.2' opacity='0.7'/><circle cx='580' cy='870' r='1.6' opacity='0.85'/><circle cx='730' cy='950' r='1' opacity='0.6'/><circle cx='160' cy='1030' r='1.5' opacity='0.8'/><circle cx='350' cy='990' r='1.2' opacity='0.7'/><circle cx='520' cy='1060' r='1.7' opacity='0.9'/><circle cx='670' cy='1020' r='1.4' opacity='0.8'/></g></svg>",
+      'galaxy': "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='1130' viewBox='0 0 800 1130'><defs><linearGradient id='gbase' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%2312061f'/><stop offset='50%25' stop-color='%23080614'/><stop offset='100%25' stop-color='%23020208'/></linearGradient><radialGradient id='neb1' cx='30%25' cy='35%25' r='55%25'><stop offset='0%25' stop-color='%237c3aed' stop-opacity='0.45'/><stop offset='50%25' stop-color='%234338ca' stop-opacity='0.25'/><stop offset='100%25' stop-color='%23000000' stop-opacity='0'/></radialGradient><radialGradient id='neb2' cx='75%25' cy='65%25' r='50%25'><stop offset='0%25' stop-color='%23db2777' stop-opacity='0.35'/><stop offset='60%25' stop-color='%230284c7' stop-opacity='0.15'/><stop offset='100%25' stop-color='%23000000' stop-opacity='0'/></radialGradient></defs><rect width='800' height='1130' fill='url(%23gbase)'/><rect width='800' height='1130' fill='url(%23neb1)'/><rect width='800' height='1130' fill='url(%23neb2)'/><g fill='%23ffffff'><circle cx='120' cy='180' r='1.7' opacity='0.9'/><circle cx='280' cy='120' r='1.2' opacity='0.7'/><circle cx='450' cy='220' r='2' opacity='1'/><circle cx='620' cy='140' r='1.4' opacity='0.8'/><circle cx='190' cy='420' r='1.5' opacity='0.85'/><circle cx='340' cy='370' r='1.8' opacity='0.95'/><circle cx='540' cy='450' r='1.3' opacity='0.75'/><circle cx='680' cy='390' r='1.9' opacity='0.9'/><circle cx='150' cy='680' r='1.6' opacity='0.85'/><circle cx='380' cy='740' r='2' opacity='1'/><circle cx='580' cy='690' r='1.4' opacity='0.8'/><circle cx='720' cy='760' r='1.8' opacity='0.9'/><circle cx='230' cy='950' r='1.5' opacity='0.85'/><circle cx='460' cy='890' r='1.2' opacity='0.7'/><circle cx='640' cy='980' r='1.9' opacity='0.95'/></g></svg>",
+      'stadium': "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='1130' viewBox='0 0 800 1130'><defs><linearGradient id='stbase' x1='0%25' y1='0%25' x2='0%25' y2='100%25'><stop offset='0%25' stop-color='%2308101e'/><stop offset='45%25' stop-color='%23060a12'/><stop offset='100%25' stop-color='%23030508'/></linearGradient><linearGradient id='beamL' x1='0%25' y1='0%25' x2='80%25' y2='90%25'><stop offset='0%25' stop-color='%2338bdf8' stop-opacity='0.4'/><stop offset='40%25' stop-color='%2338bdf8' stop-opacity='0.15'/><stop offset='100%25' stop-color='%23000000' stop-opacity='0'/></linearGradient><linearGradient id='beamR' x1='100%25' y1='0%25' x2='20%25' y2='90%25'><stop offset='0%25' stop-color='%23f59e0b' stop-opacity='0.35'/><stop offset='40%25' stop-color='%23f59e0b' stop-opacity='0.12'/><stop offset='100%25' stop-color='%23000000' stop-opacity='0'/></linearGradient></defs><rect width='800' height='1130' fill='url(%23stbase)'/><polygon points='0,0 280,0 750,1130 0,1130' fill='url(%23beamL)'/><polygon points='520,0 800,0 800,1130 50,1130' fill='url(%23beamR)'/></svg>",
+      'gold-bokeh': "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='1130' viewBox='0 0 800 1130'><defs><linearGradient id='gdbase' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%2313100a'/><stop offset='50%25' stop-color='%230a0907'/><stop offset='100%25' stop-color='%23040302'/></linearGradient><radialGradient id='bk1' cx='25%25' cy='25%25' r='35%25'><stop offset='0%25' stop-color='%23f59e0b' stop-opacity='0.35'/><stop offset='70%25' stop-color='%23d97706' stop-opacity='0.1'/><stop offset='100%25' stop-color='%23000000' stop-opacity='0'/></radialGradient><radialGradient id='bk2' cx='75%25' cy='70%25' r='40%25'><stop offset='0%25' stop-color='%23fbbf24' stop-opacity='0.3'/><stop offset='80%25' stop-color='%23b45309' stop-opacity='0.08'/><stop offset='100%25' stop-color='%23000000' stop-opacity='0'/></radialGradient></defs><rect width='800' height='1130' fill='url(%23gdbase)'/><rect width='800' height='1130' fill='url(%23bk1)'/><rect width='800' height='1130' fill='url(%23bk2)'/><g fill='%23fef08a'><circle cx='180' cy='200' r='18' opacity='0.15'/><circle cx='620' cy='320' r='24' opacity='0.12'/><circle cx='250' cy='580' r='30' opacity='0.14'/><circle cx='540' cy='720' r='22' opacity='0.16'/><circle cx='320' cy='920' r='26' opacity='0.13'/><circle cx='140' cy='150' r='2' opacity='0.9'/><circle cx='380' cy='280' r='2.5' opacity='0.95'/><circle cx='660' cy='420' r='2' opacity='0.85'/><circle cx='210' cy='640' r='2.2' opacity='0.9'/><circle cx='590' cy='820' r='2.5' opacity='0.95'/></g></svg>",
+      'smoke': "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='1130' viewBox='0 0 800 1130'><defs><linearGradient id='smkbase' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%2315181e'/><stop offset='50%25' stop-color='%230c0e12'/><stop offset='100%25' stop-color='%23050608'/></linearGradient><radialGradient id='smk1' cx='35%25' cy='30%25' r='55%25'><stop offset='0%25' stop-color='%23475569' stop-opacity='0.4'/><stop offset='60%25' stop-color='%23334155' stop-opacity='0.15'/><stop offset='100%25' stop-color='%23000000' stop-opacity='0'/></radialGradient><radialGradient id='smk2' cx='65%25' cy='75%25' r='55%25'><stop offset='0%25' stop-color='%2364748b' stop-opacity='0.35'/><stop offset='60%25' stop-color='%231e293b' stop-opacity='0.12'/><stop offset='100%25' stop-color='%23000000' stop-opacity='0'/></radialGradient></defs><rect width='800' height='1130' fill='url(%23smkbase)'/><rect width='800' height='1130' fill='url(%23smk1)'/><rect width='800' height='1130' fill='url(%23smk2)'/></svg>",
+      'carbon': "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><rect width='16' height='16' fill='%23111317'/><polygon points='0,0 8,0 4,4 0,4' fill='%231a1d24'/><polygon points='8,0 16,0 12,4 8,4' fill='%230d0e12'/><polygon points='0,8 8,8 4,12 0,12' fill='%230d0e12'/><polygon points='8,8 16,8 12,12 8,12' fill='%231a1d24'/><polygon points='4,4 12,4 8,8 4,8' fill='%2316181f'/><polygon points='4,12 12,12 8,16 4,16' fill='%2316181f'/></svg>",
+      'wood': "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='1130' viewBox='0 0 800 1130'><defs><linearGradient id='wdbase' x1='0%25' y1='0%25' x2='0%25' y2='100%25'><stop offset='0%25' stop-color='%231c140d'/><stop offset='25%25' stop-color='%23140e09'/><stop offset='50%25' stop-color='%231c140d'/><stop offset='75%25' stop-color='%23110b07'/><stop offset='100%25' stop-color='%231c140d'/></linearGradient></defs><rect width='800' height='1130' fill='url(%23wdbase)'/><g stroke='%230a0704' stroke-width='1.5' opacity='0.4'><line x1='0' y1='140' x2='800' y2='140'/><line x1='0' y1='280' x2='800' y2='280'/><line x1='0' y1='430' x2='800' y2='430'/><line x1='0' y1='590' x2='800' y2='590'/><line x1='0' y1='740' x2='800' y2='740'/><line x1='0' y1='890' x2='800' y2='890'/><line x1='0' y1='1030' x2='800' y2='1030'/></g></svg>"
+    };
+
+    function setPaperTexture(key) {
+      if (key === 'none' || !PAPER_TEXTURES[key]) {
+        posterTextureLayer.style.backgroundImage = 'none';
+        posterTextureLayer.style.opacity = '0';
+      } else {
+        posterTextureLayer.style.backgroundImage = `url("${PAPER_TEXTURES[key]}")`;
+        posterTextureLayer.style.opacity = '1';
+        if (key === 'carbon') {
+          posterTextureLayer.style.backgroundRepeat = 'repeat';
+          posterTextureLayer.style.backgroundSize = '16px 16px';
+        } else {
+          posterTextureLayer.style.backgroundRepeat = 'no-repeat';
+          posterTextureLayer.style.backgroundSize = 'cover';
+        }
+      }
+    }
+
+    // 6. Arkaplan Fotoğraf Katmanı ve Saydamlık (Alfa) Yönetimi
     const posterBgImageLayer = document.getElementById('posterBgImageLayer');
     const bgAlphaInput = document.getElementById('bgAlphaInput');
     const bgAlphaVal = document.getElementById('bgAlphaVal');
@@ -1828,33 +1906,28 @@
     const bgFileInput = document.getElementById('bgFileInput');
     const bgUrlInput = document.getElementById('bgUrlInput');
 
-    // Alfa slider
     bgAlphaInput.addEventListener('input', function() {
       const val = parseInt(this.value, 10);
       bgAlphaVal.textContent = val + '%';
       posterBgImageLayer.style.opacity = (val / 100).toString();
     });
 
-    // Hazır Görsel 1
     btnPresetBg1.addEventListener('click', function() {
       posterBgImageLayer.style.backgroundImage = "url('bg1.jpg')";
       bgUrlInput.value = '';
     });
 
-    // Hazır Görsel 2
     btnPresetBg2.addEventListener('click', function() {
       posterBgImageLayer.style.backgroundImage = "url('bg2.jpg')";
       bgUrlInput.value = '';
     });
 
-    // Görseli Kaldır
     btnRemoveBg.addEventListener('click', function() {
       posterBgImageLayer.style.backgroundImage = "none";
       bgUrlInput.value = '';
       bgFileInput.value = '';
     });
 
-    // Kendi Görselini Yükle (FileReader)
     bgFileInput.addEventListener('change', function(e) {
       const file = e.target.files[0];
       if (file) {
@@ -1867,7 +1940,6 @@
       }
     });
 
-    // Görsel URL'si Yapıştır
     bgUrlInput.addEventListener('input', function() {
       const url = this.value.trim();
       if (url) {
@@ -1875,7 +1947,157 @@
       }
     });
 
-    // 6. Otomatik Bağlama Yardımcı Fonksiyonu
+    // 7. SÜPER LİG VE POPÜLER TAKIMLAR VERİTABANI (ŞEFFAF VEKTÖRLER)
+    const SUPER_LIG_TEAMS = [
+      {
+        id: "amed",
+        name: "AMED SPOR",
+        logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 190'><path d='M10 25 C10 15 20 8 30 8 L130 8 C140 8 150 15 150 25 L150 95 C150 145 80 182 80 182 C80 182 10 145 10 95 Z' fill='%232E7D32' stroke='%23D32F2F' stroke-width='7'/><path d='M18 12 L142 12 L142 36 L128 36 L128 26 L110 26 L110 36 L92 36 L92 26 L68 26 L68 36 L50 36 L50 26 L32 26 L32 36 L18 36 Z' fill='%23D32F2F'/><path d='M30 52 C50 42 110 42 130 52' fill='none' id='amedCurve'/><text font-family='sans-serif' font-weight='900' font-size='13' fill='%23FFFFFF' text-anchor='middle'><textPath href='%23amedCurve' startOffset='50%25'>AMEDSPOR</textPath></text><g fill='%23FFFFFF'><path d='M80 62 C74 58 70 65 67 72 C62 68 56 70 54 75 C60 78 64 86 64 92 C56 86 42 86 32 94 C42 98 52 102 62 102 C48 108 38 120 34 135 C48 128 62 124 72 124 C68 132 64 142 66 150 C72 144 76 136 80 128 C84 136 88 144 94 150 C96 142 92 132 88 124 C98 124 112 128 126 135 C122 120 112 108 98 102 C108 102 118 98 128 94 C118 86 104 86 96 92 C96 86 100 78 106 75 C104 70 98 68 93 72 C90 65 86 58 80 62 Z'/><circle cx='70' cy='74' r='2.5' fill='%232E7D32'/><circle cx='90' cy='74' r='2.5' fill='%232E7D32'/></g></svg>"
+      },
+      {
+        id: "eyup",
+        name: "EYÜPSPOR",
+        logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 190'><path d='M12 25 C12 15 22 8 32 8 L128 8 C138 8 148 15 148 25 L148 95 C148 145 80 182 80 182 C80 182 12 145 12 95 Z' fill='%234A148C' stroke='%23E5E7EB' stroke-width='5'/><clipPath id='eyClip'><path d='M16 25 C16 17 24 12 32 12 L128 12 C136 12 144 17 144 25 L144 95 C144 142 80 178 80 178 C80 178 16 142 16 95 Z'/></clipPath><g clip-path='url(%23eyClip)'><polygon points='10,10 60,10 20,180 -30,180' fill='%23FBBF24'/><polygon points='60,10 110,10 70,180 20,180' fill='%234A148C'/><polygon points='110,10 160,10 120,180 70,180' fill='%23FBBF24'/><polygon points='160,10 210,10 170,180 120,180' fill='%234A148C'/><rect x='52' y='12' width='56' height='36' rx='4' fill='%23DC2626'/><path d='M78 22 A8 8 0 1 0 78 38 A6 6 0 1 1 78 22 Z' fill='%23FFFFFF'/><polygon points='85,27 86.5,30 90,30 87,32 88,35 85,33 82,35 83,32 80,30 83.5,30' fill='%23FFFFFF'/></g><rect x='14' y='65' width='132' height='34' rx='4' fill='%23FFFFFF' stroke='%234A148C' stroke-width='3'/><text x='80' y='89' font-family='sans-serif' font-weight='900' font-size='16' fill='%234A148C' text-anchor='middle' letter-spacing='1'>EYÜPSPOR</text><rect x='56' y='112' width='48' height='22' rx='3' fill='%23FFFFFF' stroke='%234A148C' stroke-width='2'/><text x='80' y='128' font-family='sans-serif' font-weight='800' font-size='12' fill='%234A148C' text-anchor='middle'>1928</text></svg>"
+      },
+      {
+        id: "gs",
+        name: "GALATASARAY",
+        logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 190'><path d='M12 25 C12 15 22 8 32 8 L128 8 C138 8 148 15 148 25 L148 95 C148 145 80 182 80 182 C80 182 12 145 12 95 Z' fill='%23A90432' stroke='%23FDB912' stroke-width='5'/><g fill='%23FDB912'><polygon points='40,6 44,14 52,14 46,19 48,27 40,22 32,27 34,19 28,14 36,14'/><polygon points='66,4 70,12 78,12 72,17 74,25 66,20 58,25 60,17 54,12 62,12'/><polygon points='94,4 98,12 106,12 100,17 102,25 94,20 86,25 88,17 82,12 90,12'/><polygon points='120,6 124,14 132,14 126,19 128,27 120,22 112,27 114,19 108,14 116,14'/></g><g transform='translate(80, 102) scale(1.15) translate(-80, -102)'><path d='M80 40 C52 40 38 60 38 90 C38 120 54 140 80 140 C106 140 122 120 122 90 L80 90 L80 102 L106 102 C104 118 94 126 80 126 C62 126 52 110 52 90 C52 70 62 54 80 54 C92 54 102 62 106 74 L120 68 C114 50 98 40 80 40 Z' fill='%23FDB912'/><path d='M80 50 C66 50 56 60 56 72 C56 94 104 90 104 112 C104 124 94 132 80 132 C68 132 58 124 54 114 L42 120 C48 136 62 144 80 144 C102 144 118 130 118 112 C118 88 70 92 70 72 C70 62 78 58 88 58 C98 58 106 64 110 72 L122 66 C116 54 102 50 88 50 Z' fill='%23A90432'/></g></svg>"
+      },
+      {
+        id: "fb",
+        name: "FENERBAHÇE",
+        logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'><circle cx='80' cy='80' r='76' fill='%23002D72' stroke='%23FFED00' stroke-width='5'/><circle cx='80' cy='80' r='62' fill='%23FFFFFF'/><circle cx='80' cy='80' r='52' fill='%23DA291C'/><path d='M80 42 C72 54 62 68 62 82 C62 98 70 108 80 116 C90 108 98 98 98 82 C98 68 88 54 80 42 Z' fill='%23007A33'/><circle cx='80' cy='78' r='7' fill='%23FFED00'/><text x='80' y='28' font-family='sans-serif' font-weight='900' font-size='9' fill='%23FFED00' text-anchor='middle' letter-spacing='1'>FENERBAHÇE</text><text x='80' y='145' font-family='sans-serif' font-weight='900' font-size='10' fill='%23FFED00' text-anchor='middle'>1907</text></svg>"
+      },
+      {
+        id: "bjk",
+        name: "BEŞİKTAŞ",
+        logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 190'><path d='M15 25 C15 15 25 8 35 8 L125 8 C135 8 145 15 145 25 L145 95 C145 145 80 182 80 182 C80 182 15 145 15 95 Z' fill='%23FFFFFF' stroke='%23111827' stroke-width='6'/><g><rect x='20' y='12' width='24' height='130' fill='%23000000'/><rect x='44' y='12' width='24' height='140' fill='%23FFFFFF'/><rect x='68' y='12' width='24' height='150' fill='%23000000'/><rect x='92' y='12' width='24' height='140' fill='%23FFFFFF'/><rect x='116' y='12' width='24' height='130' fill='%23000000'/></g><rect x='44' y='20' width='72' height='46' rx='4' fill='%23E11D48'/><circle cx='76' cy='43' r='14' fill='%23FFFFFF'/><circle cx='80' cy='43' r='11' fill='%23E11D48'/><polygon points='88,43 90,46 94,46 91,48 92,52 88,50 85,52 86,48 83,46 87,46' fill='%23FFFFFF'/><text x='32' y='108' font-family='sans-serif' font-weight='900' font-size='20' fill='%23FFFFFF'>B</text><text x='68' y='108' font-family='sans-serif' font-weight='900' font-size='20' fill='%23FFFFFF'>J</text><text x='104' y='108' font-family='sans-serif' font-weight='900' font-size='20' fill='%23FFFFFF'>K</text><text x='80' y='136' font-family='sans-serif' font-weight='900' font-size='14' fill='%23FFFFFF' text-anchor='middle'>1903</text></svg>"
+      },
+      {
+        id: "ts",
+        name: "TRABZONSPOR",
+        logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 190'><path d='M15 25 C15 15 25 8 35 8 L125 8 C135 8 145 15 145 25 L145 95 C145 145 80 182 80 182 C80 182 15 145 15 95 Z' fill='%23800020' stroke='%2300A3E0' stroke-width='6'/><polygon points='80,10 83,18 92,18 85,23 87,31 80,26 73,31 75,23 68,18 77,18' fill='%23FBBF24'/><g fill='%2300A3E0'><path d='M45 45 L115 45 L115 65 L92 65 L92 142 L68 142 L68 65 L45 65 Z'/><path d='M65 85 C65 72 80 65 95 65 C115 65 125 78 125 95 C125 120 75 110 75 128 C75 138 85 142 98 142 C110 142 120 135 124 125 L138 132 C132 148 116 158 96 158 C72 158 55 144 55 126 C55 100 105 105 105 88 C105 80 98 78 92 78 C82 78 75 84 72 92 Z'/></g><text x='80' y='172' font-family='sans-serif' font-weight='900' font-size='12' fill='%23FBBF24' text-anchor='middle'>1967</text></svg>"
+      },
+      {
+        id: "ibfk",
+        name: "BAŞAKŞEHİR",
+        logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 190'><path d='M15 25 C15 15 25 8 35 8 L125 8 C135 8 145 15 145 25 L145 95 C145 145 80 182 80 182 C80 182 15 145 15 95 Z' fill='%230C2340' stroke='%23F26A36' stroke-width='6'/><circle cx='80' cy='85' r='45' fill='%23F26A36'/><circle cx='80' cy='85' r='36' fill='%230C2340'/><text x='80' y='93' font-family='sans-serif' font-weight='900' font-size='18' fill='%23FFFFFF' text-anchor='middle'>BŞK</text><text x='80' y='145' font-family='sans-serif' font-weight='800' font-size='13' fill='%23F26A36' text-anchor='middle'>2014</text></svg>"
+      },
+      {
+        id: "samsun",
+        name: "SAMSUNSPOR",
+        logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'><circle cx='80' cy='80' r='74' fill='%23DC2626' stroke='%23FFFFFF' stroke-width='5'/><circle cx='80' cy='80' r='60' fill='%23FFFFFF'/><path d='M65 115 L68 95 C68 85 75 75 85 70 L95 62 L105 70 L95 85 L98 115 Z' fill='%23DC2626'/><circle cx='85' cy='52' r='8' fill='%23DC2626'/><text x='80' y='138' font-family='sans-serif' font-weight='900' font-size='11' fill='%23DC2626' text-anchor='middle'>1965</text></svg>"
+      },
+      {
+        id: "goztepe",
+        name: "GÖZTEPE",
+        logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 190'><path d='M15 25 C15 15 25 8 35 8 L125 8 C135 8 145 15 145 25 L145 95 C145 145 80 182 80 182 C80 182 15 145 15 95 Z' fill='%23DC2626' stroke='%23FBBF24' stroke-width='6'/><g fill='%23FBBF24'><polygon points='15,25 80,8 80,95 15,95'/><polygon points='80,95 145,95 80,182'/></g><text x='80' y='130' font-family='sans-serif' font-weight='900' font-size='20' fill='%23FFFFFF' text-anchor='middle'>GÖZ</text></svg>"
+      },
+      {
+        id: "antalya",
+        name: "ANTALYASPOR",
+        logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'><circle cx='80' cy='80' r='74' fill='%23DC2626' stroke='%23FFFFFF' stroke-width='5'/><circle cx='80' cy='80' r='58' fill='%23FFFFFF'/><rect x='74' y='35' width='12' height='75' fill='%23DC2626'/><polygon points='80,20 70,40 90,40' fill='%23DC2626'/><text x='80' y='136' font-family='sans-serif' font-weight='900' font-size='12' fill='%23DC2626' text-anchor='middle'>1966</text></svg>"
+      },
+      {
+        id: "sivas",
+        name: "SİVASSPOR",
+        logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 190'><path d='M15 25 C15 15 25 8 35 8 L125 8 C135 8 145 15 145 25 L145 95 C145 145 80 182 80 182 C80 182 15 145 15 95 Z' fill='%23DC2626' stroke='%23FFFFFF' stroke-width='6'/><g fill='%23FFFFFF'><rect x='35' y='15' width='20' height='130'/><rect x='70' y='15' width='20' height='145'/><rect x='105' y='15' width='20' height='130'/></g><g fill='%23DC2626'><polygon points='45,45 47,51 53,51 48,55 50,61 45,57 40,61 42,55 37,51 43,51'/><polygon points='80,35 82,41 88,41 83,45 85,51 80,47 75,51 77,45 72,41 78,41'/><polygon points='115,45 117,51 123,51 118,55 120,61 115,57 110,61 112,55 107,51 113,51'/></g></svg>"
+      },
+      {
+        id: "kasimpasa",
+        name: "KASIMPAŞA",
+        logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 190'><path d='M15 25 C15 15 25 8 35 8 L125 8 C135 8 145 15 145 25 L145 95 C145 145 80 182 80 182 C80 182 15 145 15 95 Z' fill='%230A192F' stroke='%23FFFFFF' stroke-width='6'/><path d='M80 40 L80 125 M55 105 C65 125 95 125 105 105' fill='none' stroke='%23FFFFFF' stroke-width='8'/><circle cx='80' cy='35' r='8' fill='%23FFFFFF'/><text x='80' y='155' font-family='sans-serif' font-weight='900' font-size='12' fill='%23FFFFFF' text-anchor='middle'>1921</text></svg>"
+      },
+      {
+        id: "rize",
+        name: "ÇAYKUR RİZESPOR",
+        logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'><circle cx='80' cy='80' r='74' fill='%2315803D' stroke='%230284C7' stroke-width='6'/><circle cx='80' cy='80' r='56' fill='%23FFFFFF'/><path d='M80 35 C65 50 65 75 80 90 C95 75 95 50 80 35 Z' fill='%2315803D'/><path d='M65 60 C50 75 50 100 65 115 C80 100 80 75 65 60 Z' fill='%2315803D'/><path d='M95 60 C80 75 80 100 95 115 C110 100 110 75 95 60 Z' fill='%2315803D'/><text x='80' y='142' font-family='sans-serif' font-weight='900' font-size='10' fill='%230284C7' text-anchor='middle'>1953</text></svg>"
+      },
+      {
+        id: "gaziantep",
+        name: "GAZİANTEP FK",
+        logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 190'><path d='M15 25 C15 15 25 8 35 8 L125 8 C135 8 145 15 145 25 L145 95 C145 145 80 182 80 182 C80 182 15 145 15 95 Z' fill='%23DC2626' stroke='%23111827' stroke-width='6'/><polygon points='30,40 80,85 130,40 110,120 80,150 50,120' fill='%23111827'/><polygon points='45,55 80,90 115,55 100,115 80,135 60,115' fill='%23DC2626'/><text x='80' y='105' font-family='sans-serif' font-weight='900' font-size='18' fill='%23FFFFFF' text-anchor='middle'>GFK</text></svg>"
+      },
+      {
+        id: "alanya",
+        name: "ALANYASPOR",
+        logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'><circle cx='80' cy='80' r='74' fill='%23EA580C' stroke='%2316A34A' stroke-width='6'/><circle cx='80' cy='80' r='56' fill='%23FFFFFF'/><polygon points='60,110 60,60 70,60 70,50 90,50 90,60 100,60 100,110' fill='%23EA580C'/><text x='80' y='136' font-family='sans-serif' font-weight='900' font-size='11' fill='%2316A34A' text-anchor='middle'>1948</text></svg>"
+      },
+      {
+        id: "konya",
+        name: "KONYASPOR",
+        logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'><circle cx='80' cy='80' r='74' fill='%2315803D' stroke='%23FFFFFF' stroke-width='5'/><circle cx='80' cy='80' r='58' fill='%23FFFFFF'/><path d='M80 40 C70 50 60 65 60 85 C60 100 70 115 80 120 C90 115 100 100 100 85 C100 65 90 50 80 40 Z' fill='%2315803D'/><circle cx='68' cy='52' r='4' fill='%2315803D'/><circle cx='92' cy='52' r='4' fill='%2315803D'/><text x='80' y='142' font-family='sans-serif' font-weight='900' font-size='11' fill='%2315803D' text-anchor='middle'>1922</text></svg>"
+      },
+      {
+        id: "kayseri",
+        name: "KAYSERİSPOR",
+        logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 190'><path d='M15 25 C15 15 25 8 35 8 L125 8 C135 8 145 15 145 25 L145 95 C145 145 80 182 80 182 C80 182 15 145 15 95 Z' fill='%23DC2626' stroke='%23FBBF24' stroke-width='6'/><polygon points='15,25 80,182 15,145' fill='%23FBBF24'/><polygon points='80,50 40,115 120,115' fill='%23FFFFFF'/><text x='80' y='145' font-family='sans-serif' font-weight='900' font-size='12' fill='%23FFFFFF' text-anchor='middle'>1966</text></svg>"
+      },
+      {
+        id: "bodrum",
+        name: "BODRUM FK",
+        logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 190'><path d='M15 25 C15 15 25 8 35 8 L125 8 C135 8 145 15 145 25 L145 95 C145 145 80 182 80 182 C80 182 15 145 15 95 Z' fill='%2315803D' stroke='%23FFFFFF' stroke-width='6'/><polygon points='80,40 50,110 80,100' fill='%23FFFFFF'/><polygon points='85,55 110,110 85,100' fill='%23FFFFFF'/><text x='80' y='145' font-family='sans-serif' font-weight='900' font-size='14' fill='%23FFFFFF' text-anchor='middle'>1931</text></svg>"
+      },
+      {
+        id: "hatay",
+        name: "HATAYSPOR",
+        logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'><circle cx='80' cy='80' r='74' fill='%23881337' stroke='%23FFFFFF' stroke-width='5'/><circle cx='80' cy='80' r='58' fill='%23FFFFFF'/><path d='M80 40 C65 60 65 90 80 110 C95 90 95 60 80 40 Z' fill='%23881337'/><text x='80' y='136' font-family='sans-serif' font-weight='900' font-size='11' fill='%23881337' text-anchor='middle'>1967</text></svg>"
+      },
+      {
+        id: "adana",
+        name: "ADANA DEMİRSPOR",
+        logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'><circle cx='80' cy='80' r='74' fill='%230284C7' stroke='%230F172A' stroke-width='5'/><circle cx='80' cy='80' r='58' fill='%23FFFFFF'/><polygon points='40,75 80,60 120,75 80,90' fill='%230284C7'/><path d='M60 70 L40 50 M100 70 L120 50' stroke='%230284C7' stroke-width='6'/><text x='80' y='136' font-family='sans-serif' font-weight='900' font-size='11' fill='%230F172A' text-anchor='middle'>1940</text></svg>"
+      }
+    ];
+
+    // Popüler Takım Seçim Listelerini Doldur
+    const teamAQuickSelect = document.getElementById('teamAQuickSelect');
+    const teamBQuickSelect = document.getElementById('teamBQuickSelect');
+
+    SUPER_LIG_TEAMS.forEach(team => {
+      const optA = document.createElement('option');
+      optA.value = team.id;
+      optA.textContent = team.name;
+      teamAQuickSelect.appendChild(optA);
+
+      const optB = document.createElement('option');
+      optB.value = team.id;
+      optB.textContent = team.name;
+      teamBQuickSelect.appendChild(optB);
+    });
+
+    const teamAText = document.getElementById('teamAText');
+    const previewTeamAName = document.getElementById('previewTeamAName');
+    const previewTeamALogo = document.getElementById('previewTeamALogo');
+
+    teamAQuickSelect.addEventListener('change', function() {
+      const selected = SUPER_LIG_TEAMS.find(t => t.id === this.value);
+      if (selected) {
+        teamAText.value = selected.name;
+        previewTeamAName.textContent = selected.name;
+        previewTeamALogo.src = selected.logo;
+      }
+    });
+
+    const teamBText = document.getElementById('teamBText');
+    const previewTeamBName = document.getElementById('previewTeamBName');
+    const previewTeamBLogo = document.getElementById('previewTeamBLogo');
+
+    teamBQuickSelect.addEventListener('change', function() {
+      const selected = SUPER_LIG_TEAMS.find(t => t.id === this.value);
+      if (selected) {
+        teamBText.value = selected.name;
+        previewTeamBName.textContent = selected.name;
+        previewTeamBLogo.src = selected.logo;
+      }
+    });
+
+    // Varsayılan logoları yükle (Amedspor ve Eyüpspor)
+    previewTeamALogo.src = SUPER_LIG_TEAMS[0].logo;
+    previewTeamBLogo.src = SUPER_LIG_TEAMS[1].logo;
+
+    // 8. Otomatik Bağlama Yardımcı Fonksiyonu
     function bindTextControl(config) {
       const textInput = document.getElementById(config.textId);
       const fontInput = document.getElementById(config.fontId);
@@ -1927,7 +2149,7 @@
       defaultText: 'MAÇ GÜNÜ'
     });
 
-    // Mekan Adı (MUHABBET)
+    // Mekan Adı (MUHABBET - 115pt'ye kadar)
     bindTextControl({
       textId: 'venueText',
       fontId: 'venueFont',
@@ -1963,7 +2185,7 @@
       defaultText: 'GECENİN ADI MUHABBET.'
     });
 
-    // Takım A Adı (AMED SPOR)
+    // Takım A Adı
     bindTextControl({
       textId: 'teamAText',
       fontId: 'teamAFont',
@@ -1975,7 +2197,7 @@
       defaultText: 'AMED SPOR'
     });
 
-    // Takım B Adı (EYÜPSPOR)
+    // Takım B Adı
     bindTextControl({
       textId: 'teamBText',
       fontId: 'teamBFont',
@@ -1999,7 +2221,7 @@
       defaultText: 'VS'
     });
 
-    // Tarih (1 KASIM 2026)
+    // Tarih
     bindTextControl({
       textId: 'dateText',
       fontId: 'dateFont',
@@ -2011,7 +2233,7 @@
       defaultText: '1 KASIM 2026'
     });
 
-    // Saat (13.30)
+    // Saat
     bindTextControl({
       textId: 'timeText',
       fontId: 'timeFont',
@@ -2023,7 +2245,7 @@
       defaultText: '13.30'
     });
 
-    // Mekan Adresi (VAN • MUHABBET RESTORAN)
+    // Mekan Adresi
     bindTextControl({
       textId: 'addressText',
       fontId: 'addressFont',
@@ -2035,7 +2257,7 @@
       defaultText: 'VAN • MUHABBET RESTORAN'
     });
 
-    // GÖRSEL VE LOGO BOYUTLANDIRMALARI
+    // Logo Boyutlandırma
     const teamALogoSize = document.getElementById('teamALogoSize');
     const teamALogoSizeVal = document.getElementById('teamALogoSizeVal');
     const previewTeamALogoCircle = document.getElementById('previewTeamALogoCircle');
@@ -2056,6 +2278,30 @@
       teamBLogoSizeVal.textContent = val + 'px';
       previewTeamBLogoCircle.style.width = val + 'px';
       previewTeamBLogoCircle.style.height = val + 'px';
+    });
+
+    // Bira Bardakları Boyutu ve Açma/Kapatma
+    const toggleBeerCheckbox = document.getElementById('toggleBeerCheckbox');
+    const beerLeftBox = document.getElementById('beerLeftBox');
+    const beerRightBox = document.getElementById('beerRightBox');
+    const beerSize = document.getElementById('beerSize');
+    const beerSizeVal = document.getElementById('beerSizeVal');
+    const beerSvgs = document.querySelectorAll('.beer-toast-svg');
+
+    toggleBeerCheckbox.addEventListener('change', function() {
+      const displayVal = this.checked ? 'flex' : 'none';
+      beerLeftBox.style.display = displayVal;
+      beerRightBox.style.display = displayVal;
+    });
+
+    beerSize.addEventListener('input', function() {
+      const val = parseInt(this.value, 10);
+      beerSizeVal.textContent = val + 'px';
+      const calcHeight = Math.round(val * 0.75);
+      beerSvgs.forEach(svg => {
+        svg.style.width = val + 'px';
+        svg.style.height = calcHeight + 'px';
+      });
     });
 
     // Vurgu Rengi ve Çizgiler
@@ -2093,21 +2339,9 @@
       }
     });
 
-    // Bira Bardakları ve Kılıçlar Göster / Gizle Toggle
-    const toggleIconsCheckbox = document.getElementById('toggleIconsCheckbox');
-    const optionalBeerRow = document.getElementById('optionalBeerRow');
-    const swordsContainer = document.getElementById('swordsContainer');
-
-    toggleIconsCheckbox.addEventListener('change', function() {
-      const displayVal = this.checked ? 'flex' : 'none';
-      optionalBeerRow.style.display = displayVal;
-      swordsContainer.style.display = displayVal;
-    });
-
-    // Logo Yönetimi - Takım A
+    // Logo Yönetimi - Takım A (Dosyadan Yükleme)
     const teamAFileInput = document.getElementById('teamAFileInput');
     const teamAUrlInput = document.getElementById('teamAUrlInput');
-    const previewTeamALogo = document.getElementById('previewTeamALogo');
 
     teamAFileInput.addEventListener('change', function(e) {
       const file = e.target.files[0];
@@ -2116,6 +2350,7 @@
         reader.onload = function(evt) {
           previewTeamALogo.src = evt.target.result;
           teamAUrlInput.value = '';
+          teamAQuickSelect.value = '';
         };
         reader.readAsDataURL(file);
       }
@@ -2125,13 +2360,13 @@
       const url = this.value.trim();
       if (url) {
         previewTeamALogo.src = url;
+        teamAQuickSelect.value = '';
       }
     });
 
-    // Logo Yönetimi - Takım B
+    // Logo Yönetimi - Takım B (Dosyadan Yükleme)
     const teamBFileInput = document.getElementById('teamBFileInput');
     const teamBUrlInput = document.getElementById('teamBUrlInput');
-    const previewTeamBLogo = document.getElementById('previewTeamBLogo');
 
     teamBFileInput.addEventListener('change', function(e) {
       const file = e.target.files[0];
@@ -2140,6 +2375,7 @@
         reader.onload = function(evt) {
           previewTeamBLogo.src = evt.target.result;
           teamBUrlInput.value = '';
+          teamBQuickSelect.value = '';
         };
         reader.readAsDataURL(file);
       }
@@ -2149,6 +2385,7 @@
       const url = this.value.trim();
       if (url) {
         previewTeamBLogo.src = url;
+        teamBQuickSelect.value = '';
       }
     });
 
@@ -2159,7 +2396,7 @@
       });
     });
 
-    // 7. PDF İNDİRME (A4 DİKEY FORMATINDA)
+    // 9. PDF İNDİRME (A4 DİKEY FORMATINDA)
     const downloadPdfBtn = document.getElementById('downloadPdfBtn');
 
     downloadPdfBtn.addEventListener('click', function() {
@@ -2213,7 +2450,7 @@
         });
     });
 
-    // 8. GÖRSEL İNDİRME (9:16 DİKEY STORY / REELS FORMATINDA)
+    // 10. GÖRSEL İNDİRME (9:16 DİKEY STORY / REELS FORMATINDA)
     const downloadImgBtn = document.getElementById('downloadImgBtn');
 
     downloadImgBtn.addEventListener('click', function() {
@@ -2238,7 +2475,6 @@
       }).then(canvas => {
         a4Wrapper.style.transform = currentTransform;
 
-        // 9:16 Hedef Kanvası Oluştur (1080 x 1920 Full HD Dikey)
         const targetWidth = 1080;
         const targetHeight = 1920;
         const canvas916 = document.createElement('canvas');
@@ -2246,11 +2482,9 @@
         canvas916.height = targetHeight;
         const ctx = canvas916.getContext('2d');
 
-        // Arkaplan rengini 9:16 alanın tamamına uygula
         ctx.fillStyle = currentBg;
         ctx.fillRect(0, 0, targetWidth, targetHeight);
 
-        // Afişi 9:16 tuvale orantılı olarak tam ortala
         const contentAspect = canvas.width / canvas.height;
         let drawWidth = targetWidth;
         let drawHeight = drawWidth / contentAspect;
