@@ -9,7 +9,7 @@
   <!-- Google Fonts: Bebas Neue, Montserrat, Oswald, Anton, Teko, Russo One, Kanit, Righteous, Barlow Condensed -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,700&family=Bebas+Neue&family=Kanit:ital,wght@0,700;0,800;0,900;1,700&family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,600&family=Oswald:wght@500;600;700&family=Righteous&family=Russo+One&family=Teko:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,700&family=Bebas+Neue&family=Kanit:ital,wght@0,700;0,800;0,900;1,700&family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600&family=Oswald:wght@500;600;700&family=Righteous&family=Russo+One&family=Teko:wght@600;700&display=swap" rel="stylesheet">
 
   <!-- Kütüphaneler: html2canvas ve html2pdf.js CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -220,7 +220,7 @@
       position: relative;
     }
 
-    /* SOL: KONTROL PANELİ (TEK KUTU İÇERİSİNDE SIRALI DÜZEN) */
+    /* SOL: KONTROL PANELİ */
     .control-panel {
       width: 480px;
       min-width: 430px;
@@ -427,6 +427,23 @@
       border-color: #38bdf8;
     }
 
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.77rem;
+      color: #cbd5e1;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: #38bdf8;
+      cursor: pointer;
+    }
+
     .file-input-wrapper {
       position: relative;
     }
@@ -566,11 +583,11 @@
       min-height: 297mm;
       max-width: 210mm;
       max-height: 297mm;
-      background: #ffffff;
+      background: #121316; /* 1. Görseldeki Şık Koyu Antrasit Arkaplan */
       box-shadow: none !important;
       position: relative;
       box-sizing: border-box;
-      padding: 12mm 12mm 10mm 12mm;
+      padding: 18mm 16mm 14mm 16mm;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -579,16 +596,17 @@
       transition: background 0.2s ease;
     }
 
-    /* Afiş İçi Çerçeveler */
+    /* İsteğe Bağlı Çerçeveler */
     .poster-inner-frame {
       position: absolute;
       top: 5mm;
       left: 5mm;
       right: 5mm;
       bottom: 5mm;
-      border: 2px solid #D4AF37;
+      border: 2px solid #C5A059;
       pointer-events: none;
       box-sizing: border-box;
+      display: none; /* Görsel 1'de çerçeve yok */
     }
 
     .poster-inner-frame-double {
@@ -597,20 +615,20 @@
       left: 6.5mm;
       right: 6.5mm;
       bottom: 6.5mm;
-      border: 1px solid #D4AF37;
+      border: 1px solid #C5A059;
       opacity: 0.45;
       pointer-events: none;
       box-sizing: border-box;
+      display: none;
     }
 
     /* KELİME BÖLÜNME ÖNLEYİCİ - TÜM METİNLERDE SADECE BOŞLUKTAN ALT SATIRA GEÇİŞ */
+    .venue-tag,
     .venue-name,
     .venue-subtitle,
     .slogan-text,
     .team-name,
     .vs-badge,
-    .vs-subtext,
-    .match-day,
     .match-date,
     .match-time,
     .match-address {
@@ -622,125 +640,99 @@
       text-wrap: balance;
     }
 
-    /* AFİŞ İÇİ ELEMENTLER (DİKEY DÜZEN) */
+    /* 1. GÖRSEL DÜZENİ: AFİŞ İÇİ ELEMENTLER */
     .poster-header {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding-top: 3mm;
+      padding-top: 2mm;
       position: relative;
       z-index: 2;
       text-align: center;
     }
 
-    .venue-title-wrapper {
-      text-align: center;
-      max-width: 620px;
-    }
-
-    .venue-name {
-      font-size: 32pt;
-      line-height: 1.1;
-      font-weight: 900;
-      color: #0A192F;
-      font-family: 'Bebas Neue', sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 2.5px;
-    }
-
-    .venue-subtitle {
-      font-size: 10pt;
+    /* Üstteki Küçük 'MAÇ GÜNÜ' Etiketi */
+    .venue-tag {
+      font-size: 13pt;
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
-      letter-spacing: 4px;
+      letter-spacing: 7px;
       text-transform: uppercase;
-      color: #D4AF37;
-      margin-top: 4px;
+      color: #C5A059;
+      margin-bottom: 8px;
     }
 
-    .header-divider {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 7px;
+    /* Büyük 'MUHABBET' Mekan Başlığı */
+    .venue-name {
+      font-size: 54pt;
+      line-height: 0.95;
+      font-weight: 900;
+      color: #FFFFFF;
+      font-family: 'Bebas Neue', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 3.5px;
     }
 
-    .header-divider-line {
-      width: 110px;
-      height: 2px;
-      background: #D4AF37;
+    /* Alt Başlık 'RESTAURANT' */
+    .venue-subtitle {
+      font-size: 17pt;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      letter-spacing: 12px;
+      text-transform: uppercase;
+      color: #C5A059;
+      margin-top: 6px;
     }
 
-    .header-divider-diamond {
-      width: 7px;
-      height: 7px;
-      background: #D4AF37;
-      transform: rotate(45deg);
-    }
-
-    /* YENİ: LOGOLARIN HEMEN ÜSTÜNDE BİRA BARDAKLARI VE ORTASINDA ÖZEL SLOGAN SATIRI */
-    .poster-slogan-beer-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 4mm;
-      position: relative;
-      z-index: 2;
-      margin-top: 6mm;
-      margin-bottom: 2mm;
-    }
-
-    .slogan-beer-col {
-      width: 250px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .beer-toast-svg {
-      width: 75px;
-      height: 56px;
-      display: block;
-      transition: width 0.1s, height 0.1s;
-    }
-
-    .slogan-text-container {
-      flex: 1;
+    /* 2. GÖRSELDEKİ ÖZEL SLOGAN ALANI ("GECENİN ADI MUHABBET.") */
+    .slogan-banner {
+      margin-top: 12px;
       text-align: center;
-      padding: 0 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 30px;
+      max-width: 580px;
     }
 
     .slogan-text {
       font-family: 'Montserrat', sans-serif;
       font-size: 13pt;
-      font-weight: 800;
-      letter-spacing: 2px;
+      font-weight: 700;
+      letter-spacing: 3px;
       text-transform: uppercase;
-      color: #D4AF37;
-      line-height: 1.25;
+      color: #E6D5B8;
+      line-height: 1.3;
     }
 
-    /* Orta Bölüm: Takımlar & VS & Çapraz Kılıçlar */
+    /* İsteğe Bağlı Bira Bardakları Satırı */
+    .optional-beer-row {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 10mm;
+      margin-top: 4mm;
+    }
+
+    .beer-toast-svg {
+      width: 70px;
+      height: 52px;
+      display: block;
+    }
+
+    /* ORTA KARŞILAŞMA BÖLÜMÜ: YUVARLAK BEYAZ ÇERÇEVELİ LOGOLAR VE VS */
     .poster-matchup {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
+      gap: 32px;
       padding: 0 4mm;
       position: relative;
       z-index: 2;
       flex: 1;
-      margin: 4mm 0 6mm 0;
+      margin: 8mm 0;
     }
 
     .team-box {
-      width: 250px;
+      width: 220px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -748,35 +740,48 @@
       flex-shrink: 0;
     }
 
-    .team-logo-container {
-      width: 130px;
-      height: 130px;
+    /* Görsel 1'deki Beyaz Yuvarlak Halka Çerçeve */
+    .team-logo-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 3.5px solid #FFFFFF;
+      background: #191B22;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       position: relative;
-      transition: width 0.1s, height 0.1s;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+      transition: width 0.1s, height 0.1s, border 0.2s;
+    }
+
+    .team-logo-circle.no-border {
+      border: none;
+      background: transparent;
+      box-shadow: none;
+      overflow: visible;
     }
 
     .team-logo {
-      max-width: 100%;
-      max-height: 100%;
-      width: 100%;
-      height: 100%;
+      max-width: 82%;
+      max-height: 82%;
+      width: auto;
+      height: auto;
       object-fit: contain;
       display: block;
     }
 
     .team-name {
-      font-size: 30pt;
+      font-size: 26pt;
       line-height: 1.05;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: #0A192F;
+      letter-spacing: 2px;
+      color: #FFFFFF;
       font-family: 'Bebas Neue', sans-serif;
-      max-width: 250px;
+      max-width: 220px;
     }
 
     .vs-separator {
@@ -784,106 +789,80 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      width: 140px;
+      width: 90px;
       flex-shrink: 0;
       position: relative;
     }
 
+    .swords-svg-container {
+      display: none;
+      margin-bottom: 6px;
+    }
+
     .swords-svg {
-      width: 74px;
-      height: 74px;
+      width: 68px;
+      height: 68px;
       display: block;
-      margin-bottom: 4px;
-      transition: width 0.1s, height 0.1s;
     }
 
     .vs-badge {
-      font-size: 42pt;
+      font-size: 38pt;
       line-height: 0.9;
       font-weight: 900;
-      color: #D4AF37;
+      color: #C5A059;
       font-family: 'Bebas Neue', sans-serif;
       letter-spacing: 2px;
-      text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.08);
-      position: relative;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     }
 
-    .vs-subtext {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 9.5pt;
-      font-weight: 800;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: #0A192F;
-      margin-top: 4px;
-      text-align: center;
-      white-space: nowrap;
-    }
-
-    /* Alt Bölüm: Gün, Tarih, Saat & Mekan Adresi */
+    /* ALT BÖLÜM: TARİH, SAAT VE MEKAN BİLGİSİ */
     .poster-footer {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding-bottom: 2mm;
+      padding-bottom: 3mm;
       position: relative;
       z-index: 2;
     }
 
-    .match-day {
-      font-size: 36pt;
-      line-height: 1;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      color: #0A192F;
-      font-family: 'Bebas Neue', sans-serif;
-      margin-bottom: 4px;
-    }
-
-    .match-meta-pill {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      border: 2px solid #D4AF37;
-      padding: 6px 26px;
-      border-radius: 40px;
-      background: transparent;
-      margin-top: 3px;
+    /* Küçük Altın Ayraç Çizgisi */
+    .footer-divider-line {
+      width: 46px;
+      height: 3px;
+      background: #C5A059;
+      border-radius: 2px;
+      margin-bottom: 16px;
     }
 
     .match-date {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 15pt;
-      font-weight: 800;
-      letter-spacing: 2px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 34pt;
+      font-weight: 900;
+      letter-spacing: 3px;
       text-transform: uppercase;
-      color: #0A192F;
-    }
-
-    .match-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #D4AF37;
+      color: #FFFFFF;
+      line-height: 1;
     }
 
     .match-time {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 17pt;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56pt;
       font-weight: 900;
-      letter-spacing: 1px;
-      color: #D4AF37;
+      letter-spacing: 2px;
+      color: #C5A059;
+      line-height: 1;
+      margin-top: 4px;
     }
 
     .match-address {
       font-family: 'Montserrat', sans-serif;
       font-size: 10pt;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      color: #0A192F;
-      margin-top: 9px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #94A3B8;
+      margin-top: 14px;
       text-align: center;
       max-width: 580px;
       line-height: 1.35;
@@ -983,13 +962,13 @@
   <!-- Ana Kapsayıcı -->
   <div class="main-container">
     
-    <!-- SOL: KONTROL PANELİ (TEK KUTU İÇERİSİNDE SIRALI DÜZEN) -->
+    <!-- SOL: KONTROL PANELİ -->
     <aside class="control-panel" id="controlPanel">
       
       <div class="editor-single-box">
         
         <!-- 1. TEMA & ARKAPLAN -->
-        <div class="category-divider">🎨 1. Afiş Arkaplanı & Çerçeve</div>
+        <div class="category-divider">🎨 1. Afiş Arkaplanı & Renk Teması</div>
         
         <div class="field-card">
           <div class="field-label">
@@ -998,52 +977,90 @@
           </div>
           <div class="style-row">
             <div class="color-picker-box">
-              <input type="color" id="posterBgInput" value="#FFFFFF">
-              <span id="posterBgHex" class="color-hex-text">#FFFFFF</span>
+              <input type="color" id="posterBgInput" value="#121316">
+              <span id="posterBgHex" class="color-hex-text">#121316</span>
             </div>
             <div class="palette-chips">
-              <button type="button" class="chip-btn" style="background: #FFFFFF;" title="Beyaz" onclick="setPosterBg('#FFFFFF')"></button>
+              <button type="button" class="chip-btn" style="background: #121316;" title="Koyu Antrasit (Görsel 1)" onclick="setPosterBg('#121316')"></button>
+              <button type="button" class="chip-btn" style="background: #080A0E;" title="Tam Siyah" onclick="setPosterBg('#080A0E')"></button>
+              <button type="button" class="chip-btn" style="background: #0A111F;" title="Gece Mavisi" onclick="setPosterBg('#0A111F')"></button>
+              <button type="button" class="chip-btn" style="background: #1C0A0E;" title="Bordo" onclick="setPosterBg('#1C0A0E')"></button>
+              <button type="button" class="chip-btn" style="background: #0D2214;" title="Zümrüt Yeşil" onclick="setPosterBg('#0D2214')"></button>
               <button type="button" class="chip-btn" style="background: #FDFBF7;" title="Krem" onclick="setPosterBg('#FDFBF7')"></button>
-              <button type="button" class="chip-btn" style="background: #F1F5F9;" title="Gri" onclick="setPosterBg('#F1F5F9')"></button>
-              <button type="button" class="chip-btn" style="background: #0A192F;" title="Lacivert" onclick="setPosterBg('#0A192F')"></button>
-              <button type="button" class="chip-btn" style="background: #111827;" title="Siyah" onclick="setPosterBg('#111827')"></button>
-              <button type="button" class="chip-btn" style="background: #0D381E;" title="Yeşil" onclick="setPosterBg('#0D381E')"></button>
-              <button type="button" class="chip-btn" style="background: #3D0C11;" title="Bordo" onclick="setPosterBg('#3D0C11')"></button>
+              <button type="button" class="chip-btn" style="background: #FFFFFF;" title="Beyaz" onclick="setPosterBg('#FFFFFF')"></button>
             </div>
           </div>
         </div>
 
         <div class="field-card">
           <div class="field-label">
-            <span>Çerçeve & Rozet Vurgu Renkleri</span>
+            <span>Vurgu & Çerçeve Renkleri</span>
           </div>
           <div class="style-row">
             <div class="style-item color-item">
-              <span class="style-label">Dış Çerçeve</span>
+              <span class="style-label">Altın Vurgu</span>
               <div class="color-picker-box">
-                <input type="color" id="frameColorInput" value="#D4AF37">
-                <span id="frameColorHex" class="color-hex-text">#D4AF37</span>
+                <input type="color" id="accentColorInput" value="#C5A059">
+                <span id="accentColorHex" class="color-hex-text">#C5A059</span>
               </div>
             </div>
+            <div class="style-item" style="flex: 1 1 160px; justify-content: center;">
+              <label class="checkbox-label" style="margin-top: 14px;">
+                <input type="checkbox" id="toggleFrameCheckbox">
+                <span>Dış Kenarlık Çerçevesi</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. MEKAN BİLGİLERİ & BAŞLIK & SLOGAN -->
+        <div class="category-divider">🏢 2. Mekan Bilgileri, Başlık & Slogan</div>
+
+        <!-- Üst Etiket: MAÇ GÜNÜ -->
+        <div class="field-card">
+          <div class="field-label">
+            <span>Üst Başlık Etiketi</span>
+            <span class="tag">Tepe Yazı</span>
+          </div>
+          <input type="text" id="tagText" class="form-control" value="MAÇ GÜNÜ" placeholder="Örn: MAÇ GÜNÜ">
+          <div class="style-row">
+            <div class="style-item font-item">
+              <span class="style-label">Yazı Tipi</span>
+              <select id="tagFont" class="form-control">
+                <option value="'Montserrat', sans-serif" selected>Montserrat</option>
+                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
+                <option value="'Oswald', sans-serif">Oswald</option>
+                <option value="'Anton', sans-serif">Anton</option>
+                <option value="'Teko', sans-serif">Teko (Canlı & Uzun)</option>
+                <option value="'Russo One', sans-serif">Russo One (Güçlü)</option>
+                <option value="'Kanit', sans-serif">Kanit (Spor)</option>
+                <option value="'Righteous', cursive">Righteous (Dinamik)</option>
+                <option value="'Barlow Condensed', sans-serif">Barlow Condensed</option>
+              </select>
+            </div>
             <div class="style-item color-item">
-              <span class="style-label">Rozet & Ayraç</span>
+              <span class="style-label">Renk</span>
               <div class="color-picker-box">
-                <input type="color" id="accentColorInput" value="#D4AF37">
-                <span id="accentColorHex" class="color-hex-text">#D4AF37</span>
+                <input type="color" id="tagColor" value="#C5A059">
+                <span id="tagColorHex" class="color-hex-text">#C5A059</span>
+              </div>
+            </div>
+            <div class="style-item size-item">
+              <span class="style-label">Boyut: <span id="tagSizeVal" class="range-label-val">13pt</span></span>
+              <div class="range-box">
+                <input type="range" id="tagSize" min="9" max="26" value="13">
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 2. MEKAN & BAŞLIK & SLOGAN -->
-        <div class="category-divider">🏢 2. Mekan Bilgileri & Slogan</div>
-
+        <!-- Mekan Adı: MUHABBET -->
         <div class="field-card">
           <div class="field-label">
             <span>Mekan Adı</span>
-            <span class="tag">Ana Başlık</span>
+            <span class="tag">Büyük Ana Başlık</span>
           </div>
-          <input type="text" id="venueText" class="form-control" value="MUHABBET RESTORAN" placeholder="Mekan adını girin...">
+          <input type="text" id="venueText" class="form-control" value="MUHABBET" placeholder="Mekan adını girin...">
           <div class="style-row">
             <div class="style-item font-item">
               <span class="style-label">Yazı Tipi</span>
@@ -1062,31 +1079,32 @@
             <div class="style-item color-item">
               <span class="style-label">Renk</span>
               <div class="color-picker-box">
-                <input type="color" id="venueColor" value="#0A192F">
-                <span id="venueColorHex" class="color-hex-text">#0A192F</span>
+                <input type="color" id="venueColor" value="#FFFFFF">
+                <span id="venueColorHex" class="color-hex-text">#FFFFFF</span>
               </div>
             </div>
             <div class="style-item size-item">
-              <span class="style-label">Boyut: <span id="venueSizeVal" class="range-label-val">32pt</span></span>
+              <span class="style-label">Boyut: <span id="venueSizeVal" class="range-label-val">54pt</span></span>
               <div class="range-box">
-                <input type="range" id="venueSize" min="18" max="52" value="32">
+                <input type="range" id="venueSize" min="28" max="72" value="54">
               </div>
             </div>
           </div>
         </div>
 
+        <!-- Alt Başlık: RESTAURANT -->
         <div class="field-card">
           <div class="field-label">
             <span>Alt Başlık</span>
-            <span class="tag">Üst Yazı</span>
+            <span class="tag">Tür / Konsept</span>
           </div>
-          <input type="text" id="subTitleText" class="form-control" value="BÜYÜK MAÇ CANLI YAYIN" placeholder="Alt başlığı girin...">
+          <input type="text" id="subTitleText" class="form-control" value="RESTAURANT" placeholder="Alt başlığı girin...">
           <div class="style-row">
             <div class="style-item font-item">
               <span class="style-label">Yazı Tipi</span>
               <select id="subTitleFont" class="form-control">
-                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
                 <option value="'Montserrat', sans-serif" selected>Montserrat</option>
+                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
                 <option value="'Oswald', sans-serif">Oswald</option>
                 <option value="'Anton', sans-serif">Anton</option>
                 <option value="'Teko', sans-serif">Teko (Canlı & Uzun)</option>
@@ -1099,26 +1117,26 @@
             <div class="style-item color-item">
               <span class="style-label">Renk</span>
               <div class="color-picker-box">
-                <input type="color" id="subTitleColor" value="#D4AF37">
-                <span id="subTitleColorHex" class="color-hex-text">#D4AF37</span>
+                <input type="color" id="subTitleColor" value="#C5A059">
+                <span id="subTitleColorHex" class="color-hex-text">#C5A059</span>
               </div>
             </div>
             <div class="style-item size-item">
-              <span class="style-label">Boyut: <span id="subTitleSizeVal" class="range-label-val">10pt</span></span>
+              <span class="style-label">Boyut: <span id="subTitleSizeVal" class="range-label-val">17pt</span></span>
               <div class="range-box">
-                <input type="range" id="subTitleSize" min="7" max="22" value="10">
+                <input type="range" id="subTitleSize" min="10" max="32" value="17">
               </div>
             </div>
           </div>
         </div>
 
-        <!-- ÖZEL SLOGAN ALANI (BİRA BARDAKLARI ARASI) -->
+        <!-- 2. GÖRSELDEKİ ÖZEL SLOGAN ("GECENİN ADI MUHABBET.") -->
         <div class="field-card">
           <div class="field-label">
-            <span>Özel Slogan (Bira Bardakları Ortası)</span>
-            <span class="tag">İsteğe Bağlı</span>
+            <span>Özel Slogan (2. Görsel)</span>
+            <span class="tag">Mekan Sloganı</span>
           </div>
-          <input type="text" id="sloganText" class="form-control" value="" placeholder="Örn: DERBİ HEYECANI BURADA YAŞANIR (Varsayılan Boş)">
+          <input type="text" id="sloganText" class="form-control" value="GECENİN ADI MUHABBET." placeholder="Örn: GECENİN ADI MUHABBET.">
           <div class="style-row">
             <div class="style-item font-item">
               <span class="style-label">Yazı Tipi</span>
@@ -1137,29 +1155,14 @@
             <div class="style-item color-item">
               <span class="style-label">Renk</span>
               <div class="color-picker-box">
-                <input type="color" id="sloganColor" value="#D4AF37">
-                <span id="sloganColorHex" class="color-hex-text">#D4AF37</span>
+                <input type="color" id="sloganColor" value="#E6D5B8">
+                <span id="sloganColorHex" class="color-hex-text">#E6D5B8</span>
               </div>
             </div>
             <div class="style-item size-item">
               <span class="style-label">Boyut: <span id="sloganSizeVal" class="range-label-val">13pt</span></span>
               <div class="range-box">
                 <input type="range" id="sloganSize" min="8" max="28" value="13">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="field-card">
-          <div class="field-label">
-            <span>Tokuşturulan Bira Bardakları Boyutu</span>
-            <span class="tag">Logoların Üstü</span>
-          </div>
-          <div class="style-row">
-            <div class="style-item size-item" style="flex: 1 1 100%;">
-              <span class="style-label">Görsel Boyutu: <span id="beerSizeVal" class="range-label-val">75px</span></span>
-              <div class="range-box">
-                <input type="range" id="beerSize" min="40" max="150" value="75">
               </div>
             </div>
           </div>
@@ -1174,7 +1177,7 @@
             <span>1. Takım (Ev Sahibi)</span>
             <span class="tag">Sol</span>
           </div>
-          <input type="text" id="teamAText" class="form-control" value="GALATASARAY" placeholder="Takım A adı">
+          <input type="text" id="teamAText" class="form-control" value="AMED SPOR" placeholder="Takım A adı">
           <div class="style-row">
             <div class="style-item font-item">
               <span class="style-label">Yazı Tipi</span>
@@ -1193,22 +1196,22 @@
             <div class="style-item color-item">
               <span class="style-label">Renk</span>
               <div class="color-picker-box">
-                <input type="color" id="teamAColor" value="#0A192F">
-                <span id="teamAColorHex" class="color-hex-text">#0A192F</span>
+                <input type="color" id="teamAColor" value="#FFFFFF">
+                <span id="teamAColorHex" class="color-hex-text">#FFFFFF</span>
               </div>
             </div>
             <div class="style-item size-item">
-              <span class="style-label">Yazı Boyutu: <span id="teamASizeVal" class="range-label-val">30pt</span></span>
+              <span class="style-label">Yazı Boyutu: <span id="teamASizeVal" class="range-label-val">26pt</span></span>
               <div class="range-box">
-                <input type="range" id="teamASize" min="16" max="48" value="30">
+                <input type="range" id="teamASize" min="16" max="44" value="26">
               </div>
             </div>
           </div>
           <div class="style-row" style="margin-top: 4px;">
             <div class="style-item size-item" style="flex: 1 1 100%;">
-              <span class="style-label">Logo Boyutu: <span id="teamALogoSizeVal" class="range-label-val">130px</span></span>
+              <span class="style-label">Logo Boyutu: <span id="teamALogoSizeVal" class="range-label-val">140px</span></span>
               <div class="range-box">
-                <input type="range" id="teamALogoSize" min="60" max="200" value="130">
+                <input type="range" id="teamALogoSize" min="80" max="220" value="140">
               </div>
             </div>
           </div>
@@ -1231,7 +1234,7 @@
             <span>2. Takım (Deplasman)</span>
             <span class="tag">Sağ</span>
           </div>
-          <input type="text" id="teamBText" class="form-control" value="AMED SPOR" placeholder="Takım B adı">
+          <input type="text" id="teamBText" class="form-control" value="EYÜPSPOR" placeholder="Takım B adı">
           <div class="style-row">
             <div class="style-item font-item">
               <span class="style-label">Yazı Tipi</span>
@@ -1250,22 +1253,22 @@
             <div class="style-item color-item">
               <span class="style-label">Renk</span>
               <div class="color-picker-box">
-                <input type="color" id="teamBColor" value="#0A192F">
-                <span id="teamBColorHex" class="color-hex-text">#0A192F</span>
+                <input type="color" id="teamBColor" value="#FFFFFF">
+                <span id="teamBColorHex" class="color-hex-text">#FFFFFF</span>
               </div>
             </div>
             <div class="style-item size-item">
-              <span class="style-label">Yazı Boyutu: <span id="teamBSizeVal" class="range-label-val">30pt</span></span>
+              <span class="style-label">Yazı Boyutu: <span id="teamBSizeVal" class="range-label-val">26pt</span></span>
               <div class="range-box">
-                <input type="range" id="teamBSize" min="16" max="48" value="30">
+                <input type="range" id="teamBSize" min="16" max="44" value="26">
               </div>
             </div>
           </div>
           <div class="style-row" style="margin-top: 4px;">
             <div class="style-item size-item" style="flex: 1 1 100%;">
-              <span class="style-label">Logo Boyutu: <span id="teamBLogoSizeVal" class="range-label-val">130px</span></span>
+              <span class="style-label">Logo Boyutu: <span id="teamBLogoSizeVal" class="range-label-val">140px</span></span>
               <div class="range-box">
-                <input type="range" id="teamBLogoSize" min="60" max="200" value="130">
+                <input type="range" id="teamBLogoSize" min="80" max="220" value="140">
               </div>
             </div>
           </div>
@@ -1282,22 +1285,8 @@
           </div>
         </div>
 
-        <!-- 4. ORTA ALAN: KILIÇLAR & VS -->
-        <div class="category-divider">⚔️ 4. Orta Karşılaşma (Kılıçlar, VS, Maç Günü)</div>
-
-        <div class="field-card">
-          <div class="field-label">
-            <span>Çapraz Kılıçlar Vektörü</span>
-          </div>
-          <div class="style-row">
-            <div class="style-item size-item" style="flex: 1 1 100%;">
-              <span class="style-label">Kılıç Boyutu: <span id="swordsSizeVal" class="range-label-val">74px</span></span>
-              <div class="range-box">
-                <input type="range" id="swordsSize" min="40" max="130" value="74">
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- 4. ORTA ALAN: VS & İSTEĞE BAĞLI İKONLAR -->
+        <div class="category-divider">⚔️ 4. Orta Karşılaşma (VS & İkonlar)</div>
 
         <div class="field-card">
           <div class="field-label">
@@ -1323,69 +1312,42 @@
             <div class="style-item color-item">
               <span class="style-label">Renk</span>
               <div class="color-picker-box">
-                <input type="color" id="vsColor" value="#D4AF37">
-                <span id="vsColorHex" class="color-hex-text">#D4AF37</span>
+                <input type="color" id="vsColor" value="#C5A059">
+                <span id="vsColorHex" class="color-hex-text">#C5A059</span>
               </div>
             </div>
             <div class="style-item size-item">
-              <span class="style-label">Boyut: <span id="vsSizeVal" class="range-label-val">42pt</span></span>
+              <span class="style-label">Boyut: <span id="vsSizeVal" class="range-label-val">38pt</span></span>
               <div class="range-box">
-                <input type="range" id="vsSize" min="20" max="64" value="42">
+                <input type="range" id="vsSize" min="20" max="60" value="38">
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="field-card">
-          <div class="field-label">
-            <span>VS Alt Yazısı</span>
-            <span class="tag">Maç Günü</span>
-          </div>
-          <input type="text" id="vsSubText" class="form-control" value="MAÇ GÜNÜ" placeholder="Örn: MAÇ GÜNÜ">
-          <div class="style-row">
-            <div class="style-item font-item">
-              <span class="style-label">Yazı Tipi</span>
-              <select id="vsSubFont" class="form-control">
-                <option value="'Montserrat', sans-serif" selected>Montserrat</option>
-                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
-                <option value="'Oswald', sans-serif">Oswald</option>
-                <option value="'Anton', sans-serif">Anton</option>
-                <option value="'Teko', sans-serif">Teko (Canlı & Uzun)</option>
-                <option value="'Russo One', sans-serif">Russo One (Güçlü)</option>
-                <option value="'Kanit', sans-serif">Kanit (Spor)</option>
-                <option value="'Righteous', cursive">Righteous (Dinamik)</option>
-                <option value="'Barlow Condensed', sans-serif">Barlow Condensed</option>
-              </select>
-            </div>
-            <div class="style-item color-item">
-              <span class="style-label">Renk</span>
-              <div class="color-picker-box">
-                <input type="color" id="vsSubColor" value="#0A192F">
-                <span id="vsSubColorHex" class="color-hex-text">#0A192F</span>
-              </div>
-            </div>
-            <div class="style-item size-item">
-              <span class="style-label">Boyut: <span id="vsSubSizeVal" class="range-label-val">10pt</span></span>
-              <div class="range-box">
-                <input type="range" id="vsSubSize" min="7" max="22" value="10">
-              </div>
-            </div>
+          <div style="margin-top: 6px; display: flex; flex-direction: column; gap: 8px;">
+            <label class="checkbox-label">
+              <input type="checkbox" id="toggleCircleFrameCheckbox" checked>
+              <span>1. Görseldeki Beyaz Yuvarlak Logo Çerçevesi</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="toggleIconsCheckbox">
+              <span>Bira Bardakları ve Çapraz Kılıçları Göster (İsteğe Bağlı)</span>
+            </label>
           </div>
         </div>
 
         <!-- 5. ZAMAN & ADRES -->
-        <div class="category-divider">📅 5. Zaman Bilgileri & Mekan Adresi</div>
+        <div class="category-divider">📅 5. Tarih, Saat & Mekan Bilgisi</div>
 
         <div class="field-card">
           <div class="field-label">
-            <span>Maç Günü (Yazıyla)</span>
-            <span class="tag">Gün</span>
+            <span>Tarih</span>
+            <span class="tag">Gün & Ay & Yıl</span>
           </div>
-          <input type="text" id="dayText" class="form-control" value="CUMARTESİ" placeholder="Örn: CUMARTESİ">
+          <input type="text" id="dateText" class="form-control" value="1 KASIM 2026" placeholder="Örn: 1 KASIM 2026">
           <div class="style-row">
             <div class="style-item font-item">
               <span class="style-label">Yazı Tipi</span>
-              <select id="dayFont" class="form-control">
+              <select id="dateFont" class="form-control">
                 <option value="'Bebas Neue', sans-serif" selected>Bebas Neue</option>
                 <option value="'Montserrat', sans-serif">Montserrat</option>
                 <option value="'Oswald', sans-serif">Oswald</option>
@@ -1400,51 +1362,14 @@
             <div class="style-item color-item">
               <span class="style-label">Renk</span>
               <div class="color-picker-box">
-                <input type="color" id="dayColor" value="#0A192F">
-                <span id="dayColorHex" class="color-hex-text">#0A192F</span>
+                <input type="color" id="dateColor" value="#FFFFFF">
+                <span id="dateColorHex" class="color-hex-text">#FFFFFF</span>
               </div>
             </div>
             <div class="style-item size-item">
-              <span class="style-label">Boyut: <span id="daySizeVal" class="range-label-val">36pt</span></span>
+              <span class="style-label">Boyut: <span id="dateSizeVal" class="range-label-val">34pt</span></span>
               <div class="range-box">
-                <input type="range" id="daySize" min="20" max="54" value="36">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="field-card">
-          <div class="field-label">
-            <span>Tarih (Sayıyla)</span>
-            <span class="tag">Tarih</span>
-          </div>
-          <input type="text" id="dateText" class="form-control" value="11.07.2026" placeholder="Örn: 11.07.2026">
-          <div class="style-row">
-            <div class="style-item font-item">
-              <span class="style-label">Yazı Tipi</span>
-              <select id="dateFont" class="form-control">
-                <option value="'Montserrat', sans-serif" selected>Montserrat</option>
-                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
-                <option value="'Oswald', sans-serif">Oswald</option>
-                <option value="'Anton', sans-serif">Anton</option>
-                <option value="'Teko', sans-serif">Teko (Canlı & Uzun)</option>
-                <option value="'Russo One', sans-serif">Russo One (Güçlü)</option>
-                <option value="'Kanit', sans-serif">Kanit (Spor)</option>
-                <option value="'Righteous', cursive">Righteous (Dinamik)</option>
-                <option value="'Barlow Condensed', sans-serif">Barlow Condensed</option>
-              </select>
-            </div>
-            <div class="style-item color-item">
-              <span class="style-label">Renk</span>
-              <div class="color-picker-box">
-                <input type="color" id="dateColor" value="#0A192F">
-                <span id="dateColorHex" class="color-hex-text">#0A192F</span>
-              </div>
-            </div>
-            <div class="style-item size-item">
-              <span class="style-label">Boyut: <span id="dateSizeVal" class="range-label-val">15pt</span></span>
-              <div class="range-box">
-                <input type="range" id="dateSize" min="10" max="28" value="15">
+                <input type="range" id="dateSize" min="16" max="48" value="34">
               </div>
             </div>
           </div>
@@ -1453,15 +1378,15 @@
         <div class="field-card">
           <div class="field-label">
             <span>Saat</span>
-            <span class="tag">Saat</span>
+            <span class="tag">Büyük Zaman</span>
           </div>
-          <input type="text" id="timeText" class="form-control" value="19:00" placeholder="Örn: 19:00">
+          <input type="text" id="timeText" class="form-control" value="13.30" placeholder="Örn: 13.30">
           <div class="style-row">
             <div class="style-item font-item">
               <span class="style-label">Yazı Tipi</span>
               <select id="timeFont" class="form-control">
-                <option value="'Montserrat', sans-serif" selected>Montserrat</option>
-                <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
+                <option value="'Bebas Neue', sans-serif" selected>Bebas Neue</option>
+                <option value="'Montserrat', sans-serif">Montserrat</option>
                 <option value="'Oswald', sans-serif">Oswald</option>
                 <option value="'Anton', sans-serif">Anton</option>
                 <option value="'Teko', sans-serif">Teko (Canlı & Uzun)</option>
@@ -1474,14 +1399,14 @@
             <div class="style-item color-item">
               <span class="style-label">Renk</span>
               <div class="color-picker-box">
-                <input type="color" id="timeColor" value="#D4AF37">
-                <span id="timeColorHex" class="color-hex-text">#D4AF37</span>
+                <input type="color" id="timeColor" value="#C5A059">
+                <span id="timeColorHex" class="color-hex-text">#C5A059</span>
               </div>
             </div>
             <div class="style-item size-item">
-              <span class="style-label">Boyut: <span id="timeSizeVal" class="range-label-val">17pt</span></span>
+              <span class="style-label">Boyut: <span id="timeSizeVal" class="range-label-val">56pt</span></span>
               <div class="range-box">
-                <input type="range" id="timeSize" min="10" max="30" value="17">
+                <input type="range" id="timeSize" min="24" max="74" value="56">
               </div>
             </div>
           </div>
@@ -1489,10 +1414,10 @@
 
         <div class="field-card">
           <div class="field-label">
-            <span>Mekan Adresi</span>
+            <span>Mekan Bilgisi / Şehir</span>
             <span class="tag">En Alt Satır</span>
           </div>
-          <input type="text" id="addressText" class="form-control" value="📍 Atatürk Cad. No: 42, Kadıköy / İstanbul" placeholder="Mekan adresini girin...">
+          <input type="text" id="addressText" class="form-control" value="VAN • MUHABBET RESTORAN" placeholder="Mekan adresi veya şehir bilgisi...">
           <div class="style-row">
             <div class="style-item font-item">
               <span class="style-label">Yazı Tipi</span>
@@ -1511,8 +1436,8 @@
             <div class="style-item color-item">
               <span class="style-label">Renk</span>
               <div class="color-picker-box">
-                <input type="color" id="addressColor" value="#0A192F">
-                <span id="addressColorHex" class="color-hex-text">#0A192F</span>
+                <input type="color" id="addressColor" value="#94A3B8">
+                <span id="addressColorHex" class="color-hex-text">#94A3B8</span>
               </div>
             </div>
             <div class="style-item size-item">
@@ -1551,7 +1476,7 @@
 
     </aside>
 
-    <!-- SAĞ: CANLI ÖNİZLEME PENCERESİ (A4 DİKEY) -->
+    <!-- SAĞ: CANLI ÖNİZLEME PENCERESİ (A4 DİKEY / GÖRSEL 1 DÜZENİ) -->
     <main class="preview-viewport" id="previewViewport">
       
       <div class="preview-toolbar">
@@ -1559,7 +1484,7 @@
         <input type="range" id="zoomRange" min="20" max="110" value="62">
         <span id="zoomVal" style="font-family: monospace; min-width: 35px;">62%</span>
         <span>•</span>
-        <span>A4 Dikey (210 x 297 mm)</span>
+        <span>A4 Dikey & 9:16</span>
       </div>
 
       <div class="a4-portrait-wrapper" id="a4Wrapper">
@@ -1568,32 +1493,51 @@
           <div id="posterFrame1" class="poster-inner-frame"></div>
           <div id="posterFrame2" class="poster-inner-frame-double"></div>
 
-          <!-- 1. ÜST BAŞLIK: Mekan Adı, Alt Başlık ve Çizgi Ayraç -->
+          <!-- 1. ÜST BAŞLIK: MAÇ GÜNÜ, MUHABBET, RESTAURANT VE SLOGAN -->
           <div class="poster-header">
-            <div class="venue-title-wrapper">
-              <div id="previewVenueName" class="venue-name">MUHABBET RESTORAN</div>
-              <div id="previewSubTitle" class="venue-subtitle">BÜYÜK MAÇ CANLI YAYIN</div>
-              <div class="header-divider">
-                <div id="dividerLineLeft" class="header-divider-line"></div>
-                <div id="dividerDiamond" class="header-divider-diamond"></div>
-                <div id="dividerLineRight" class="header-divider-line"></div>
-              </div>
+            <div id="previewTag" class="venue-tag">MAÇ GÜNÜ</div>
+            <div id="previewVenueName" class="venue-name">MUHABBET</div>
+            <div id="previewSubTitle" class="venue-subtitle">RESTAURANT</div>
+            
+            <!-- 2. Görseldeki Özel Slogan -->
+            <div class="slogan-banner">
+              <div id="previewSlogan" class="slogan-text">GECENİN ADI MUHABBET.</div>
             </div>
           </div>
 
-          <!-- 2. BİRA BARDAKLARI & ORTADA ÖZEL SLOGAN SATIRI -->
-          <div class="poster-slogan-beer-row">
-            
-            <!-- Sol Bira Bardakları (Takım A Logosunun Tam Üstünde) -->
-            <div class="slogan-beer-col">
-              <svg class="beer-toast-svg" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
-                <!-- Damlalar & Köpük Sıçramaları -->
+          <!-- İsteğe Bağlı Bira Bardakları Satırı -->
+          <div id="optionalBeerRow" class="optional-beer-row">
+            <svg class="beer-toast-svg" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="80" cy="20" r="3.2" fill="#F59E0B"/>
+              <circle cx="72" cy="12" r="2.2" fill="#F59E0B"/>
+              <circle cx="88" cy="14" r="2.5" fill="#F59E0B"/>
+              <circle cx="79" cy="8" r="1.8" fill="#F59E0B"/>
+              <path d="M78 26 C75 22 85 22 82 26 Z" fill="#F59E0B"/>
+              <g transform="translate(48, 64) rotate(16) translate(-48, -64)">
+                <path d="M22 45 C10 45 10 76 22 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
+                <path d="M22 48 C14 48 14 73 22 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+                <path d="M26 38 L30 92 C30 96 34 98 40 98 L66 98 C72 98 76 96 76 92 L80 38 Z" fill="#FBBF24" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                <path d="M34 46 L36 88" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M46 50 L47 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
+                <path d="M23 40 C20 40 18 35 20 30 C22 25 28 26 30 23 C34 18 42 19 46 22 C50 17 60 17 64 22 C70 19 78 22 80 28 C82 33 80 38 78 40 C75 42 70 41 68 39 C65 44 58 45 54 41 C50 46 42 47 38 41 C35 44 26 44 23 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
+              </g>
+              <g transform="translate(112, 64) rotate(-16) translate(-112, -64)">
+                <path d="M138 45 C150 45 150 76 138 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
+                <path d="M138 48 C146 48 146 73 138 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+                <path d="M84 38 L88 92 C88 96 92 98 98 98 L124 98 C130 98 134 96 134 92 L138 38 Z" fill="#FBBF24" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                <path d="M126 46 L124 88" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M114 50 L113 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
+                <path d="M82 40 C80 40 78 35 80 30 C82 25 88 26 90 23 C94 18 102 19 106 22 C110 17 120 17 124 22 C130 19 138 22 140 28 C142 33 140 38 138 40 C135 42 130 41 128 39 C125 44 118 45 114 41 C110 46 102 47 98 41 C95 44 86 44 82 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
+              </g>
+            </svg>
+
+            <svg class="beer-toast-svg" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+              <g transform="translate(160, 0) scale(-1, 1)">
                 <circle cx="80" cy="20" r="3.2" fill="#F59E0B"/>
                 <circle cx="72" cy="12" r="2.2" fill="#F59E0B"/>
                 <circle cx="88" cy="14" r="2.5" fill="#F59E0B"/>
                 <circle cx="79" cy="8" r="1.8" fill="#F59E0B"/>
                 <path d="M78 26 C75 22 85 22 82 26 Z" fill="#F59E0B"/>
-                <!-- Sol Bardak -->
                 <g transform="translate(48, 64) rotate(16) translate(-48, -64)">
                   <path d="M22 45 C10 45 10 76 22 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
                   <path d="M22 48 C14 48 14 73 22 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
@@ -1602,7 +1546,6 @@
                   <path d="M46 50 L47 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
                   <path d="M23 40 C20 40 18 35 20 30 C22 25 28 26 30 23 C34 18 42 19 46 22 C50 17 60 17 64 22 C70 19 78 22 80 28 C82 33 80 38 78 40 C75 42 70 41 68 39 C65 44 58 45 54 41 C50 46 42 47 38 41 C35 44 26 44 23 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
                 </g>
-                <!-- Sağ Bardak -->
                 <g transform="translate(112, 64) rotate(-16) translate(-112, -64)">
                   <path d="M138 45 C150 45 150 76 138 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
                   <path d="M138 48 C146 48 146 73 138 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
@@ -1611,123 +1554,83 @@
                   <path d="M114 50 L113 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
                   <path d="M82 40 C80 40 78 35 80 30 C82 25 88 26 90 23 C94 18 102 19 106 22 C110 17 120 17 124 22 C130 19 138 22 140 28 C142 33 140 38 138 40 C135 42 130 41 128 39 C125 44 118 45 114 41 C110 46 102 47 98 41 C95 44 86 44 82 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
                 </g>
-              </svg>
-            </div>
-
-            <!-- Ortadaki Özel Slogan (Varsayılan Boş) -->
-            <div class="slogan-text-container">
-              <div id="previewSlogan" class="slogan-text"></div>
-            </div>
-
-            <!-- Sağ Bira Bardakları (Takım B Logosunun Tam Üstünde - Doğrudan SVG İçi Aynalanmış) -->
-            <div class="slogan-beer-col">
-              <svg class="beer-toast-svg" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
-                <g transform="translate(160, 0) scale(-1, 1)">
-                  <!-- Damlalar & Köpük Sıçramaları -->
-                  <circle cx="80" cy="20" r="3.2" fill="#F59E0B"/>
-                  <circle cx="72" cy="12" r="2.2" fill="#F59E0B"/>
-                  <circle cx="88" cy="14" r="2.5" fill="#F59E0B"/>
-                  <circle cx="79" cy="8" r="1.8" fill="#F59E0B"/>
-                  <path d="M78 26 C75 22 85 22 82 26 Z" fill="#F59E0B"/>
-                  <!-- Sol Bardak -->
-                  <g transform="translate(48, 64) rotate(16) translate(-48, -64)">
-                    <path d="M22 45 C10 45 10 76 22 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
-                    <path d="M22 48 C14 48 14 73 22 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
-                    <path d="M26 38 L30 92 C30 96 34 98 40 98 L66 98 C72 98 76 96 76 92 L80 38 Z" fill="#FBBF24" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
-                    <path d="M34 46 L36 88" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
-                    <path d="M46 50 L47 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
-                    <path d="M23 40 C20 40 18 35 20 30 C22 25 28 26 30 23 C34 18 42 19 46 22 C50 17 60 17 64 22 C70 19 78 22 80 28 C82 33 80 38 78 40 C75 42 70 41 68 39 C65 44 58 45 54 41 C50 46 42 47 38 41 C35 44 26 44 23 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
-                  </g>
-                  <!-- Sağ Bardak -->
-                  <g transform="translate(112, 64) rotate(-16) translate(-112, -64)">
-                    <path d="M138 45 C150 45 150 76 138 76" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
-                    <path d="M138 48 C146 48 146 73 138 73" fill="none" stroke="#FFFFFF" stroke-width="2"/>
-                    <path d="M84 38 L88 92 C88 96 92 98 98 98 L124 98 C130 98 134 96 134 92 L138 38 Z" fill="#FBBF24" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
-                    <path d="M126 46 L124 88" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
-                    <path d="M114 50 L113 88" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
-                    <path d="M82 40 C80 40 78 35 80 30 C82 25 88 26 90 23 C94 18 102 19 106 22 C110 17 120 17 124 22 C130 19 138 22 140 28 C142 33 140 38 138 40 C135 42 130 41 128 39 C125 44 118 45 114 41 C110 46 102 47 98 41 C95 44 86 44 82 40 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.2" stroke-linejoin="round"/>
-                  </g>
-                </g>
-              </svg>
-            </div>
-
+              </g>
+            </svg>
           </div>
 
-          <!-- 3. ORTA KARŞILAŞMA: Takım A & Çapraz Kılıçlar + VS + Maç Günü & Takım B -->
+          <!-- 2. ORTA KARŞILAŞMA: YUVARLAK BEYAZ ÇERÇEVELİ LOGOLAR VE VS -->
           <div class="poster-matchup">
             
+            <!-- Takım A: AMED SPOR -->
             <div class="team-box">
-              <div id="previewTeamALogoContainer" class="team-logo-container">
-                <img id="previewTeamALogo" class="team-logo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,5 95,25 80,85 50,98 20,85 5,25' fill='%23A90432' stroke='%23FDB912' stroke-width='4'/><text x='50' y='60' font-family='sans-serif' font-size='32' font-weight='900' fill='%23FDB912' text-anchor='middle'>GS</text></svg>" alt="Takım A Logo">
+              <div id="previewTeamALogoCircle" class="team-logo-circle">
+                <img id="previewTeamALogo" class="team-logo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 190'><path d='M10 25 C10 15 20 8 30 8 L130 8 C140 8 150 15 150 25 L150 95 C150 145 80 182 80 182 C80 182 10 145 10 95 Z' fill='%232E7D32' stroke='%23D32F2F' stroke-width='7'/><path d='M18 12 L142 12 L142 36 L128 36 L128 26 L110 26 L110 36 L92 36 L92 26 L68 26 L68 36 L50 36 L50 26 L32 26 L32 36 L18 36 Z' fill='%23D32F2F'/><path d='M30 52 C50 42 110 42 130 52' fill='none' id='amedCurve'/><text font-family='sans-serif' font-weight='900' font-size='13' fill='%23FFFFFF' text-anchor='middle'><textPath href='%23amedCurve' startOffset='50%'>AMEDSPOR</textPath></text><g fill='%23FFFFFF'><path d='M80 62 C74 58 70 65 67 72 C62 68 56 70 54 75 C60 78 64 86 64 92 C56 86 42 86 32 94 C42 98 52 102 62 102 C48 108 38 120 34 135 C48 128 62 124 72 124 C68 132 64 142 66 150 C72 144 76 136 80 128 C84 136 88 144 94 150 C96 142 92 132 88 124 C98 124 112 128 126 135 C122 120 112 108 98 102 C108 102 118 98 128 94 C118 86 104 86 96 92 C96 86 100 78 106 75 C104 70 98 68 93 72 C90 65 86 58 80 62 Z'/><circle cx='70' cy='74' r='2.5' fill='%232E7D32'/><circle cx='90' cy='74' r='2.5' fill='%232E7D32'/></g></svg>" alt="Amedspor Logo">
               </div>
-              <div id="previewTeamAName" class="team-name">GALATASARAY</div>
+              <div id="previewTeamAName" class="team-name">AMED SPOR</div>
             </div>
 
+            <!-- VS ve İsteğe Bağlı Kılıçlar -->
             <div class="vs-separator">
-              <!-- Tamamen Bağımsız Çapraz Kılıçlar SVG (Html2canvas & PDF ile %100 Uyumlu) -->
-              <svg id="previewSwordsSvg" class="swords-svg" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
-                <!-- Sol Çapraz Kılıç (-45 derece) -->
-                <g transform="rotate(-45 70 70)">
-                  <path d="M70 8 L81 24 L79 78 L70 80 Z" fill="#94A3B8" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/>
-                  <path d="M70 8 L59 24 L61 78 L70 80 Z" fill="#E2E8F0" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/>
-                  <line x1="70" y1="12" x2="70" y2="76" stroke="#475569" stroke-width="2.5" stroke-linecap="round"/>
-                  <g stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round">
-                    <path d="M50 80 C50 76 60 76 70 76 C80 76 90 76 90 80 L88 88 C78 92 62 92 52 88 Z" fill="#C85A32"/>
-                    <circle cx="48" cy="83" r="5" fill="#E26D45"/>
-                    <circle cx="92" cy="83" r="5" fill="#E26D45"/>
+              <div id="swordsContainer" class="swords-svg-container">
+                <svg id="previewSwordsSvg" class="swords-svg" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                  <g transform="rotate(-45 70 70)">
+                    <path d="M70 8 L81 24 L79 78 L70 80 Z" fill="#94A3B8" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/>
+                    <path d="M70 8 L59 24 L61 78 L70 80 Z" fill="#E2E8F0" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/>
+                    <line x1="70" y1="12" x2="70" y2="76" stroke="#475569" stroke-width="2.5" stroke-linecap="round"/>
+                    <g stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round">
+                      <path d="M50 80 C50 76 60 76 70 76 C80 76 90 76 90 80 L88 88 C78 92 62 92 52 88 Z" fill="#C85A32"/>
+                      <circle cx="48" cy="83" r="5" fill="#E26D45"/>
+                      <circle cx="92" cy="83" r="5" fill="#E26D45"/>
+                    </g>
+                    <g stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round">
+                      <rect x="64" y="88" width="12" height="28" rx="2" fill="#FBBF24"/>
+                      <line x1="64" y1="94" x2="76" y2="94" stroke="#0F172A" stroke-width="3"/>
+                      <line x1="64" y1="100" x2="76" y2="100" stroke="#0F172A" stroke-width="3"/>
+                      <line x1="64" y1="106" x2="76" y2="106" stroke="#0F172A" stroke-width="3"/>
+                      <circle cx="70" cy="120" r="7.5" fill="#FBBF24"/>
+                      <circle cx="70" cy="120" r="3" fill="#D97706"/>
+                    </g>
                   </g>
-                  <g stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round">
-                    <rect x="64" y="88" width="12" height="28" rx="2" fill="#FBBF24"/>
-                    <line x1="64" y1="94" x2="76" y2="94" stroke="#0F172A" stroke-width="3"/>
-                    <line x1="64" y1="100" x2="76" y2="100" stroke="#0F172A" stroke-width="3"/>
-                    <line x1="64" y1="106" x2="76" y2="106" stroke="#0F172A" stroke-width="3"/>
-                    <circle cx="70" cy="120" r="7.5" fill="#FBBF24"/>
-                    <circle cx="70" cy="120" r="3" fill="#D97706"/>
+                  <g transform="rotate(45 70 70)">
+                    <path d="M70 8 L81 24 L79 78 L70 80 Z" fill="#94A3B8" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/>
+                    <path d="M70 8 L59 24 L61 78 L70 80 Z" fill="#E2E8F0" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/>
+                    <line x1="70" y1="12" x2="70" y2="76" stroke="#475569" stroke-width="2.5" stroke-linecap="round"/>
+                    <g stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round">
+                      <path d="M50 80 C50 76 60 76 70 76 C80 76 90 76 90 80 L88 88 C78 92 62 92 52 88 Z" fill="#C85A32"/>
+                      <circle cx="48" cy="83" r="5" fill="#E26D45"/>
+                      <circle cx="92" cy="83" r="5" fill="#E26D45"/>
+                    </g>
+                    <g stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round">
+                      <rect x="64" y="88" width="12" height="28" rx="2" fill="#FBBF24"/>
+                      <line x1="64" y1="94" x2="76" y2="94" stroke="#0F172A" stroke-width="3"/>
+                      <line x1="64" y1="100" x2="76" y2="100" stroke="#0F172A" stroke-width="3"/>
+                      <line x1="64" y1="106" x2="76" y2="106" stroke="#0F172A" stroke-width="3"/>
+                      <circle cx="70" cy="120" r="7.5" fill="#FBBF24"/>
+                      <circle cx="70" cy="120" r="3" fill="#D97706"/>
+                    </g>
                   </g>
-                </g>
-                <!-- Sağ Çapraz Kılıç (+45 derece) -->
-                <g transform="rotate(45 70 70)">
-                  <path d="M70 8 L81 24 L79 78 L70 80 Z" fill="#94A3B8" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/>
-                  <path d="M70 8 L59 24 L61 78 L70 80 Z" fill="#E2E8F0" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/>
-                  <line x1="70" y1="12" x2="70" y2="76" stroke="#475569" stroke-width="2.5" stroke-linecap="round"/>
-                  <g stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round">
-                    <path d="M50 80 C50 76 60 76 70 76 C80 76 90 76 90 80 L88 88 C78 92 62 92 52 88 Z" fill="#C85A32"/>
-                    <circle cx="48" cy="83" r="5" fill="#E26D45"/>
-                    <circle cx="92" cy="83" r="5" fill="#E26D45"/>
-                  </g>
-                  <g stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round">
-                    <rect x="64" y="88" width="12" height="28" rx="2" fill="#FBBF24"/>
-                    <line x1="64" y1="94" x2="76" y2="94" stroke="#0F172A" stroke-width="3"/>
-                    <line x1="64" y1="100" x2="76" y2="100" stroke="#0F172A" stroke-width="3"/>
-                    <line x1="64" y1="106" x2="76" y2="106" stroke="#0F172A" stroke-width="3"/>
-                    <circle cx="70" cy="120" r="7.5" fill="#FBBF24"/>
-                    <circle cx="70" cy="120" r="3" fill="#D97706"/>
-                  </g>
-                </g>
-              </svg>
+                </svg>
+              </div>
               
               <div id="previewVsBadge" class="vs-badge">VS</div>
-              <div id="previewVsSubtext" class="vs-subtext">MAÇ GÜNÜ</div>
             </div>
 
+            <!-- Takım B: EYÜPSPOR -->
             <div class="team-box">
-              <div id="previewTeamBLogoContainer" class="team-logo-container">
-                <img id="previewTeamBLogo" class="team-logo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23008000' stroke='%23d90429' stroke-width='4'/><text x='50' y='58' font-family='sans-serif' font-size='22' font-weight='900' fill='%23ffffff' text-anchor='middle'>AMED</text></svg>" alt="Takım B Logo">
+              <div id="previewTeamBLogoCircle" class="team-logo-circle">
+                <img id="previewTeamBLogo" class="team-logo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 190'><path d='M12 25 C12 15 22 8 32 8 L128 8 C138 8 148 15 148 25 L148 95 C148 145 80 182 80 182 C80 182 12 145 12 95 Z' fill='%234A148C' stroke='%23E5E7EB' stroke-width='5'/><clipPath id='eyupClip'><path d='M16 25 C16 17 24 12 32 12 L128 12 C136 12 144 17 144 25 L144 95 C144 142 80 178 80 178 C80 178 16 142 16 95 Z'/></clipPath><g clip-path='url(%23eyupClip)'><polygon points='10,10 60,10 20,180 -30,180' fill='%23FBBF24'/><polygon points='60,10 110,10 70,180 20,180' fill='%234A148C'/><polygon points='110,10 160,10 120,180 70,180' fill='%23FBBF24'/><polygon points='160,10 210,10 170,180 120,180' fill='%234A148C'/><rect x='52' y='12' width='56' height='36' rx='4' fill='%23DC2626'/><path d='M78 22 A8 8 0 1 0 78 38 A6 6 0 1 1 78 22 Z' fill='%23FFFFFF'/><polygon points='85,27 86.5,30 90,30 87,32 88,35 85,33 82,35 83,32 80,30 83.5,30' fill='%23FFFFFF'/></g><rect x='14' y='65' width='132' height='34' rx='4' fill='%23FFFFFF' stroke='%234A148C' stroke-width='3'/><text x='80' y='89' font-family='sans-serif' font-weight='900' font-size='16' fill='%234A148C' text-anchor='middle' letter-spacing='1'>EYÜPSPOR</text><rect x='56' y='112' width='48' height='22' rx='3' fill='%23FFFFFF' stroke='%234A148C' stroke-width='2'/><text x='80' y='128' font-family='sans-serif' font-weight='800' font-size='12' fill='%234A148C' text-anchor='middle'>1928</text></svg>" alt="Eyüpspor Logo">
               </div>
-              <div id="previewTeamBName" class="team-name">AMED SPOR</div>
+              <div id="previewTeamBName" class="team-name">EYÜPSPOR</div>
             </div>
 
           </div>
 
-          <!-- 4. ALT KISIM: Gün, Tarih, Saat & Mekan Adresi -->
+          <!-- 3. ALT KISIM: TARİH, SAAT VE MEKAN BİLGİSİ -->
           <div class="poster-footer">
-            <div id="previewMatchDay" class="match-day">CUMARTESİ</div>
-            <div id="previewMatchMetaPill" class="match-meta-pill">
-              <span id="previewMatchDate" class="match-date">11.07.2026</span>
-              <span id="previewMatchDot" class="match-dot"></span>
-              <span id="previewMatchTime" class="match-time">19:00</span>
-            </div>
-            <div id="previewAddress" class="match-address">📍 Atatürk Cad. No: 42, Kadıköy / İstanbul</div>
+            <div id="footerDividerLine" class="footer-divider-line"></div>
+            <div id="previewMatchDate" class="match-date">1 KASIM 2026</div>
+            <div id="previewMatchTime" class="match-time">13.30</div>
+            <div id="previewAddress" class="match-address">VAN • MUHABBET RESTORAN</div>
           </div>
 
         </div>
@@ -1814,7 +1717,6 @@
     });
 
     function initResponsiveScale() {
-      // Dikey A4 (210mm x 297mm) Boyutları: Genişlik ~793.7px, Yükseklik ~1122.5px
       const viewportWidth = previewViewport.clientWidth || window.innerWidth;
       const viewportHeight = previewViewport.clientHeight || (window.innerHeight - 80);
       
@@ -1887,7 +1789,19 @@
       }
     }
 
-    // Mekan Adı
+    // Üst Başlık Etiketi (MAÇ GÜNÜ)
+    bindTextControl({
+      textId: 'tagText',
+      fontId: 'tagFont',
+      colorId: 'tagColor',
+      colorHexId: 'tagColorHex',
+      sizeId: 'tagSize',
+      sizeValId: 'tagSizeVal',
+      targetId: 'previewTag',
+      defaultText: 'MAÇ GÜNÜ'
+    });
+
+    // Mekan Adı (MUHABBET)
     bindTextControl({
       textId: 'venueText',
       fontId: 'venueFont',
@@ -1896,10 +1810,10 @@
       sizeId: 'venueSize',
       sizeValId: 'venueSizeVal',
       targetId: 'previewVenueName',
-      defaultText: 'MEKAN ADI'
+      defaultText: 'MUHABBET'
     });
 
-    // Alt Başlık
+    // Alt Başlık (RESTAURANT)
     bindTextControl({
       textId: 'subTitleText',
       fontId: 'subTitleFont',
@@ -1908,10 +1822,10 @@
       sizeId: 'subTitleSize',
       sizeValId: 'subTitleSizeVal',
       targetId: 'previewSubTitle',
-      defaultText: 'BÜYÜK MAÇ CANLI YAYIN'
+      defaultText: 'RESTAURANT'
     });
 
-    // Özel Slogan (Bira Bardakları Ortası)
+    // 2. Görseldeki Özel Slogan (GECENİN ADI MUHABBET.)
     bindTextControl({
       textId: 'sloganText',
       fontId: 'sloganFont',
@@ -1920,10 +1834,10 @@
       sizeId: 'sloganSize',
       sizeValId: 'sloganSizeVal',
       targetId: 'previewSlogan',
-      defaultText: '' // Varsayılan olarak boş
+      defaultText: 'GECENİN ADI MUHABBET.'
     });
 
-    // Takım A Adı
+    // Takım A Adı (AMED SPOR)
     bindTextControl({
       textId: 'teamAText',
       fontId: 'teamAFont',
@@ -1932,10 +1846,10 @@
       sizeId: 'teamASize',
       sizeValId: 'teamASizeVal',
       targetId: 'previewTeamAName',
-      defaultText: 'TAKIM A'
+      defaultText: 'AMED SPOR'
     });
 
-    // Takım B Adı
+    // Takım B Adı (EYÜPSPOR)
     bindTextControl({
       textId: 'teamBText',
       fontId: 'teamBFont',
@@ -1944,7 +1858,7 @@
       sizeId: 'teamBSize',
       sizeValId: 'teamBSizeVal',
       targetId: 'previewTeamBName',
-      defaultText: 'TAKIM B'
+      defaultText: 'EYÜPSPOR'
     });
 
     // VS Yazısı
@@ -1959,31 +1873,7 @@
       defaultText: 'VS'
     });
 
-    // VS Alt Yazısı ('Maç Günü')
-    bindTextControl({
-      textId: 'vsSubText',
-      fontId: 'vsSubFont',
-      colorId: 'vsSubColor',
-      colorHexId: 'vsSubColorHex',
-      sizeId: 'vsSubSize',
-      sizeValId: 'vsSubSizeVal',
-      targetId: 'previewVsSubtext',
-      defaultText: 'MAÇ GÜNÜ'
-    });
-
-    // Maç Günü (Yazıyla)
-    bindTextControl({
-      textId: 'dayText',
-      fontId: 'dayFont',
-      colorId: 'dayColor',
-      colorHexId: 'dayColorHex',
-      sizeId: 'daySize',
-      sizeValId: 'daySizeVal',
-      targetId: 'previewMatchDay',
-      defaultText: 'GÜN'
-    });
-
-    // Tarih (Sayıyla)
+    // Tarih (1 KASIM 2026)
     bindTextControl({
       textId: 'dateText',
       fontId: 'dateFont',
@@ -1992,10 +1882,10 @@
       sizeId: 'dateSize',
       sizeValId: 'dateSizeVal',
       targetId: 'previewMatchDate',
-      defaultText: 'TARİH'
+      defaultText: '1 KASIM 2026'
     });
 
-    // Saat
+    // Saat (13.30)
     bindTextControl({
       textId: 'timeText',
       fontId: 'timeFont',
@@ -2004,10 +1894,10 @@
       sizeId: 'timeSize',
       sizeValId: 'timeSizeVal',
       targetId: 'previewMatchTime',
-      defaultText: '00:00'
+      defaultText: '13.30'
     });
 
-    // Mekan Adresi
+    // Mekan Adresi (VAN • MUHABBET RESTORAN)
     bindTextControl({
       textId: 'addressText',
       fontId: 'addressFont',
@@ -2016,91 +1906,76 @@
       sizeId: 'addressSize',
       sizeValId: 'addressSizeVal',
       targetId: 'previewAddress',
-      defaultText: 'ADRES BİLGİSİ'
+      defaultText: 'VAN • MUHABBET RESTORAN'
     });
 
     // GÖRSEL VE LOGO BOYUTLANDIRMALARI
-    // Takım A Logo Boyutu
     const teamALogoSize = document.getElementById('teamALogoSize');
     const teamALogoSizeVal = document.getElementById('teamALogoSizeVal');
-    const previewTeamALogoContainer = document.getElementById('previewTeamALogoContainer');
+    const previewTeamALogoCircle = document.getElementById('previewTeamALogoCircle');
 
     teamALogoSize.addEventListener('input', function() {
       const val = this.value;
       teamALogoSizeVal.textContent = val + 'px';
-      previewTeamALogoContainer.style.width = val + 'px';
-      previewTeamALogoContainer.style.height = val + 'px';
+      previewTeamALogoCircle.style.width = val + 'px';
+      previewTeamALogoCircle.style.height = val + 'px';
     });
 
-    // Takım B Logo Boyutu
     const teamBLogoSize = document.getElementById('teamBLogoSize');
     const teamBLogoSizeVal = document.getElementById('teamBLogoSizeVal');
-    const previewTeamBLogoContainer = document.getElementById('previewTeamBLogoContainer');
+    const previewTeamBLogoCircle = document.getElementById('previewTeamBLogoCircle');
 
     teamBLogoSize.addEventListener('input', function() {
       const val = this.value;
       teamBLogoSizeVal.textContent = val + 'px';
-      previewTeamBLogoContainer.style.width = val + 'px';
-      previewTeamBLogoContainer.style.height = val + 'px';
+      previewTeamBLogoCircle.style.width = val + 'px';
+      previewTeamBLogoCircle.style.height = val + 'px';
     });
 
-    // Bira Bardakları Boyutu (Logoların Üstü)
-    const beerSize = document.getElementById('beerSize');
-    const beerSizeVal = document.getElementById('beerSizeVal');
-    const beerSvgs = document.querySelectorAll('.beer-toast-svg');
-
-    beerSize.addEventListener('input', function() {
-      const val = parseInt(this.value, 10);
-      beerSizeVal.textContent = val + 'px';
-      const calculatedHeight = Math.round(val * 0.75); // 160:120 = 4:3 oran
-      beerSvgs.forEach(svg => {
-        svg.style.width = val + 'px';
-        svg.style.height = calculatedHeight + 'px';
-      });
-    });
-
-    // Çapraz Kılıç Boyutu
-    const swordsSize = document.getElementById('swordsSize');
-    const swordsSizeVal = document.getElementById('swordsSizeVal');
-    const previewSwordsSvg = document.getElementById('previewSwordsSvg');
-
-    swordsSize.addEventListener('input', function() {
-      const val = this.value;
-      swordsSizeVal.textContent = val + 'px';
-      previewSwordsSvg.style.width = val + 'px';
-      previewSwordsSvg.style.height = val + 'px';
-    });
-
-    // Vurgu & Rozet Rengi
+    // Vurgu Rengi ve Çizgiler
     const accentColorInput = document.getElementById('accentColorInput');
     const accentColorHex = document.getElementById('accentColorHex');
-    const previewMatchMetaPill = document.getElementById('previewMatchMetaPill');
-    const previewMatchDot = document.getElementById('previewMatchDot');
-    const dividerLineLeft = document.getElementById('dividerLineLeft');
-    const dividerDiamond = document.getElementById('dividerDiamond');
-    const dividerLineRight = document.getElementById('dividerLineRight');
+    const footerDividerLine = document.getElementById('footerDividerLine');
 
     accentColorInput.addEventListener('input', function() {
       const val = this.value;
       accentColorHex.textContent = val.toUpperCase();
-      previewMatchMetaPill.style.borderColor = val;
-      previewMatchDot.style.background = val;
-      dividerLineLeft.style.background = val;
-      dividerDiamond.style.background = val;
-      dividerLineRight.style.background = val;
+      footerDividerLine.style.background = val;
     });
 
-    // Çerçeve Rengi
-    const frameColorInput = document.getElementById('frameColorInput');
-    const frameColorHex = document.getElementById('frameColorHex');
+    // Çerçeve Göster / Gizle Toggle
+    const toggleFrameCheckbox = document.getElementById('toggleFrameCheckbox');
     const posterFrame1 = document.getElementById('posterFrame1');
     const posterFrame2 = document.getElementById('posterFrame2');
 
-    frameColorInput.addEventListener('input', function() {
-      const val = this.value;
-      frameColorHex.textContent = val.toUpperCase();
-      posterFrame1.style.borderColor = val;
-      posterFrame2.style.borderColor = val;
+    toggleFrameCheckbox.addEventListener('change', function() {
+      const displayVal = this.checked ? 'block' : 'none';
+      posterFrame1.style.display = displayVal;
+      posterFrame2.style.display = displayVal;
+    });
+
+    // Beyaz Yuvarlak Logo Çerçevesi Toggle
+    const toggleCircleFrameCheckbox = document.getElementById('toggleCircleFrameCheckbox');
+
+    toggleCircleFrameCheckbox.addEventListener('change', function() {
+      if (this.checked) {
+        previewTeamALogoCircle.classList.remove('no-border');
+        previewTeamBLogoCircle.classList.remove('no-border');
+      } else {
+        previewTeamALogoCircle.classList.add('no-border');
+        previewTeamBLogoCircle.classList.add('no-border');
+      }
+    });
+
+    // Bira Bardakları ve Kılıçlar Göster / Gizle Toggle
+    const toggleIconsCheckbox = document.getElementById('toggleIconsCheckbox');
+    const optionalBeerRow = document.getElementById('optionalBeerRow');
+    const swordsContainer = document.getElementById('swordsContainer');
+
+    toggleIconsCheckbox.addEventListener('change', function() {
+      const displayVal = this.checked ? 'flex' : 'none';
+      optionalBeerRow.style.display = displayVal;
+      swordsContainer.style.display = displayVal;
     });
 
     // Logo Yönetimi - Takım A
@@ -2154,11 +2029,11 @@
     // Logo Hata Koruması
     [previewTeamALogo, previewTeamBLogo].forEach(img => {
       img.addEventListener('error', function() {
-        this.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23e2e8f0' stroke='%2394a3b8' stroke-width='4'/><text x='50' y='58' font-family='sans-serif' font-size='20' font-weight='bold' fill='%2364748b' text-anchor='middle'>LOGO</text></svg>";
+        this.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%231e293b' stroke='%23475569' stroke-width='4'/><text x='50' y='58' font-family='sans-serif' font-size='18' font-weight='bold' fill='%2394a3b8' text-anchor='middle'>LOGO</text></svg>";
       });
     });
 
-    // 6. PDF İNDİRME (A4 DİKEY FORMATINDA - %100 İKON VE VEKTÖR DESTEĞİ)
+    // 6. PDF İNDİRME (A4 DİKEY FORMATINDA)
     const downloadPdfBtn = document.getElementById('downloadPdfBtn');
 
     downloadPdfBtn.addEventListener('click', function() {
@@ -2170,7 +2045,7 @@
       const currentTransform = a4Wrapper.style.transform;
       a4Wrapper.style.transform = 'none';
 
-      const currentBg = posterPreview.style.backgroundColor || '#ffffff';
+      const currentBg = posterPreview.style.backgroundColor || '#121316';
 
       const opt = {
         margin: 0,
@@ -2188,7 +2063,7 @@
         jsPDF: {
           unit: 'mm',
           format: 'a4',
-          orientation: 'portrait' // A4 DİKEY FORMAT
+          orientation: 'portrait'
         }
       };
 
@@ -2212,7 +2087,7 @@
         });
     });
 
-    // 7. GÖRSEL İNDİRME (9:16 DİKEY STORY / REELS FORMATINDA - %100 İKON DESTEĞİ)
+    // 7. GÖRSEL İNDİRME (9:16 DİKEY STORY / REELS FORMATINDA)
     const downloadImgBtn = document.getElementById('downloadImgBtn');
 
     downloadImgBtn.addEventListener('click', function() {
@@ -2224,7 +2099,7 @@
       const currentTransform = a4Wrapper.style.transform;
       a4Wrapper.style.transform = 'none';
 
-      const currentBg = posterPreview.style.backgroundColor || '#ffffff';
+      const currentBg = posterPreview.style.backgroundColor || '#121316';
 
       html2canvas(posterPreview, {
         scale: 3,
